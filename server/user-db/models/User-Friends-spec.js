@@ -52,4 +52,26 @@ describe('User model', () => {
       done();
     })
   })
+
+  it('Should be a reflexive table', done => {
+    var ids = []
+    User.findAll({where: {
+        $or: [{name: 'joe'}, {name: 'bob'}],
+      },
+    })
+    .then(results => {
+      expect(results.length).to.equal(2);
+      ids.push(results[0].id);
+      ids.push(results[1].id)
+      return Friendship.create({userId:ids[0], friendId: ids[1]})
+    })
+    .then(friendship => {
+      return Friendship.findAll({})
+    })
+    .then(friendships => {
+      expect(friendships).to.not.equal(null);
+      expect(friendships.length).to.equal(2);
+      done();
+    });
+  });
 });
