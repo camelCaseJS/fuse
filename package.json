@@ -1,0 +1,19 @@
+{
+  "name": "fuse",
+  "version": "1.0.0",
+  "description": "> Pithy project description",
+  "main": "webpack.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/camelCaseJS/hrsf51-thesis.git"
+  },
+  "author": "camelCaseJS",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/camelCaseJS/hrsf51-thesis/issues"
+  },
+  "homepage": "https://github.com/camelCaseJS/hrsf51-thesis#readme"
+}
