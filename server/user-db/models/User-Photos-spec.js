@@ -17,7 +17,7 @@ var clearDB = (done => {
   });
 
 
-describe('User model', () => {
+describe('Photos table', () => {
   beforeEach(done => {
     clearDB(() => {
       users = [
@@ -30,4 +30,19 @@ describe('User model', () => {
       })
     })
   });
+
+  it('Should store photo links to the database', done => {
+    User.find({where:{name:'joe'}})
+      .then(user => {
+        return Photo.create({userId: user.id, link: '../../photos-db/joe/hi.jpg'});
+      })
+      .then(photo => {
+        return Photo.find({where: {id: photo.id}});
+      })
+      .then(photo => {
+        expect(photo).to.not.equal(null);
+        expect(photo.link).to.equal('../../photos-db/joe/hi.jpg');
+        done();
+      })
+  })
 });
