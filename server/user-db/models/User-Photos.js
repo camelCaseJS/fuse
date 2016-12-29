@@ -19,7 +19,7 @@ Photo.belongsTo(User, {foreignKey: 'userId'});
 
 User.hasMany(Photo, {
   onDelete: 'cascade',
-  hooks:true, 
+  hooks: true, 
 });
 
 module.exports = Photo;
