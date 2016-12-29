@@ -7,14 +7,14 @@ var Friendship = require('./User-Friends.js');
 var expect = require('chai').expect;
 
 var clearDB = (done => {
-    db.sync({force:true})
-      .then(table => {
-        done()
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  });
+  db.sync({force: true})
+    .then(table => {
+      done();
+    })
+    .catch(err => {
+      console.log(err);
+    });
+});
 
 
 describe('Friends model', () => {
@@ -24,46 +24,46 @@ describe('Friends model', () => {
           {name: 'joe'},
           {name: 'bob'},
           {name: 'gimbo'}
-        ];
+      ];
       User.bulkCreate(users).then(users => {
         done();
-      })
-    })
+      });
+    });
   });
 
-  it('Should be add friendships to the database', done => {
-    var ids = []
+  it('Should add friendships to the database', done => {
+    var ids = [];
     User.findAll({where: {
-        $or: [{name: 'joe'}, {name: 'bob'}],
-      },
+      $or: [{name: 'joe'}, {name: 'bob'}],
+    },
     })
     .then(results => {
       expect(results.length).to.equal(2);
       ids.push(results[0].id);
-      ids.push(results[1].id)
-      return Friendship.create({userId:ids[0], friendId: ids[1]})
+      ids.push(results[1].id);
+      return Friendship.create({userId: ids[0], friendId: ids[1]});
     })
     .then(friendship => {
-      return Friendship.find({where:{userId: ids[0], friendId:ids[1]}})
+      return Friendship.find({where: {userId: ids[0], friendId: ids[1]}});
     })
     .then(friendship => {
       expect(friendship).to.not.equal(null);
       expect(friendship.userId).to.equal(ids[0]);
       done();
-    })
-  })
+    });
+  });
 
   it('Should be a reflexive table', done => {
-    var ids = []
+    var ids = [];
     User.findAll({where: {
-        $or: [{name: 'joe'}, {name: 'bob'}],
-      },
+      $or: [{name: 'joe'}, {name: 'bob'}],
+    },
     })
     .then(results => {
       expect(results.length).to.equal(2);
       ids.push(results[0].id);
-      ids.push(results[1].id)
-      return Friendship.create({userId:ids[0], friendId: ids[1]})
+      ids.push(results[1].id);
+      return Friendship.create({userId: ids[0], friendId: ids[1]});
     })
     .then(friendship => {
       return Friendship.findAll({});
@@ -76,29 +76,29 @@ describe('Friends model', () => {
   });
 
   it('Should not store friendships of deleted users', done => {
-    var ids = []
+    var ids = [];
     User.findAll({where: {
-        $or: [{name: 'joe'}, {name: 'bob'}],
-      },
+      $or: [{name: 'joe'}, {name: 'bob'}],
+    },
     })
     .then(results => {
       expect(results.length).to.equal(2);
       ids.push(results[0].id);
-      ids.push(results[1].id)
-      return Friendship.create({userId:ids[0], friendId: ids[1]})
+      ids.push(results[1].id);
+      return Friendship.create({userId: ids[0], friendId: ids[1]});
     })
     .then(friendship => {
       return User.destroy({where: {id: ids[0]}});
     })
     .then(user => {
-      return Friendship.findAll({where:{
-          $or: [{userId: ids[0]}, {friendId: ids[1]}],
-        },
-      })
+      return Friendship.findAll({where: {
+        $or: [{userId: ids[0]}, {friendId: ids[1]}],
+      },
+      });
     })
     .then(friends => {
       expect(friends.length).to.equal(0);
       done();
-    })
-  })
+    });
+  });
 });
