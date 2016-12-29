@@ -17,7 +17,7 @@ var clearDB = (done => {
   });
 
 
-describe('User model', () => {
+describe('Friends model', () => {
   beforeEach(done => {
     clearDB(() => {
       users = [
