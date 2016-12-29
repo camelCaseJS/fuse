@@ -23,10 +23,10 @@ Friendship.hook('afterCreate', (user, options) => {
     friendId: user.userId,
     userId: user.friendId,
   }
-  Friendship.find({where: reflexive})
+  return Friendship.find({where: reflexive})
     .then(friends => {
       if(!friends) {
-        Friendship.create(reflexive);
+        return Friendship.create(reflexive);
       }
     })
 })
