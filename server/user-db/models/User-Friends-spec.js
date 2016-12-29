@@ -66,7 +66,7 @@ describe('User model', () => {
       return Friendship.create({userId:ids[0], friendId: ids[1]})
     })
     .then(friendship => {
-      return Friendship.findAll({})
+      return Friendship.findAll({});
     })
     .then(friendships => {
       expect(friendships).to.not.equal(null);
@@ -74,4 +74,31 @@ describe('User model', () => {
       done();
     });
   });
+
+  it('Should not store friendships of deleted users', done => {
+    var ids = []
+    User.findAll({where: {
+        $or: [{name: 'joe'}, {name: 'bob'}],
+      },
+    })
+    .then(results => {
+      expect(results.length).to.equal(2);
+      ids.push(results[0].id);
+      ids.push(results[1].id)
+      return Friendship.create({userId:ids[0], friendId: ids[1]})
+    })
+    .then(friendship => {
+      return User.destroy({where: {id: ids[0]}});
+    })
+    .then(user => {
+      return Friendship.findAll({where:{
+          $or: [{userId: ids[0]}, {friendId: ids[1]}],
+        },
+      })
+    })
+    .then(friends => {
+      expect(friends.length).to.equal(0);
+      done();
+    })
+  })
 });
