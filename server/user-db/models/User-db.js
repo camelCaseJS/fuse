@@ -1,10 +1,18 @@
 var Sequelize = require('sequelize');
 var credentials = require('./config.js');
 
+var dbName = {
+  test: 'test',
+  development: 'devFuseUsers',
+  prod: 'FuseUsers',  
+}
 
-var db = new Sequelize('FuseUsers', credentials.user, credentials.password, {
+var logging = (dbName[process.env.NODE_ENV] !== 'test')
+
+var db = new Sequelize(dbName[process.env.NODE_ENV], credentials.user, credentials.password, {
   host: 'localhost',
   dialect: 'postgres',
+  logging: logging,
 
   pool: {
     max: 20,
