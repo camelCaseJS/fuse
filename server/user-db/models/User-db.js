@@ -5,9 +5,9 @@ var dbName = {
   test: 'test',
   development: 'devFuseUsers',
   prod: 'FuseUsers',  
-}
+};
 
-var logging = (dbName[process.env.NODE_ENV] !== 'test')
+var logging = (dbName[process.env.NODE_ENV] !== 'test');
 
 var db = new Sequelize(dbName[process.env.NODE_ENV], credentials.user, credentials.password, {
   host: 'localhost',
