@@ -72,6 +72,10 @@ describe('Photos table', () => {
     .then(photo => {
       return User.find({where: {name: 'joe'}});
     })
+    .catch(err => {
+      console.log('unexpected error');
+      expect(false).to.be.true;
+    })
     .then(user => {
       return Photo.create({userId: user.id, link: link});
     })
