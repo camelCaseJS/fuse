@@ -43,6 +43,11 @@ describe('Photos table', () => {
         expect(photo).to.not.equal(null);
         expect(photo.link).to.equal('../../photos-db/joe/hi.jpg');
         done();
+      })
+      .catch(err => {
+        console.log(err);
+        expect(err).to.not.exist;
+        done();
       });
   });
 
@@ -60,11 +65,16 @@ describe('Photos table', () => {
       .then(photo => {
         expect(photo).to.equal(null);
         done();
+      })
+      .catch(err => {
+        console.log(err);
+        expect(err).to.not.exist;
+        done();
       });
   });
 
   it('Should not store duplicate links', done => {
-    var link = '../../photos-db/joe/hi.jpg';
+    var link = '../../photos-db/mint/hi.jpg';
     User.find({where: {name: 'bob'}})
     .then(user => {
       return Photo.create({userId: user.id, link: link});
@@ -72,16 +82,13 @@ describe('Photos table', () => {
     .then(photo => {
       return User.find({where: {name: 'joe'}});
     })
-    .catch(err => {
-      console.log('unexpected error');
-      expect(false).to.be.true;
-    })
     .then(user => {
       return Photo.create({userId: user.id, link: link});
     })
     .then(photo => {
       console.log('successfully created duplicate');
-      expect(false).to.be.true;
+      expect(photo).to.not.exist;
+      done();
     })
     .catch(err => {
       done();

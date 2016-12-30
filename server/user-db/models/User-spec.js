@@ -26,8 +26,11 @@ describe('User model', () => {
       .then(user => {
         expect(user.name).to.equal('joe');
         done();
-      }).catch(err => {
+      })
+      .catch(err => {
         console.log(err);
+        expect(err).to.not.exist;
+        done();
       });
   });
 
@@ -41,6 +44,11 @@ describe('User model', () => {
       })
       .then(users => {
         expect(users.length).to.equal(1);
+        done();
+      })
+      .catch(err => {
+        console.log(err);
+        expect(err).to.not.exist;
         done();
       });
   });

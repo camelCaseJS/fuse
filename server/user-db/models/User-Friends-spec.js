@@ -102,7 +102,7 @@ describe('Friends model', () => {
     })
     .then(user => {
       return Friendship.findAll({where: {
-        $or: [{userId: ids[0]}, {friendId: ids[1]}],
+        $or: [{userId: ids[0]}, {friendId: ids[0]}],
       },
       });
     })
