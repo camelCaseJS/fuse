@@ -62,4 +62,25 @@ describe('Photos table', () => {
         done();
       });
   });
+
+  it('Should not store duplicate links', done => {
+    var link = '../../photos-db/joe/hi.jpg';
+    User.find({where: {name: 'bob'}})
+    .then(user => {
+      return Photo.create({userId: user.id, link: link});
+    })
+    .then(photo => {
+      return User.find({where: {name: 'joe'}});
+    })
+    .then(user => {
+      return Photo.create({userId: user.id, link: link});
+    })
+    .then(photo => {
+      console.log('successfully created duplicate');
+      expect(false).to.be.true;
+    })
+    .catch(err => {
+      done();
+    });
+  });
 });
