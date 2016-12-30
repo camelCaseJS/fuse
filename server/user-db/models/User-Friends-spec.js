@@ -44,11 +44,16 @@ describe('Friends model', () => {
       return Friendship.create({userId: ids[0], friendId: ids[1]});
     })
     .then(friendship => {
-      return Friendship.find({where: {userId: ids[0], friendId: ids[1]}});
+      return Friendship.find({where: {userId: ids[1], friendId: ids[0]}});
     })
     .then(friendship => {
       expect(friendship).to.not.equal(null);
-      expect(friendship.userId).to.equal(ids[0]);
+      expect(friendship.userId).to.equal(ids[1]);
+      done();
+    })
+    .catch(err => {
+      console.log(err);
+      expect(err).to.not.exist;
       done();
     });
   });
@@ -71,6 +76,11 @@ describe('Friends model', () => {
     .then(friendships => {
       expect(friendships).to.not.equal(null);
       expect(friendships.length).to.equal(2);
+      done();
+    })
+    .catch(err => {
+      console.log(err);
+      expect(err).to.not.exist;
       done();
     });
   });
@@ -98,6 +108,11 @@ describe('Friends model', () => {
     })
     .then(friends => {
       expect(friends.length).to.equal(0);
+      done();
+    })
+    .catch(err => {
+      console.log(err);
+      expect(err).to.not.exist;
       done();
     });
   });
