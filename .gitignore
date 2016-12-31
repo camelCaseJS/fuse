@@ -1,5 +1,8 @@
 ### node etc ###
 
+#API key formation
+oauth-keys.js
+
 # Logs
 logs
 *.log
