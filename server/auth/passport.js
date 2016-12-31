@@ -1,8 +1,8 @@
 
 import passport from 'passport';
 import facebookPassport from 'passport-facebook';
-import apiKeys from './oauth-keys'
-import Users from './users'
+import apiKeys from './oauth-keys';
+import Users from './user';
 
 const FacebookStrategy = facebookPassport.Strategy;
 
