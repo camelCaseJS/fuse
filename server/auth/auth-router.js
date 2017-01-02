@@ -12,7 +12,8 @@ app.get('/facebook',
   });
 
 app.get('/facebook/callback',
-  passport.authenticate('facebook', { successRedirect: '/',
+  passport.authenticate('facebook', {
+    successRedirect: '/',
     failureRedirect: '/profile' }));
 
 export default app;
