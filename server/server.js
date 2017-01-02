@@ -28,9 +28,6 @@ app.get('/auth/facebook',
     console.log(`auth success with ${req.user}`);
   });
 
-// app.get('/auth/facebook/callback', (req, res) => {
-//   res.send('callback');
-// });
 app.get('/auth/facebook/callback',
   passport.authenticate('facebook', { successRedirect: '/',
     failureRedirect: '/profile' }));
