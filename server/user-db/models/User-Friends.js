@@ -1,5 +1,5 @@
-var db = require('./User-db.js');
-var User = require ('./User.js');
+const db = require('./User-db.js');
+const User = require('./User.js');
 
 /*
 Friendship is a reflexive relationship between users,
@@ -15,19 +15,20 @@ User.belongsToMany(User, {
 });
 
 
+const Friendship = db.model('friendship');
 
-var Friendship = db.model('friendship');
-//create reflexive property
-Friendship.hook('afterCreate', (user, options) => {
-  var reflexive = {
+// create reflexive property
+Friendship.hook('afterCreate', (user) => {
+  const reflexive = {
     friendId: user.userId,
     userId: user.friendId,
   };
-  return Friendship.find({where: reflexive})
-    .then(friends => {
+  return Friendship.find({ where: reflexive })
+    .then((friends) => {
       if (!friends) {
         return Friendship.create(reflexive);
       }
+      return null;
     });
 });
 
