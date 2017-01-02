@@ -24,11 +24,25 @@ Friendship.hook('afterCreate', (user) => {
     userId: user.friendId,
   };
   return Friendship.find({ where: reflexive })
-    .then((friends) => {
-      if (!friends) {
+    .then((friend) => {
+      if (!friend) {
         return Friendship.create(reflexive);
       }
       return null;
+    });
+});
+
+Friendship.hook('afterDestroy', (user) => {
+  const reflexive = {
+    friendId: user.userId,
+    userId: user.friendId,
+  };
+  return Friendship.find({ where: reflexive })
+    .then((friend) => {
+      if (friend) {
+        return Friendship.destroy({ where: reflexive });
+      }
+      return user;
     });
 });
 

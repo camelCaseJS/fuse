@@ -56,7 +56,7 @@ describe('Friends model', () => {
     });
   });
 
-  it('Should be a reflexive table', (done) => {
+  it('Should be a reflexive table after adding a friendship', (done) => {
     const ids = [];
     User.findAll({ where: {
       $or: [{ name: 'joe' }, { name: 'bob' }],
@@ -77,6 +77,30 @@ describe('Friends model', () => {
     .catch((err) => {
       console.log(err);
       expect(err).to.not.exist;
+      done();
+    });
+  });
+
+  it('Should be a reflexive table after removing a friendship', (done) => {
+    const ids = [];
+    User.findAll({})
+    .then((users) => {
+      ids.push(users[0].id);
+      ids.push(users[1].id);
+      ids.push(users[2].id);
+      const mkFriends = [
+        { userId: ids[0], friendId: ids[1] },
+        { userId: ids[1], friendId: ids[2] },
+      ];
+      return Friendship.bulkCreate(mkFriends);
+    })
+    .then((friendships) => {
+      expect(friendships.length).to.equal(2);
+      return Friendship.destroy({ where: { userId: friendships[0].id } });
+    })
+    .then(() => Friendship.findAll({}))
+    .then((friendships) => {
+      expect(friendships.length).to.equal(2);
       done();
     });
   });
