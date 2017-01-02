@@ -1,7 +1,10 @@
 import express from 'express';
 import expressSession from 'express-session';
 import bodyParser from 'body-parser';
-import passport from './auth/passport';
+
+import authRouter from './auth/auth-router';
+import photoRouter from './photo/photo-router';
+import userRouter from './user/user-router';
 
 const PORT = 8000;
 
@@ -10,8 +13,6 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(expressSession({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
-app.use(passport.initialize());
-app.use(passport.session());
 
 app.get('/', (req, res) => {
   console.log('get request at /');
@@ -23,14 +24,9 @@ app.get('/profile', (req, res) => {
   res.send('profile');
 });
 
-app.get('/auth/facebook',
-  passport.authenticate('facebook', { scope: 'email' }), (req, res) => {
-    console.log(`auth success with ${req.user}`);
-  });
-
-app.get('/auth/facebook/callback',
-  passport.authenticate('facebook', { successRedirect: '/',
-    failureRedirect: '/profile' }));
+app.use('/auth', authRouter);
+app.use('/photo', photoRouter);
+app.use('/user', userRouter);
 
 app.listen(PORT);
 
