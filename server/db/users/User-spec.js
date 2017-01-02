@@ -43,8 +43,6 @@ describe('User model', () => {
         done();
       })
       .catch((err) => {
-        console.log(err);
-        expect(err).to.not.exist;
         done();
       });
   });
