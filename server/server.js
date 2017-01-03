@@ -21,7 +21,6 @@ app.get('/profile', (req, res) => {
   res.send('profile');
 });
 
-
 app.listen(PORT);
 
 console.log(`Server up and listening to port ${PORT}`);
