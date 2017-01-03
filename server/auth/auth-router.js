@@ -4,7 +4,6 @@ const passport = require('./passport');
 const app = express();
 
 app.get('/logout', (req, res) => {
-  console.log(req.user.name);
   req.session.destroy((err) => {
     if (err) {
       console.log(err);
