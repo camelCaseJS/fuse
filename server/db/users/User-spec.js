@@ -30,7 +30,7 @@ describe('User model', () => {
       profilePictureURL: 'http://vignette3.wikia.nocookie.net/chroniclesofillusion/images/4/40/Jake_the_dog_mod_3.png/revision/latest?cb=20130809080456',
     })
       .then((user) => {
-        expect(user.name).to.equal('12345');
+        expect(user.facebookId).to.equal('12345');
         expect(user.firstName).to.equal('jake');
         expect(user.lastName).to.equal('theDog');
         expect(user.email).to.equal('notReal@gmail.com');
