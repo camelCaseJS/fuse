@@ -11,21 +11,19 @@ const db = require('../db/users/User-db.js');
 /* Determine what data from the user object to
  * store in the session, in this case req.session.passport.user */
 passport.serializeUser((user, done) => {
-  console.log(`serializeUser ${user.id}`);
   done(null, user.id);
 });
 
 /* Lookup user object based on the key provided to serialize user use
  * entire user object is assigned to req.user */
 passport.deserializeUser((id, done) => {
-  console.log(`deserializeUser ${id}`);
   // Use id to read user object from a database, pass to done
   User.findOne({ where: { id: id } })
     .then((user) => {
       done(null, user);
     })
     .catch((err) => {
-      console.log('findOne error in deserialize', err);
+      done(err);
     });
 });
 
@@ -41,11 +39,9 @@ passport.use(new Strategy({
   // Find the user based on profile.id
   User.findOne({ where: { name: profile.id } })
     .then((user) => {
-      console.log(`findOne ${profile.id}`);
 
       // If user is found, return that user to login
       if (user) {
-        console.log(`user ${user}`);
         return done(null, user);
       }
 
@@ -56,13 +52,11 @@ passport.use(new Strategy({
 
         // Return newUser to login
         .then((newUser) => {
-          console.log(`newUser ${newUser}`);
           return done(null, newUser);
         })
 
         // Catch error
         .catch((errNewUser) => {
-          console.log(errNewUser);
           return done(errNewUser);
         });
     })
