@@ -1,2 +1,0 @@
-module.exports.user = 'USERNAME';
-module.exports.password = 'PASSWORD';
