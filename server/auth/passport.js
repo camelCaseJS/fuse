@@ -1,14 +1,9 @@
 process.env.NODE_ENV = 'development';
 
-// import passport from 'passport';
-// import { Strategy } from 'passport-facebook';
-// import apiKeys from './oauth-keys';
-
 const passport = require('passport');
 const FacebookStrategy = require('passport-facebook').Strategy;
 const apiKeys = require('./oauth-keys');
 const User = require('../db/users/User');
-// const db = require('../db/users/User-db.js');
 
 /* Determine what data from the user object to
  * store in the session, in this case req.session.passport.user */
