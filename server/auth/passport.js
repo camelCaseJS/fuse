@@ -11,14 +11,14 @@ const app = express();
 /* Determine what data from the user object to
  * store in the session, in this case req.session.passport.user */
 passport.serializeUser((user, done) => {
-  done(null, user.id);
+  done(null, user.facebookId);
 });
 
 /* Lookup user object based on the key provided to serialize user use
  * entire user object is assigned to req.user */
-passport.deserializeUser((id, done) => {
+passport.deserializeUser((facebookId, done) => {
   // Use id to read user object from a database, pass to done
-  User.findOne({ where: { id: id } })
+  User.findOne({ where: { facebookId } })
     .then((user) => {
       done(null, user);
     })
@@ -39,7 +39,7 @@ passport.use(new FacebookStrategy({
 }, (accessToken, refreshToken, profile, done) => {
   // Find the user based on profile.id
   console.log(profile);
-  User.findOne({ where: { name: profile.id } })
+  User.findOne({ where: { facebookId: profile.id } })
     .then((user) => {
 
       // If user is found, return that user to login
@@ -49,7 +49,11 @@ passport.use(new FacebookStrategy({
 
       // If no user found, create newUser
       User.create({
-        name: profile.id,
+        facebookId: profile.id,
+        firstName: profile.first_name,
+        lastName: profile.last_name,
+        profilePictureURL: profile.photos[0].value,
+        email: profile.emails[0].value,
       })
 
         // Return newUser to login
