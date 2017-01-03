@@ -10,7 +10,7 @@ const passport = require('../auth/passport');
 app.use(/\/(auth|user)/, bodyParser.urlencoded({ extended: true }));
 app.use(/\/(auth|user)/, bodyParser.json());
 
-app.use(expressSession({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
+app.use(expressSession({ secret: 'keyboard cat', resave: true, saveUninitialized: true, cookie: { maxAge: 60000 } }));
 
 // Initialize and create passport session for all routes
 app.use(passport.initialize());

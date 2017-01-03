@@ -33,10 +33,12 @@ passport.use(new FacebookStrategy({
   clientID: apiKeys.facebook.clientId,
   clientSecret: apiKeys.facebook.clientSecret,
   callbackURL: apiKeys.facebook.callbackURL,
+  profileFields: ['id', 'displayName', 'picture', 'email'],
 
 // Facebook will send back the token and profile
 }, (accessToken, refreshToken, profile, done) => {
   // Find the user based on profile.id
+  console.log(profile);
   User.findOne({ where: { name: profile.id } })
     .then((user) => {
 

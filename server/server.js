@@ -10,8 +10,11 @@ app.use('/photo', photoRouter);
 app.use('/user', userRouter);
 
 app.get('/', (req, res) => {
-  console.log('get request at /');
-  res.send('index');
+  if (req.user){
+    res.send(req.user);
+  } else {
+    res.send('index');
+  }
 });
 
 app.get('/profile', (req, res) => {
