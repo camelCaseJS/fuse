@@ -3,9 +3,6 @@ const passport = require('./passport');
 
 const app = express();
 
-app.use(passport.initialize());
-app.use(passport.session());
-
 app.get('/logout', (req, res) => {
   console.log(req.user.name);
   req.session.destroy((err) => {
