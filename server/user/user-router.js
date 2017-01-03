@@ -4,28 +4,33 @@ const User = require('../db/users/User');
 
 const app = express();
 
-app.get('/users', (req, res) => {
-  User.findOne({
-    where: {
-      facebookId: req.session.passport.user,
-    }
-    .then((userId) => {
-      Friendship.findAll({
-        where: {
-          id: userId,
-        },
-      })
-      .then((friends) => {
-        res.json(friends);
-      });
-    }),
-  // res.send();
-  });
+app.get('/', (req, res) => {
+  console.log(req.session);
+  if (req.session.passport) {
+    User.findOne({
+      where: {
+        id: req.session.passport.user,
+      }
+      .then((user) => {
+        Friendship.findAll({
+          where: {
+            id: user.id,
+          },
+        })
+        .then((friends) => {
+          res.json(friends);
+        });
+      }),
+    // res.send();
+    });
+  } else {
+    res.redirect('/');
+  }
 });
 
 // post req should take in id of friend the user wants to add. :id in route is friend's id
 
-app.post('/users/:id', (req, res) => {
+app.post('/:id', (req, res) => {
   Friendship.create({
     userId: req.session.passport.user,
     friendId: req.params.id,
@@ -34,7 +39,5 @@ app.post('/users/:id', (req, res) => {
     res.send(id);
   });
 });
-
-const app = express();
 
 module.exports = app;
