@@ -6,4 +6,4 @@ const ids = {
   },
 };
 
-export default ids;
+module.exports = ids;

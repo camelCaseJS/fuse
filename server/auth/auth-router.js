@@ -8,11 +8,11 @@ app.use(passport.session());
 
 app.get('/facebook',
   passport.authenticate('facebook', { scope: 'email' }), (req, res) => {
-    console.log(`auth success with ${req.user}`);
   });
 
 app.get('/facebook/callback',
-  passport.authenticate('facebook', { successRedirect: '/',
+  passport.authenticate('facebook', {
+    successRedirect: '/',
     failureRedirect: '/profile' }));
 
 export default app;

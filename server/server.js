@@ -16,6 +16,9 @@ app.use(expressSession({ secret: 'keyboard cat', resave: true, saveUninitialized
 
 app.get('/', (req, res) => {
   console.log('get request at /');
+  if (req.user) {
+    console.log('req.user', req.user.name);
+  }
   res.send('index');
 });
 

@@ -1,25 +1,30 @@
+process.env.NODE_ENV = 'development';
 
-import passport from 'passport';
-// Strategy applies to facebook, if other strategies are used need refactor
-import { Strategy } from 'passport-facebook';
-import apiKeys from './oauth-keys';
+const passport = require('passport');
+const FacebookStrategy = require('passport-facebook').Strategy;
+const apiKeys = require('./oauth-keys');
+const User = require('../db/users/User');
 
 /* Determine what data from the user object to
  * store in the session, in this case req.session.passport.user */
 passport.serializeUser((user, done) => {
-  console.log(`serializeUser ${user.id}`);
   done(null, user.id);
 });
 
 /* Lookup user object based on the key provided to serialize user use
  * entire user object is assigned to req.user */
 passport.deserializeUser((id, done) => {
-  console.log(`deserializeUser ${id}`);
-  // TODO: use id to read user object from a database, pass to done
-  done(null, id);
+  // Use id to read user object from a database, pass to done
+  User.findOne({ where: { id: id } })
+    .then((user) => {
+      done(null, user);
+    })
+    .catch((err) => {
+      done(err);
+    });
 });
 
-passport.use(new Strategy({
+passport.use(new FacebookStrategy({
 
   // Pull facebook API info from oauth-keys.js
   clientID: apiKeys.facebook.clientId,
@@ -28,14 +33,33 @@ passport.use(new Strategy({
 
 // Facebook will send back the token and profile
 }, (accessToken, refreshToken, profile, done) => {
-  console.log(profile);
   // Find the user based on profile.id
-    // If user is found
-      // Log them in and return user
-    // If user not found
-      // Create that user
-      // Log user in and return newUsers
-  return done(null, profile);
+  User.findOne({ where: { name: profile.id } })
+    .then((user) => {
+
+      // If user is found, return that user to login
+      if (user) {
+        return done(null, user);
+      }
+
+      // If no user found, create newUser
+      User.create({
+        name: profile.id,
+      })
+
+        // Return newUser to login
+        .then((newUser) => {
+          return done(null, newUser);
+        })
+
+        // Catch error
+        .catch((errNewUser) => {
+          return done(errNewUser);
+        });
+    })
+    .catch((errUser) => {
+      return done(errUser);
+    });
 }));
 
-export default passport;
+module.exports = passport;
