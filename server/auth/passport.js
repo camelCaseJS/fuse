@@ -50,8 +50,8 @@ passport.use(new FacebookStrategy({
       // If no user found, create newUser
       User.create({
         facebookId: profile.id,
-        firstName: profile.first_name,
-        lastName: profile.last_name,
+        firstName: profile.name.givenName,
+        lastName: profile.name.familyName,
         profilePictureURL: profile.photos[0].value,
         email: profile.emails[0].value,
       })
