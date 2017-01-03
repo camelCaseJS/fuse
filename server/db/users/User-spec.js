@@ -22,9 +22,19 @@ describe('User model', () => {
   });
 
   it('Should be add users to the database', (done) => {
-    User.create({ name: 'joe' })
+    User.create({
+      facebookId: '12345',
+      firstName: 'jake',
+      lastName: 'theDog',
+      email: 'notReal@gmail.com',
+      profilePictureURL: 'http://vignette3.wikia.nocookie.net/chroniclesofillusion/images/4/40/Jake_the_dog_mod_3.png/revision/latest?cb=20130809080456',
+    })
       .then((user) => {
-        expect(user.name).to.equal('joe');
+        expect(user.name).to.equal('12345');
+        expect(user.firstName).to.equal('jake');
+        expect(user.lastName).to.equal('theDog');
+        expect(user.email).to.equal('notReal@gmail.com');
+        expect(user.profilePictureURL).to.equal('http://vignette3.wikia.nocookie.net/chroniclesofillusion/images/4/40/Jake_the_dog_mod_3.png/revision/latest?cb=20130809080456');
         done();
       })
       .catch((err) => {
@@ -35,9 +45,14 @@ describe('User model', () => {
   });
 
   it('Should not allow duplicates of users', (done) => {
-    User.create({ name: 'bob' })
-      .then(() => User.create({ name: 'bob' }))
-      .then(() => User.findAll({ where: { name: 'bob' } }))
+    User.create({
+      facebookId: '54321',
+      email: 'notReal@gmail.com',
+    })
+      .then(() => User.create({ facebookId: '54321',
+        email: 'notReal@gmail.com',
+      }))
+      .then(() => User.findAll({ where: { facebookId: '54321' } }))
       .then((users) => {
         expect(users.length).to.equal(1);
         done();
