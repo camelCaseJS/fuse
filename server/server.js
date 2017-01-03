@@ -11,8 +11,6 @@ app.use('/user', userRouter);
 
 app.get('/', (req, res) => {
   console.log('get request at /');
-  if (req.user) {
-  }
   res.send('index');
 });
 
