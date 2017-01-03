@@ -1,5 +1,5 @@
-import express from 'express';
-import passport from './passport';
+const express = require('express');
+const passport = require('./passport');
 
 const app = express();
 
@@ -7,6 +7,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.get('/logout', (req, res) => {
+  console.log(req.user.name);
   req.session.destroy((err) => {
     if (err) {
       console.log(err);
@@ -24,4 +25,4 @@ app.get('/facebook/callback',
     successRedirect: '/',
     failureRedirect: '/profile' }));
 
-export default app;
+module.exports = app;

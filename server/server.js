@@ -1,10 +1,10 @@
-import express from 'express';
-import expressSession from 'express-session';
-import bodyParser from 'body-parser';
+const express = require('express');
+const expressSession = require('express-session');
+const bodyParser = require('body-parser');
 
-import authRouter from './auth/auth-router';
-import photoRouter from './photo/photo-router';
-import userRouter from './user/user-router';
+const authRouter = require('./auth/auth-router');
+const photoRouter = require('./photo/photo-router');
+const userRouter = require('./user/user-router');
 
 const PORT = 8000;
 
@@ -24,6 +24,9 @@ app.get('/', (req, res) => {
 
 app.get('/profile', (req, res) => {
   console.log('get request at /profile');
+  if(req.user) {
+    console.log(req.user.name);
+  }
   res.send('profile');
 });
 
