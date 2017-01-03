@@ -33,7 +33,7 @@ passport.use(new FacebookStrategy({
   clientID: apiKeys.facebook.clientId,
   clientSecret: apiKeys.facebook.clientSecret,
   callbackURL: apiKeys.facebook.callbackURL,
-  profileFields: ['id', 'displayName', 'picture', 'email'],
+  profileFields: ['id', 'first_name', 'last_name', 'picture', 'email'],
 
 // Facebook will send back the token and profile
 }, (accessToken, refreshToken, profile, done) => {
