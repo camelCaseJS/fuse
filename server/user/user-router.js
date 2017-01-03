@@ -35,4 +35,6 @@ app.post('/users/:id', (req, res) => {
   });
 });
 
+const app = express();
+
 module.exports = app;

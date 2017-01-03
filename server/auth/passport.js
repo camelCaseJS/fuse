@@ -1,9 +1,12 @@
 process.env.NODE_ENV = 'development';
 
+const express = require('express');
 const passport = require('passport');
 const FacebookStrategy = require('passport-facebook').Strategy;
 const apiKeys = require('./oauth-keys');
 const User = require('../db/users/User');
+
+const app = express();
 
 /* Determine what data from the user object to
  * store in the session, in this case req.session.passport.user */
