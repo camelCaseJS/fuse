@@ -29,9 +29,10 @@ app.get('/', (req, res) => {
   }
 });
 
-// post req should take in id of friend the user wants to add. :id in route is friend's id
+// From the client side, user would route to /users/:id, looping through an making multiple times
 
 app.post('/', (req, res) => {
+  console.log(process.env.NODE_ENV);
   console.error('select a friend to add');
   res.redirect('/');
 });
