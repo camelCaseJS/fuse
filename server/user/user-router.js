@@ -6,48 +6,38 @@ const app = express();
 
 app.get('/', (req, res) => {
   if (req.session.passport || process.env.NODE_ENV === 'test') {
-    User.findOne({
+    // console.log(req.user.id);
+    Friendship.findAll({
       where: {
-        facebookId: req.session.passport.user.facebookId,
-        // id: 1,
+        userId: req.user.id,
+        // userId: 1,
       },
     })
-    .then((user) => {
-      if (!user) {
-        res.send('no friends in list');
-      } else {
-        Friendship.findAll({
-          where: {
-            userId: user.id,
-            // userId: 1,
-          },
-        })
-        .then((friends) => {
-          const friendIdArray = [];
-          friends.forEach((friend) => {
-            friendIdArray.push(friend.friendId);
-          });
-          return friendIdArray;
-        })
-        .then((friendIdArray) => {
-          const friendInfoArray = [];
-          User.findAll({
-            where: {
-              id: friendIdArray,
-            },
-            attributes: {
-              exclude: ['email'],
-            },
-          })
-          .then((friendsInfo) => {
-            friendsInfo.forEach((friendInfo) => {
-              friendInfoArray.push(friendInfo.dataValues);
-            });
-            // console.log(friendInfoArray, '********friends');
-            res.send(friendInfoArray);
-          });
+    .then((friends) => {
+      return friends.map((friend) => {
+        return friend.friendId;
+      });
+    })
+    .then((friendIdArray) => {
+      User.findAll({
+        where: {
+          id: friendIdArray,
+        },
+        attributes: {
+          exclude: ['email'],
+        },
+      })
+      .then((friendsInfo) => {
+        return friendsInfo.map((friendInfo) => {
+          return friendInfo.dataValues;
         });
-      }
+      })
+      .then((friendInfoArray) => {
+        res.send(friendInfoArray);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
     });
   } else {
     console.log('no session');
