@@ -21,9 +21,12 @@ describe('Friends model', () => {
   beforeEach((done) => {
     clearDB(() => {
       const users = [
-          { name: 'joe' },
-          { name: 'bob' },
-          { name: 'gimbo' },
+        { facebookId: '123',
+          email: '123@gmail.com' },
+        { facebookId: '456',
+          email: '456@gmail.com' },
+        { facebookId: '789',
+          email: '789@gmail.com' },
       ];
       User.bulkCreate(users).then(() => {
         done();
@@ -34,7 +37,7 @@ describe('Friends model', () => {
   it('Should add friendships to the database', (done) => {
     const ids = [];
     User.findAll({ where: {
-      $or: [{ name: 'joe' }, { name: 'bob' }],
+      $or: [{ facebookId: '123' }, { facebookId: '456' }],
     },
     })
     .then((results) => {
@@ -59,7 +62,7 @@ describe('Friends model', () => {
   it('Should be a reflexive table after adding a friendship', (done) => {
     const ids = [];
     User.findAll({ where: {
-      $or: [{ name: 'joe' }, { name: 'bob' }],
+      $or: [{ facebookId: '123' }, { facebookId: '456' }],
     },
     })
     .then((users) => {
@@ -108,7 +111,7 @@ describe('Friends model', () => {
   it('Should not store friendships of deleted users', (done) => {
     const ids = [];
     User.findAll({ where: {
-      $or: [{ name: 'joe' }, { name: 'bob' }],
+      $or: [{ facebookId: '123' }, { facebookId: '456' }],
     },
     })
     .then((users) => {
