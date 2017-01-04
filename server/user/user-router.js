@@ -5,34 +5,52 @@ const User = require('../db/users/User');
 const app = express();
 
 app.get('/', (req, res) => {
-  // console.log(req.session);
   if (req.session.passport || process.env.NODE_ENV === 'test') {
-    // console.log(req.session.passport.user);
     User.findOne({
       where: {
         facebookId: req.session.passport.user.facebookId,
+        // id: 1,
       },
     })
     .then((user) => {
       if (!user) {
-        console.log('YOU AINT GOT NO FRIENDS T_T');
-        res.redirect('/');
+        res.send('no friends in list');
       } else {
-        console.log(user, '==================user');
         Friendship.findAll({
           where: {
             userId: user.id,
+            // userId: 1,
           },
         })
-        .then((friendsIds) => {
-          console.log(friendsIds, 'friends');
-          res.json('hello');
+        .then((friends) => {
+          const friendIdArray = [];
+          friends.forEach((friend) => {
+            friendIdArray.push(friend.friendId);
+          });
+          return friendIdArray;
+        })
+        .then((friendIdArray) => {
+          const friendInfoArray = [];
+          User.findAll({
+            where: {
+              id: friendIdArray,
+            },
+            attributes: {
+              exclude: ['email'],
+            },
+          })
+          .then((friendsInfo) => {
+            friendsInfo.forEach((friendInfo) => {
+              friendInfoArray.push(friendInfo.dataValues);
+            });
+            // console.log(friendInfoArray, '********friends');
+            res.send(friendInfoArray);
+          });
         });
       }
     });
-    // res.send();
   } else {
-    console.log('no session bruh');
+    console.log('no session');
     res.redirect('/auth/facebook');
   }
 });
