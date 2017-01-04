@@ -6,26 +6,34 @@ const app = express();
 
 app.get('/', (req, res) => {
   // console.log(req.session);
-  if (req.session.passport) {
-    console.log(req.session.passport.user);
+  if (req.session.passport || process.env.NODE_ENV === 'test') {
+    // console.log(req.session.passport.user);
     User.findOne({
       where: {
-        id: req.session.passport.user,
-      }
-      .then((user) => {
+        facebookId: req.session.passport.user.facebookId,
+      },
+    })
+    .then((user) => {
+      if (!user) {
+        console.log('YOU AINT GOT NO FRIENDS T_T');
+        res.redirect('/');
+      } else {
+        console.log(user, '==================user');
         Friendship.findAll({
           where: {
-            id: user.id,
+            userId: user.id,
           },
         })
-        .then((friends) => {
-          res.json(friends);
+        .then((friendsIds) => {
+          // console.log(friends, 'friends');
+          res.json('hello');
         });
-      }),
-    // res.send();
+      }
     });
+    // res.send();
   } else {
-    res.redirect('/');
+    console.log('no session bruh');
+    res.redirect('/auth/facebook');
   }
 });
 
