@@ -25,7 +25,7 @@ app.get('/', (req, res) => {
           },
         })
         .then((friendsIds) => {
-          // console.log(friends, 'friends');
+          console.log(friendsIds, 'friends');
           res.json('hello');
         });
       }
