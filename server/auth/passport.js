@@ -37,37 +37,27 @@ passport.use(new FacebookStrategy({
 
 // Facebook will send back the token and profile
 }, (accessToken, refreshToken, profile, done) => {
-  // Find the user based on profile.id
-  console.log(profile);
+  // Find the user based on facebook profile.id
   User.findOne({ where: { facebookId: profile.id } })
     .then((user) => {
-
-      // If user is found, return that user to login
+      // If user is found, pass along user
       if (user) {
-        return done(null, user);
+        return user;
       }
-
-      // If no user found, create newUser
-      User.create({
+      // If no user found, create and pass new user
+      return User.create({
         facebookId: profile.id,
         firstName: profile.name.givenName,
         lastName: profile.name.familyName,
         profilePictureURL: profile.photos[0].value,
         email: profile.emails[0].value,
-      })
-
-        // Return newUser to login
-        .then((newUser) => {
-          return done(null, newUser);
-        })
-
-        // Catch error
-        .catch((errNewUser) => {
-          return done(errNewUser);
-        });
+      });
     })
-    .catch((errUser) => {
-      return done(errUser);
+    .then((user) => {
+      return done(null, user);
+    })
+    .catch((err) => {
+      return done(err);
     });
 }));
 
