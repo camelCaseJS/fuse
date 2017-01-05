@@ -6,6 +6,8 @@ const app = express();
 
 const passport = require('../auth/passport');
 
+// app.use('/', express.static('client'));
+
 // For /auth and /user routes, user body parser
 app.use(/\/(auth|user)/, bodyParser.urlencoded({ extended: true }));
 app.use(/\/(auth|user)/, bodyParser.json());
