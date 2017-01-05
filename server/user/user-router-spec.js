@@ -49,37 +49,37 @@ describe('server', () => {
     });
   });
 
-  it('should respond to GET requests for /user with a 200 status code', function(done) {
-    request('http://localhost:8000/user/', function(error, response, body) {
+  it('should respond to GET requests for /user with a 200 status code', (done) => {
+    request('http://localhost:8000/user/', (error, response, body) => {
       expect(response.statusCode).to.equal(200);
       done();
     });
   });
 
-  it('should respond to POST requests for /user with a 200 status code', function(done) {
-    request('http://localhost:8000/user/', function(error, response, body) {
+  it('should respond to POST requests for /user with a 200 status code', (done) => {
+    request('http://localhost:8000/user/', (error, response, body) => {
       expect(response.statusCode).to.equal(200);
       done();
     });
   });
 
-  it('should send back parsable stringified JSON', function(done) {
-    request('http://localhost:8000/user/', function(error, response, body) {
+  it('should send back parsable stringified JSON', (done) => {
+    request('http://localhost:8000/user/', (error, response, body) => {
       expect(JSON.parse.bind(this, body)).to.not.throw();
       done();
     });
   });
 
-  it('should send back an object', function(done) {
-    request('http://localhost:8000/user/', function(error, response, body) {
+  it('should send back an object', (done) => {
+    request('http://localhost:8000/user/', (error, response, body) => {
       var parsedBody = JSON.parse(body);
       expect(parsedBody).to.be.an('object');
       done();
     });
   });
 
-  it('should send an object containing a `results` array', function(done) {
-    request('http://localhost:8000/user/', function(error, response, body) {
+  it('should send an object containing a `results` array', (done) => {
+    request('http://localhost:8000/user/', (error, response, body) => {
       var parsedBody = JSON.parse(body);
       expect(parsedBody).to.be.an('object');
       expect(parsedBody.results).to.be.an('array');
@@ -87,7 +87,7 @@ describe('server', () => {
     });
   });
 
-  it('should accept POST requests to /user/:id', function(done) {
+  it('should accept POST requests to /user/:id', (done) => {
     var requestParams = {method: 'POST',
       uri: 'http://localhost:8000/user/',
       json: {
@@ -95,33 +95,16 @@ describe('server', () => {
         message: 'Do my bidding!'}
     };
 
-    request(requestParams, function(error, response, body) {
+    request(requestParams, (error, response, body) => {
       expect(response.statusCode).to.equal(201);
       done();
     });
   });
 
-  it('should respond with messages that were previously posted', function(done) {
-    var requestParams = {method: 'POST',
-      uri: 'http://localhost:8000/user/',
-      json: {
-        username: 'Jono',
-        message: 'Do my bidding!'}
-    };
-
-    request(requestParams, function(error, response, body) {
-      // Now if we request the log, that message we posted should be there:
-      request('http://localhost:8000/user/', function(error, response, body) {
-        var messages = JSON.parse(body).results;
-        expect(messages[0].username).to.equal('Jono');
-        expect(messages[0].message).to.equal('Do my bidding!');
-        done();
-      });
-    });
   });
 
-  it('Should 404 when asked for a nonexistent endpoint', function(done) {
-    request('http://127.0.0.1:3000/arglebargle', function(error, response, body) {
+  it('Should 404 when asked for a nonexistent endpoint', (done) => {
+    request('http://localhost:8000/YOOOOOOO', (error, response, body) => {
       expect(response.statusCode).to.equal(404);
       done();
     });
