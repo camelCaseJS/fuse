@@ -45,7 +45,7 @@ describe('server', () => {
         done();
       });
       const ids = [2, 3, 4];
-
+      ids
     });
   });
 

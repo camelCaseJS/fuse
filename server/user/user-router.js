@@ -13,11 +13,11 @@ app.get('/', (req, res) => {
         // userId: 1,
       },
     })
-    .then((friends) => {
-      return friends.map((friend) => {
-        return friend.friendId;
-      });
-    })
+    .then(friends =>
+      friends.map(friend =>
+        friend.friendId,
+      ),
+    )
     .then((friendIdArray) => {
       User.findAll({
         where: {
@@ -27,11 +27,11 @@ app.get('/', (req, res) => {
           exclude: ['email'],
         },
       })
-      .then((friendsInfo) => {
-        return friendsInfo.map((friendInfo) => {
-          return friendInfo.dataValues;
-        });
-      })
+      .then(friendsInfo =>
+        friendsInfo.map(friendInfo =>
+          friendInfo.dataValues,
+        ),
+      )
       .then((friendInfoArray) => {
         res.send(friendInfoArray);
       })
@@ -48,7 +48,7 @@ app.get('/', (req, res) => {
 // From the client side, user would route to /users/:id, looping through an making multiple times
 
 app.post('/', (req, res) => {
-  console.log(process.env.NODE_ENV);
+  // console.log(process.env.NODE_ENV);
   console.error('select a friend to add');
   res.redirect('/');
 });
