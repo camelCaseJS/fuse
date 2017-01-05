@@ -1,15 +1,15 @@
 
-var webpack = require('webpack');
-var path = require('path');
+const webpack = require('webpack');
+const path = require('path');
 
-var BUILD_DIR = path.resolve(__dirname, 'client/dist');
+const BUILD_DIR = path.resolve(__dirname, 'client/dist');
 
-var APP_DIR = path.resolve(__dirname, 'client/src');
+const APP_DIR = path.resolve(__dirname, 'client/src');
 
-var config = {
+const config = {
   entry: APP_DIR + '/index.jsx',
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    extensions: ['', '.js', '.jsx'],
   },
   module: {
     loaders: [
@@ -18,15 +18,19 @@ var config = {
         include: APP_DIR,
         loader: 'babel',
         query: {
-          presets: ['es2015', 'react']
-        }
-      }
-    ]
+          presets: ['es2015', 'react'],
+        },
+      },
+      {
+        test: /\.css$/,
+        loader: 'style!css',
+      },
+    ],
   },
   output: {
     path: BUILD_DIR,
-    filename: 'bundle.js'
-  }
+    filename: 'bundle.js',
+  },
 };
 
 module.exports = config;
