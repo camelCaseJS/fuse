@@ -15,7 +15,6 @@ const clearDB = ((done) => {
     });
 });
 
-
 describe('server', () => {
   beforeEach((done) => {
     clearDB(() => {
@@ -45,7 +44,6 @@ describe('server', () => {
         done();
       });
       const ids = [2, 3, 4];
-      ids
     });
   });
 
@@ -72,7 +70,7 @@ describe('server', () => {
 
   it('should send back an object', (done) => {
     request('http://localhost:8000/user/', (error, response, body) => {
-      var parsedBody = JSON.parse(body);
+      const parsedBody = JSON.parse(body);
       expect(parsedBody).to.be.an('object');
       done();
     });
@@ -80,7 +78,7 @@ describe('server', () => {
 
   it('should send an object containing a `results` array', (done) => {
     request('http://localhost:8000/user/', (error, response, body) => {
-      var parsedBody = JSON.parse(body);
+      const parsedBody = JSON.parse(body);
       expect(parsedBody).to.be.an('object');
       expect(parsedBody.results).to.be.an('array');
       done();
@@ -88,11 +86,15 @@ describe('server', () => {
   });
 
   it('should accept POST requests to /user/:id', (done) => {
-    var requestParams = {method: 'POST',
+    const requestParams = {
+      method: 'POST',
       uri: 'http://localhost:8000/user/',
-      json: {
-        username: 'Jono',
-        message: 'Do my bidding!'}
+      json: { facebookId: '888',
+        firstName: 'BLAH',
+        lastName: 'BLAH',
+        profilePictureURL: 'test.com/blah',
+        email: '888@gmail.com',
+      },
     };
 
     request(requestParams, (error, response, body) => {
@@ -101,7 +103,6 @@ describe('server', () => {
     });
   });
 
-  });
 
   it('Should 404 when asked for a nonexistent endpoint', (done) => {
     request('http://localhost:8000/YOOOOOOO', (error, response, body) => {
