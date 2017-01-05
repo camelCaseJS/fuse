@@ -12,7 +12,7 @@ const defaultReducer = (state = null, action) => {
 };
 
 const allReducers = Object.assign(defaultReducer, photosReducers, friendsReducers, cameraReducers);
-const rootReducer = combineReducers({ reduceer: defaultReducer});
+const rootReducer = combineReducers({ allReducers });
 
 export default rootReducer;
 
