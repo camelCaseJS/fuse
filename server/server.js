@@ -1,3 +1,4 @@
+const path = require('path');
 const app = require('./middleware/middleware');
 const authRouter = require('./auth/auth-router');
 const photoRouter = require('./photo/photo-router');
@@ -9,17 +10,12 @@ app.use('/auth', authRouter);
 app.use('/photo', photoRouter);
 app.use('/user', userRouter);
 
-app.get('/', (req, res) => {
-  if (req.user){
-    res.send(req.user);
-  } else {
-    res.send('index');
-  }
+app.get('/dist/bundle.js', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/dist', 'bundle.js'));
 });
 
-app.get('/profile', (req, res) => {
-  console.log('get request at /profile');
-  res.send('profile');
+app.get(/(\/$|^\/#)/, (req, res) => {
+  res.sendFile(path.join(__dirname, '../client', 'index.html'));
 });
 
 app.listen(PORT);
