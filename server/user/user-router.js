@@ -5,27 +5,43 @@ const User = require('../db/users/User');
 const app = express();
 
 app.get('/', (req, res) => {
-  // console.log(req.session);
-  if (req.session.passport) {
-    console.log(req.session.passport.user);
-    User.findOne({
+  if (req.session.passport || process.env.NODE_ENV === 'test') {
+    // console.log(req.user.id);
+    Friendship.findAll({
       where: {
-        id: req.session.passport.user,
-      }
-      .then((user) => {
-        Friendship.findAll({
-          where: {
-            id: user.id,
-          },
-        })
-        .then((friends) => {
-          res.json(friends);
+        userId: req.user.id,
+        // userId: 1,
+      },
+    })
+    .then((friends) => {
+      return friends.map((friend) => {
+        return friend.friendId;
+      });
+    })
+    .then((friendIdArray) => {
+      User.findAll({
+        where: {
+          id: friendIdArray,
+        },
+        attributes: {
+          exclude: ['email'],
+        },
+      })
+      .then((friendsInfo) => {
+        return friendsInfo.map((friendInfo) => {
+          return friendInfo.dataValues;
         });
-      }),
-    // res.send();
+      })
+      .then((friendInfoArray) => {
+        res.send(friendInfoArray);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
     });
   } else {
-    res.redirect('/');
+    console.log('no session');
+    res.redirect('/auth/facebook');
   }
 });
 
