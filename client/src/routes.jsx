@@ -5,10 +5,11 @@ import { Route } from 'react-router';
 import PhotosRoutes from './photos/photosRoutes';
 import FriendsRoutes from './friends/friendsRoutes';
 import CameraRoutes from './camera/cameraRoutes';
+
 import App from './shared-components/app';
 
 export default (
-  <Route path="/" component={App}>
+  <Route path="/" component={Main}>
     <Route path="photos" component={PhotosRoutes} />
     <Route path="friends" component={FriendsRoutes} />
     <Route path="camera" component={CameraRoutes} />
