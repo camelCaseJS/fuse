@@ -14,15 +14,16 @@ const storageDir = path.resolve(__dirname, '../db/photos');
 */
 module.exports.addPhoto = (req, res) => {
   if (!req.body.user || !req.files.image) {
-    res.sendStatus(403);
+    console.log('moop')
+    res.sendStatus(400);
   } else {
     const userDir = path.resolve(storageDir, req.body.user);
     const savePhoto = () => {
-      const fileLoc = path.resolve(path.userDir, '/', req.files.image.name);
+      const fileLoc = path.resolve(userDir, req.files.image.name);
       fs.writeFile(fileLoc, req.files.image.data, (err) => {
         if (err) {
-          console.log(err);
-          res.sendStatus(403);
+          console.log(err, fileLoc);
+          res.send(500);
         } else {
           res.sendStatus(201);
         }
@@ -33,7 +34,8 @@ module.exports.addPhoto = (req, res) => {
         if (err.code === 'EEXIST') {
           savePhoto(); // ignore the error if the folder already exists
         } else {
-          res.sendStatus(403);
+          console.log(err)
+          res.sendStatus(500);
         } // something else went wrong
       } else {
         savePhoto();
@@ -43,7 +45,10 @@ module.exports.addPhoto = (req, res) => {
 };
 
 module.exports.getPhotos = (req, res) => {
-  res.send('boop');
+  const imgname = '20161020_154737__1477269359_71.202.95.124.jpg';
+  const fileLoc = path.resolve(storageDir, req.params.user, imgname);
+  console.log(fileLoc);
+  res.sendFile(fileLoc)
 };
 
 
