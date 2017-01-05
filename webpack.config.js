@@ -8,6 +8,9 @@ var APP_DIR = path.resolve(__dirname, 'client/src');
 
 var config = {
   entry: APP_DIR + '/index.jsx',
+  resolve: {
+    extensions: ['', '.js', '.jsx']
+  },
   module: {
     loaders: [
       {
