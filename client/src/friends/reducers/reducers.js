@@ -9,6 +9,6 @@ const defaultUser = {
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     default:
-      return {all: [defaultUser]};
+      return { all: [defaultUser] };
   }
 };
