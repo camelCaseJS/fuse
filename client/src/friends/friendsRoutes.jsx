@@ -3,7 +3,6 @@ import Main from '../main';
 import UsersList from '../shared-components/users-list';
 
 const Friends = () => {
-
   const defaultUser = {
     firstName: 'firstName',
     lastName: 'lastName',
@@ -11,15 +10,15 @@ const Friends = () => {
   };
 
   return (
-    <Main left={
-
-      <UsersList usersList = {[defaultUser]} />
-
+    <Main
+      left={
+        <UsersList usersList={[defaultUser]} />
       } right={
         <div>
         photos.
         </div>
-      } />
+      }
+    />
   );
 };
 
