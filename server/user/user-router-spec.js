@@ -3,7 +3,7 @@ const expect = require('chai').expect;
 const db = require('../db/users/User-db.js');
 const User = require('../db/users/User.js');
 const Friendship = require('../db/users/User-Friends.js');
-const request = require('request');
+
 
 const clearDB = ((done) => {
   db.sync({ force: true })
@@ -110,5 +110,6 @@ describe('server', () => {
       done();
     });
   });
-});
 
+
+});
