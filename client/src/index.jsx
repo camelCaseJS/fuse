@@ -18,7 +18,7 @@ const createStoreWithMiddleware = applyMiddleware(
 ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers)}>
     <MuiThemeProvider>
-    <Router history={hashHistory} routes={routes} />
+      <Router history={hashHistory} routes={routes} />
     </MuiThemeProvider>
   </Provider>
   , document.querySelector('.root'));
