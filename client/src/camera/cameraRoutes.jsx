@@ -1,7 +1,14 @@
 import React from 'react';
+import { Route } from 'react-router';
 
-const Camera = () => {
-  return <div>Camera</div>;
+import Camera from './containers/camera';
+
+const CameraRoutes = () => {
+
+  return (
+    <Route path="" component={Camera} />
+  );
 };
 
-export default Camera;
+
+export default CameraRoutes;

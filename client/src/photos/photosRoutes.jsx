@@ -1,9 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { Route } from 'react-router';
 
-class Photos extends Component {
-  render() {
-    return <div>Photos</div>;
-  }
-}
+import Photos from './containers/photos';
 
-export default Photos;
+const PhotosRoutes = () => {
+
+  return (
+    <Route path="" component={Photos} />
+  );
+};
+
+
+export default PhotosRoutes;

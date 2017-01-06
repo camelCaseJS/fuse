@@ -10,5 +10,4 @@ const FriendsRoutes = () => {
   );
 };
 
-
 export default FriendsRoutes;
