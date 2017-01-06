@@ -1,28 +1,22 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { List } from 'material-ui/List';
 import UsersListEntry from './users-list-entry';
 
 class UsersList extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      usersList: props.usersList,
-    };
-    this.listIt = this.listIt.bind(this);
-  }
 
   listIt() {
-    return this.state.usersList.map(user =>
-       (
-         <UsersListEntry
-           key={user.profilePictureURL}
-           firstName={user.firstName}
-           lastName={user.lastName}
-           profilePictureURL={user.profilePictureURL}
-         />
-      ),
-    );
+
+    return this.props.users.map((user) => {
+      return (
+        <UsersListEntry
+          key={user.profilePictureURL}
+          firstName={user.firstName}
+          lastName={user.lastName}
+          profilePictureURL={user.profilePictureURL}
+        />
+      );
+    });
   }
 
   render() {
@@ -34,8 +28,13 @@ class UsersList extends Component {
   }
 }
 
-UsersList.propTypes = {
-  usersList: React.PropTypes.array.isRequired,
+const mapStateToProps = (state) => {
+  console.log(state);
+  return { users: state.friends.all };
 };
 
-export default UsersList;
+UsersList.propTypes = {
+  users: React.PropTypes.array.isRequired,
+};
+
+export default connect(mapStateToProps)(UsersList);

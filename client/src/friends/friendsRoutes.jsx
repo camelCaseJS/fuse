@@ -1,25 +1,14 @@
 import React from 'react';
-import Main from '../main';
-import UsersList from '../shared-components/users-list';
+import { Route } from 'react-router';
 
-const Friends = () => {
-  const defaultUser = {
-    firstName: 'firstName',
-    lastName: 'lastName',
-    profilePictureURL: 'https://assets-cdn.github.com/images/modules/logos_page/GitHub-Mark.png',
-  };
+import Friends from './containers/friends';
+
+const FriendsRoutes = () => {
 
   return (
-    <Main
-      left={
-        <UsersList usersList={[defaultUser]} />
-      } right={
-        <div>
-        photos.
-        </div>
-      }
-    />
+    <Route path="" component={Friends} />
   );
 };
 
-export default Friends;
+
+export default FriendsRoutes;
