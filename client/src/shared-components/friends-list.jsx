@@ -26,6 +26,7 @@ class FriendsList extends Component {
   }
 
   render() {
+    console.log(this.props.selectedFriends);
     return (
       <List>
         {this.listIt()}
