@@ -1,7 +1,8 @@
 import React from 'react';
+import FlatButton from 'material-ui/FlatButton';
 
 const CameraButton = () => (
-  <div className="button">CameraButton</div>
+  <FlatButton label="CameraButton" />
 );
 
 export default CameraButton;
