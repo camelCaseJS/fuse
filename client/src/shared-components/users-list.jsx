@@ -4,6 +4,9 @@ import { List } from 'material-ui/List';
 import UsersListEntry from './users-list-entry';
 import { fetchFriends } from '../friends/actions/actions';
 
+
+// Use friends list, will use view specific lists and refector to common user-list when time allows
+
 class UsersList extends Component {
 
   componentWillMount() {

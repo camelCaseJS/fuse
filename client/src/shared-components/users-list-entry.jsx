@@ -9,6 +9,7 @@ const UsersListEntry = (props) => {
     <ListItem
       primaryText={name}
       leftAvatar={<Avatar src={props.profilePictureURL} />}
+      onTouchTap={props.onSelect}
     />
   );
 };
@@ -17,6 +18,7 @@ UsersListEntry.propTypes = {
   firstName: React.PropTypes.string.isRequired,
   lastName: React.PropTypes.string.isRequired,
   profilePictureURL: React.PropTypes.string.isRequired,
+  onSelect: React.PropTypes.func.isRequired,
 };
 
 export default UsersListEntry;

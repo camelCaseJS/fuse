@@ -1,11 +1,11 @@
 import { FETCH_FRIENDS } from '../actions/actions';
 
-const INITIAL_STATE = { all: [], selected: [] };
+const INITIAL_STATE = { allFriends: [], selectedFriends: [] };
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case FETCH_FRIENDS:
-      return { all: action.payload, selected: [] };
+      return { allFriends: action.payload, selectedFriends: [] };
     default:
       return state;
   }

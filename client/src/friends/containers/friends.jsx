@@ -1,14 +1,15 @@
 import React from 'react';
 import Main from '../../main';
-import UsersList from '../../shared-components/users-list';
+import FriendsList from '../../shared-components/friends-list';
 import { fetchFriends } from '../actions/actions';
 
 const Friends = () => {
 
   return (
     <Main
-      left={<UsersList />}
+      left={<FriendsList />}
       right={<div>Photos</div>}
+      onComponentWillMount={fetchFriends}
     />
   );
 };

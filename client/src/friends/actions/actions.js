@@ -1,9 +1,9 @@
 import axios from 'axios';
 
 export const FETCH_FRIENDS = 'FETCH_FRIENDS';
+export const SELECT_FRIEND = 'SELECT_FRIEND';
 
 export function fetchFriends() {
-
   const request = axios.get('http://localhost:8000/user/')
   .then((response) => {
     return response.data;
@@ -12,5 +12,12 @@ export function fetchFriends() {
   return {
     type: FETCH_FRIENDS,
     payload: request,
+  };
+}
+
+export function selectFriend(friend) {
+  return {
+    type: SELECT_FRIEND,
+    playload: friend,
   };
 }
