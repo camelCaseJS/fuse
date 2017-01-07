@@ -7,6 +7,7 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import { Router, hashHistory } from 'react-router';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import routes from './routes';
 import reducers from './root-reducer';
@@ -14,6 +15,8 @@ import reducers from './root-reducer';
 const createStoreWithMiddleware = applyMiddleware(
   promise,
 )(createStore);
+
+injectTapEventPlugin();
 
 ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers)}>

@@ -27,6 +27,7 @@ dist/
 
 #local configs
 config.js
+sequilize-db-writer.js
 
 # Dependency directorys
 # Deployed apps should consider commenting these lines out:

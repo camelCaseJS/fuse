@@ -1,14 +1,12 @@
-const INITIAL_STATE = { all: [], selected: [] };
+import { FETCH_FRIENDS } from '../actions/actions';
 
-const defaultUser = {
-  firstName: 'Justin',
-  lastName: 'Potter',
-  profilePictureURL: 'https://assets-cdn.github.com/images/modules/logos_page/GitHub-Mark.png',
-};
+const INITIAL_STATE = { all: [], selected: [] };
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
+    case FETCH_FRIENDS:
+      return { all: action.payload, selected: [] };
     default:
-      return { all: [defaultUser] };
+      return state;
   }
 };
