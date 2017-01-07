@@ -1,12 +1,15 @@
-const INITIAL_STATE = { photoEntry: [] };
+import { SELECT_PHOTO, FETCH_PHOTOS } from '../actions/actions';
 
-const photos = {
-  photoEntry: 'https://assets-cdn.github.com/images/modules/logos_page/GitHub-Mark.png',
-};
+const INITIAL_STATE = { selectedUserPhotos: [], selectedPhoto: [] };
 
 export default (state = INITIAL_STATE, action) => {
-  switch (action.type) {
-    default:
-      return { photos: [photos] };
+  switch(action.type) {
+    case SELECT_PHOTO:
+    //signals to state which photo of selectedUser'
+    //photo library is enlarged in the photo component
+      return { ...state, selectedPhoto: [...state.selectedFriends, action.payload] };
+    case FETCH_PHOTOS:
+       return { ...state, selectedUserPhotos: action.payload };
   }
+  return state;
 };

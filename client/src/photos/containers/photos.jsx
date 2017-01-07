@@ -8,7 +8,7 @@ const Photos = () => {
 
   return (
     <Main
-      left={<UsersList />}
+      left={<FriendsList />}
       right={<PhotosList />}
     />
   );
