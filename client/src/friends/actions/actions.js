@@ -6,7 +6,9 @@ export const SELECT_FRIEND = 'SELECT_FRIEND';
 export function fetchFriends() {
   const request = axios.get('http://localhost:8000/user/')
   .then((response) => {
-    return response.data;
+    return response.data.map((friend) => {
+      return { ...friend, selected: false };
+    });
   });
 
   return {
@@ -15,9 +17,9 @@ export function fetchFriends() {
   };
 }
 
-export function selectFriend(friend) {
+export function selectFriend(friend, index) {
   return {
     type: SELECT_FRIEND,
-    payload: friend,
+    payload: { friend, index },
   };
 }
