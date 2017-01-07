@@ -1,12 +1,14 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import FlatButton from 'material-ui/FlatButton';
-import { capturePicture } from '../camera/actions/actions';
+import * as cameraActionCreators from '../camera/actions/actions';
+
 
 const CameraButton = () => (
   <div>
     <FlatButton
       label="CameraButton"
-      onClick={() => capturePicture()}
+      // onClick={() => cameraOn()}
     />
     <div>
 
@@ -14,4 +16,11 @@ const CameraButton = () => (
   </div>
 );
 
-export default CameraButton;
+const mapStateToProps = (state) => {
+  return {
+    cameraOn: false,
+    pictureCaptured: false,
+  };
+};
+
+export default connect(mapStateToProps, cameraActionCreators)(CameraButton);
