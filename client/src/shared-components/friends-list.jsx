@@ -13,20 +13,23 @@ class FriendsList extends Component {
   listIt() {
     const { selectFriend } = this.props;
 
-    return this.props.allFriends.map(friend => (
-      <UsersListEntry
-        key={friend.id}
-        firstName={friend.firstName}
-        lastName={friend.lastName}
-        profilePictureURL={friend.profilePictureURL}
-        onSelect={() => selectFriend(friend)}
-      />
-      ),
+    return this.props.allFriends.map((friend, index) => {
+      return (
+        <UsersListEntry
+          key={friend.id}
+          firstName={friend.firstName}
+          lastName={friend.lastName}
+          profilePictureURL={friend.profilePictureURL}
+          selected={friend.selected}
+          onSelect={() => selectFriend(friend, index)}
+        />
+      );
+    },
     );
   }
 
   render() {
-    console.log(this.props.selectedFriends);
+    console.log(this.props.allFriends);
     return (
       <List>
         {this.listIt()}
@@ -35,14 +38,15 @@ class FriendsList extends Component {
   }
 }
 
-const mapStateToProps = state => (
-  {
+const mapStateToProps = (state) => {
+  return {
     allFriends: state.friends.allFriends,
-    selectedFriends: state.friends.selectedFriends }
-);
+    lastSelectedFriend: state.friends.lastSelectedFriend };
+};
 
 FriendsList.propTypes = {
   allFriends: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
+  lastSelectedFriend: React.PropTypes.object.isRequired,
   fetchFriends: React.PropTypes.func.isRequired,
   selectFriend: React.PropTypes.func.isRequired,
 };
