@@ -5,11 +5,11 @@ import { GridList, GridTile } from 'material-ui/GridList';
 const Main = ({right, left}) => (
   <div>
     <NavBar />
-    <GridList cols={2}>
+    <GridList cols={2} cellHeight="auto">
       <GridTile>
-      {left}
+        {left}
       </GridTile>
-      <GridTile>
+      <GridTile >
         {right}
       </GridTile>
     </GridList>
