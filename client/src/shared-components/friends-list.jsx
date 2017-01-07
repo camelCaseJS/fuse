@@ -13,16 +13,18 @@ class FriendsList extends Component {
   listIt() {
     const { selectFriend } = this.props;
 
-    return this.props.allFriends.map((friend, index) => (
-      <UsersListEntry
-        key={friend.id}
-        firstName={friend.firstName}
-        lastName={friend.lastName}
-        profilePictureURL={friend.profilePictureURL}
-        selected={friend.selected}
-        onSelect={() => selectFriend(friend, index)}
-      />
-      ),
+    return this.props.allFriends.map((friend, index) => {
+      return (
+        <UsersListEntry
+          key={friend.id}
+          firstName={friend.firstName}
+          lastName={friend.lastName}
+          profilePictureURL={friend.profilePictureURL}
+          selected={friend.selected}
+          onSelect={() => selectFriend(friend, index)}
+        />
+      );
+    },
     );
   }
 
@@ -37,7 +39,6 @@ class FriendsList extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
     allFriends: state.friends.allFriends,
     lastSelectedFriend: state.friends.lastSelectedFriend };

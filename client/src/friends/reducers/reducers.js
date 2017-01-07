@@ -14,12 +14,14 @@ export default (state = INITIAL_STATE, action) => {
     case SELECT_FRIEND: {
       // Creates and object with properties copied from states
       // Replace lastSelectedFriend from the action payload
-      const newState = { ...state,
+      const newState = {
+        ...state,
+        allFriends: [...state.allFriends],
         lastSelectedFriend: action.payload.friend };
       const index = action.payload.index;
 
       // Toggle the selected state of the friend at index
-      newState.allFriends[index].selected = !state.allFriends[index].selected;
+      newState.allFriends[index].selected = !newState.allFriends[index].selected;
 
       return newState;
     }

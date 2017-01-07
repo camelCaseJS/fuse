@@ -5,14 +5,15 @@ import { ListItem } from 'material-ui/List';
 const UsersListEntry = (props) => {
   const name = `${props.firstName} ${props.lastName}`;
 
-  const style = {
-    backgroundColor: props.selected ?
-    'Indigo' : 'White',
-  };
+  const selectedStyle = {
+    backgroundColor: 'Indigo' };
+
+  const unSelectedStyle = {
+    backgroundColor: 'White' };
 
   return (
     <ListItem
-      style={style}
+      style={props.selected ? selectedStyle : unSelectedStyle}
       primaryText={name}
       leftAvatar={<Avatar src={props.profilePictureURL} />}
       onTouchTap={props.onSelect}
