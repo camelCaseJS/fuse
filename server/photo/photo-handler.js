@@ -1,8 +1,10 @@
 const fs = require('fs');
 const path = require('path');
+const dbHandler = require('./photo-db-handler');
 
 const storageDir = path.resolve(__dirname, '../db/photos');
-
+const publicPath = process.env.PORT || 'localhost:8000/photo';
+console.log('publicPath', publicPath);
 /*
 * saves photo a in a folder, creates the folder if it does not exist
 *
@@ -12,23 +14,32 @@ const storageDir = path.resolve(__dirname, '../db/photos');
 * NOTE: checking for folder existence first will cause race conditions,
 * refactors should not implement such functionality
 */
-module.exports.addPhoto = (req, res) => {
-  if (!req.body.user || !req.files.image) {
-    console.log('moop')
-    res.sendStatus(400);
-  } else {
-    const userDir = path.resolve(storageDir, req.body.user);
-    const savePhoto = () => {
-      const fileLoc = path.resolve(userDir, req.files.image.name);
+const addPhoto = (req, res) => {
+  const userDir = path.resolve(storageDir, req.user.id.toString());
+  const savePhoto = () => {
+    const fileLoc = path.resolve(userDir, req.files.image.name);
+    //SQL INJECTION POINT, FIX
+    const link = publicPath + '/' + req.user.id + '/' + req.files.image.name;
+    dbHandler.addPhoto(req, link)
+    .then(() => {
       fs.writeFile(fileLoc, req.files.image.data, (err) => {
         if (err) {
           console.log(err, fileLoc);
-          res.send(500);
+          throw new Error(err);
         } else {
           res.sendStatus(201);
         }
-      });
-    };
+      })
+    })
+    .catch((err)=> {
+      console.log(err)
+      res.sendStatus(404);
+    })
+  };
+
+  if (!req.files.image) {
+    res.sendStatus(400);
+  } else {
     fs.mkdir(userDir, null, (err) => {
       if (err) {
         if (err.code === 'EEXIST') {
@@ -44,14 +55,50 @@ module.exports.addPhoto = (req, res) => {
   }
 };
 
-module.exports.getPhotos = (req, res) => {
-  const imgname = '20161020_154737__1477269359_71.202.95.124.jpg';
-  const fileLoc = path.resolve(storageDir, req.params.user, imgname);
-  console.log(fileLoc);
-  res.sendFile(fileLoc)
+const getPhoto = (req, res) => {
+  const fileLoc = path.resolve(storageDir,req.params.user, req.params.photo);
+  fs.stat(fileLoc, (err) => {
+    if(err) res.sendStatus(404);
+    else res.sendFile(fileLoc);
+  })
 };
 
 
-module.exports.deletePhoto = (req, res) => {
-  res.send('goodbye cruel world');
+const deletePhoto = (req, res) => {
+  const fileLoc = path.resolve(storageDir,req.params.user, req.params.photo);
+  const link = path.resolve(publicPath, req,params.user, req.params.user)
+  Photo.find({ where : { link } })
+  .then((photo) => {
+    if(photo) {
+      fs.unlink(fileLoc, (err) => {
+        if(err) res.sendStatus(404);
+        else res.sendStatus(200)
+      })       
+    } else {
+      res.sendStatus(404);
+    }
+  }).catch((err) => {
+    console.log(err);
+    res.send(404);
+  })
 };
+
+const getLinks = (req, res) => {
+  dbHandler.findAllPhotos(req)
+  .then((photos) => {
+    res.send(photos)
+  })
+  .catch((err) => {
+    console.log(err);
+    res.sendStatus(404)
+  })
+}
+
+module.exports.addPhoto = addPhoto;
+
+module.exports.getLinks = getLinks;
+
+module.exports.getPhoto = getPhoto;
+
+module.exports.deletePhoto = deletePhoto;
+
