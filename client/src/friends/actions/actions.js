@@ -16,8 +16,6 @@ export function fetchFriends() {
 }
 
 export function selectFriend(friend) {
-  console.log('friend');
-  console.log(friend);
   return {
     type: SELECT_FRIEND,
     payload: friend,

@@ -43,6 +43,7 @@ const mapStateToProps = state => (
 
 FriendsList.propTypes = {
   allFriends: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
+  selectedFriends: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
   fetchFriends: React.PropTypes.func.isRequired,
   selectFriend: React.PropTypes.func.isRequired,
 };
