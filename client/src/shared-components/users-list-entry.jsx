@@ -6,7 +6,7 @@ const UsersListEntry = (props) => {
   const name = `${props.firstName} ${props.lastName}`;
 
   const selectedStyle = {
-    backgroundColor: 'Indigo' };
+    backgroundColor: 'Grey' };
 
   const unSelectedStyle = {
     backgroundColor: 'White' };
