@@ -18,8 +18,8 @@ app.get('/dist/bundle.js', (req, res) => {
 });
 
 // Requests to index will be authenticated
-// If authenitcated, user sent to landing page, /friends
-// If not authenitcated, controller routes to login
+  // If authenitcated, user sent to landing page, /friends
+  // If not authenitcated, controller routes to login
 app.get('/', isAuthenticated, (req, res) => {
   res.redirect('/friends');
 });
