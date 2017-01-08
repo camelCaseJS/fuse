@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { List } from 'material-ui/List';
+import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import {GridList, GridTile} from 'material-ui/GridList';
 import PhotosListEntry from './photos-list-entry';
-import * as photosActionCreators from '../photos/actions/actions';
+import * as photosActionCreators from '../actions/actions';
 
 class PhotosList extends Component {
 
@@ -14,7 +16,7 @@ class PhotosList extends Component {
   listPhotos() {
     return this.props.selectedUserPhotos.map(photo => (
       <PhotosListEntry
-        photoEntry={photo.photoEntry}
+        photoEntry={photo.link}
         onSelect={() => selectPhoto(photo)}
       />
       ),
@@ -24,11 +26,13 @@ class PhotosList extends Component {
   render() {
     return (
       <div>
-        {this.selectedPhoto}
-      </div>
-      <List>
+      <CardMedia>
+        <img src={this.selectedPhoto.link} />
+      </CardMedia>
+      <GridList>
         {this.listPhotos()}
-      </List>
+      </GridList>
+      </div>
     );
   }
 }
@@ -41,7 +45,7 @@ const mapStateToProps = state => (
 );
 
 PhotosList.propTypes = {
-  selectedPhoto: React.PropTypes.array.isRequired,
+  selectedPhoto: React.PropTypes.object.isRequired,
   selectedUserPhotos: React.PropTypes.array.isRequired,
   selectPhoto: React.PropTypes.func.isRequired,
   fetchPhotos: React.PropTypes.func.isRequired,
