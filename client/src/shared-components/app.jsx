@@ -5,7 +5,8 @@ import * as routerActionCreator from './actions/actions';
 class App extends Component {
 
   componentWillMount() {
-    this.props.updateRoute(this.props.location.pathname);
+    console.log(this.props.location);
+    this.props.updateRoute(this.props.location);
   }
 
   // componentWillReceiveProps(nextProps) {
