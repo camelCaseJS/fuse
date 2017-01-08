@@ -3,10 +3,10 @@ import Main from '../../main';
 import FriendsList from '../../shared-components/friends-list';
 import { fetchFriends } from '../actions/actions';
 
-const Friends = () => (
+const Friends = (props) => (
   <Main
     left={<FriendsList />}
-    right={<div>Photos</div>}
+    right={<div>Right</div>}
     onComponentWillMount={fetchFriends}
   />
   );
