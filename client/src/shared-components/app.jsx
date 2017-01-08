@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import * as routerActionCreator from './actions/actions';
 
 class App extends Component {
+
+  componentWillMount() {
+    this.props.updateRoute(this.props.location);
+  }
+
   render() {
     return (
       <div>
@@ -8,7 +15,10 @@ class App extends Component {
       </div>
     );
   }
-
 }
 
-export default App;
+const mapStateToProps = ({ router }) => {
+  return { router };
+}
+
+export default connect(mapStateToProps, routerActionCreator)(App);

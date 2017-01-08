@@ -6,7 +6,7 @@ import { fetchFriends } from '../actions/actions';
 const Friends = () => (
   <Main
     left={<FriendsList />}
-    right={<div>Photos</div>}
+    right={<div>Right</div>}
     onComponentWillMount={fetchFriends}
   />
   );
