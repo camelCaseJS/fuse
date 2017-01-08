@@ -5,7 +5,7 @@ const INITIAL_STATE = {
   cameraOn: false,
   pictureCaptured: false,
   anyFriendSelected: false,
-  capturedPicture: null,
+  capturedPicture: '',
 };
 
 export default (state = INITIAL_STATE, action) => {
