@@ -11,7 +11,7 @@ const CameraButton = () => (
       onClick={() => this.props.startCamera()}
     />
     <div>
-    {}
+      {}
     </div>
   </div>
 );
@@ -27,9 +27,9 @@ const mapStateToProps = state => (
 );
 
 CameraButton.propTypes = {
-  cameraOn: React.PropTypes.boolean.isRequired,
-  pictureCaptured: React.PropTypes.boolean.isRequired,
-  capturedPicture: React.PropTypes.boolean.isRequired,
+  cameraOn: React.PropTypes.bool.isRequired,
+  pictureCaptured: React.PropTypes.bool.isRequired,
+  capturedPicture: React.PropTypes.bool.isRequired,
 };
 
 export default connect(mapStateToProps, cameraActionCreators)(CameraButton);

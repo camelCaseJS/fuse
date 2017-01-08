@@ -10,10 +10,10 @@ const Camera = () => {
     <Main
       left={<FriendsList />}
       right={
-      <div>
-        <Webcam />
-        <CameraButton />
-      </div>
+        <div>
+          <Webcam />
+          <CameraButton />
+        </div>
       }
     />
   );
