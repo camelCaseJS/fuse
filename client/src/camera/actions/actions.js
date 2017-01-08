@@ -6,6 +6,7 @@ export const START_CAMERA = 'START_CAMERA';
 
 export function startCamera() {
   console.log('camera on');
+  console.log('camera state', this.state);
   return {
     type: START_CAMERA,
   };
