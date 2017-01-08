@@ -5,15 +5,8 @@ import * as routerActionCreator from './actions/actions';
 class App extends Component {
 
   componentWillMount() {
-    console.log(this.props.location);
     this.props.updateRoute(this.props.location);
   }
-
-  // componentWillReceiveProps(nextProps) {
-  //   if (this.props.router.location !== nextProps.router.location && nextProps.location.pathname !== '')  {
-  //     this.props.updateRoute(nextProps.location.pathname);
-  //   }
-  // }
 
   render() {
     return (
@@ -22,11 +15,9 @@ class App extends Component {
       </div>
     );
   }
-
 }
 
 const mapStateToProps = ({ router }) => {
-  console.log(router);
   return { router };
 }
 
