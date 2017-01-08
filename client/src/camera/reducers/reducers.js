@@ -26,7 +26,12 @@ export default (state = INITIAL_STATE, action) => {
 
     case SEND_PHOTOS:
       return state;
-      // return { ...state, anyFriendSelected: true };
+      // return {
+      //   ...state,
+      //   pictureCaptured: false,
+      //   capturedPicture: null,
+      //   anyFriendSelected: false,
+      // };
 
     default:
       return state;
