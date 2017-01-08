@@ -1,7 +1,8 @@
 import React from 'react';
 import Main from '../../main';
-import UsersList from '../../shared-components/users-list';
+import FriendsList from '../../shared-components/friends-list';
 import PhotosList from '../components/photos-list';
+
 
 
 const Photos = () => {
