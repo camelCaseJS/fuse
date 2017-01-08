@@ -38,8 +38,6 @@ class FriendsList extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log('state');
-  console.log(state);
   return {
     allFriends: state.friends.allFriends,
     lastSelectedFriend: state.friends.lastSelectedFriend };
