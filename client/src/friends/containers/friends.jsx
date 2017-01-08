@@ -7,7 +7,6 @@ const Friends = () => (
   <Main
     left={<FriendsList />}
     right={<div>Right</div>}
-    onComponentWillMount={fetchFriends}
   />
   );
 
