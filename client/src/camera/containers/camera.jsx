@@ -18,48 +18,48 @@ let cameraLabel = 'start camera';
 let buttonFunc = (() => (console.log('camera start func')));
 
 class Camera extends Component {
+  constructor(props) {
+    super(props);
+    this.getScreenshot = this.getScreenshot.bind(this);
+    this.getCanvas = this.getCanvas.bind(this);
+  }
+
   componentWillMount() {
-    console.log('initial componentWillMount start');
     this.props.startCamera();
   }
 
-  // getScreenshot() {
-  //   if (!this.props.pictureCaptured) return null;
+  getScreenshot() {
+    const canvas = this.getCanvas();
+    // console.log(canvas.toDataURL(this.props.imageFormat));
+    this.props.capturePhoto(canvas.toDataURL(this.props.imageFormat));
+  }
 
-  //   const canvas = this.getCanvas();
-  //   return canvas.toDataURL(this.props.imageFormat);
-  // }
+  getCanvas() {
+    const video = findDOMNode(this.refs.webcam);
+    // console.log(findDOMNode(this.refs.webcam), 'VIDEOO');
+    if (!this.ctx) {
+      const canvas = document.createElement('canvas');
+      const aspectRatio = video.videoWidth / video.videoHeight;
 
-  // getCanvas() {
-  //   if (!this.props.pictureCaptured) return null;
+      canvas.width = video.clientWidth;
+      canvas.height = video.clientWidth / aspectRatio;
 
-  //   const video = findDOMNode(this);
-  //   console.log(video, 'VIDEOO');
-  //   if (!this.ctx) {
-  //     let canvas = document.createElement('canvas');
-  //     const aspectRatio = video.videoWidth / video.videoHeight;
+      this.canvas = canvas;
+      this.ctx = canvas.getContext('2d');
+    }
 
-  //     canvas.width = video.clientWidth;
-  //     canvas.height = video.clientWidth / aspectRatio;
-
-  //     this.canvas = canvas;
-  //     this.ctx = canvas.getContext('2d');
-  //   }
-
-  //   const { ctx, canvas } = this;
-  //   ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-  //   return canvas;
-  // }
+    const { ctx, canvas } = this;
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    return canvas;
+  }
 
   render() {
     if (this.props.cameraOn && !this.props.pictureCaptured) {
-      mediaBox = <Webcam />;
+      mediaBox = <Webcam ref="webcam" />;
       cameraLabel = 'take picture';
-      // buttonFunc = () => {this.getScreenshot};
-      buttonFunc = this.props.capturePhoto;
+      buttonFunc = this.getScreenshot;
     } else if (!this.props.cameraOn && this.props.pictureCaptured) {
-      mediaBox = <p>screenshot goes here</p>;
+      mediaBox = <img src={this.props.capturedPicture} />;
       cameraLabel = 'send to friends';
       buttonFunc = this.props.sendPhoto;
     } else if (!this.props.cameraOn && !this.props.pictureCaptured) {
@@ -70,18 +70,18 @@ class Camera extends Component {
 
     return (
       <Main
-        left={<FriendsList />}
-                // left = {<FriendsList />
-                  // <button
-                  //   onClick={() => console.log({
-                  //     cameraOn: this.props.cameraOn,
-                  //     pictureTaken: this.props.pictureCaptured,
-                  //     capturedPicture: this.props.capturedPicture,
-                  //     anyFriendsSelected: this.props.anyFriendsSelected,
-                  //     webcamDefault: Webcam.defaultProps,
-                  //   })}
-                  // >STATE CHECKER DELETE ME LATER</button>
-                // }
+        // left={<FriendsList />}
+                left={
+                  <button
+                    onClick={() => console.log({
+                      cameraOn: this.props.cameraOn,
+                      pictureTaken: this.props.pictureCaptured,
+                      capturedPicture: this.props.capturedPicture,
+                      anyFriendsSelected: this.props.anyFriendsSelected,
+                      webcamDefault: Webcam.defaultProps,
+                    })}
+                  >STATE CHECKER DELETE ME LATER</button>
+                }
 
         right={
           <div >
@@ -89,7 +89,6 @@ class Camera extends Component {
             <CameraButton
               label={cameraLabel}
               onClick={() => buttonFunc()}
-              startCamera={() => this.props.startCamera}
             />
 
           </div>
