@@ -12,7 +12,7 @@ const Main = ({ right, left }) => (
       <GridTile>
         {left}
       </GridTile>
-      <GridTile>
+      <GridTile >
         {right}
       </GridTile>
     </GridList>
