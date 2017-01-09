@@ -11,23 +11,35 @@ export function startCamera() {
   };
 }
 
-export function capturePhoto(photo) {
+export function capturePhoto(photoRaw, photoImg) {
   console.log('captured photo!');
   return {
     type: CAPTURE_PHOTO,
-    payload: photo,
+    payload: {
+      photoRaw,
+      photoImg,
+    },
   };
 }
 
 
-export function sendPhoto(friendId) {
-  // const request = axios.post('http://localhost:8000/photo')
-  // .then((response) => {
-  //   console.log(response.data, 'photo sent to db');
-  // });
+export function sendPhoto(photoBlob, date) {
+  const header = {
+    headers: {
+      'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundaryqAxDdHuytAhP8M4X',
+    },
+  };
+
+  const fd = new FormData();
+  fd.append('image', photoBlob, date);
+
+  axios.post('http://localhost:8000/photo/', fd)
+  .then((response) => {
+    console.log(response.data, 'photo sent to db');
+  });
   console.log('send photo');
   return {
     type: SEND_PHOTO,
-    payload: friendId,
+    // payload: friendId,
   };
 }

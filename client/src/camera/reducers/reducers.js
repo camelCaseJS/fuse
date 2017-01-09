@@ -5,7 +5,8 @@ const INITIAL_STATE = {
   cameraOn: true,
   pictureCaptured: false,
   anyFriendSelected: false,
-  capturedPicture: '',
+  capturedPictureRaw: '',
+  capturedPicture: {},
   imageFormat: 'image/jpeg',
 };
 
@@ -22,18 +23,18 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         cameraOn: false,
         pictureCaptured: true,
-        capturedPicture: action.payload,
+        capturedPicture: action.payload.photoImg,
+        capturedPictureRaw: action.payload.photoRaw,
       };
 
     case SEND_PHOTO:
-      // return state;
       return {
         ...state,
         cameraOn: false,
         pictureCaptured: false,
-        capturedPicture: '',
+        capturedPictureRaw: '',
+        capturedPicture: {},
         anyFriendSelected: false,
-
       };
 
     default:
