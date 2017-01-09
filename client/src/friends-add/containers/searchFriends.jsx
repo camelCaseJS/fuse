@@ -1,4 +1,4 @@
-import React from 'react' ;
+import React, { Component }  from 'react' ;
 import { connect } from 'react-redux';
 import { List } from 'material-ui/List';
 import SearchedFriendsEntry from './searchedFriends-Entry';
@@ -11,10 +11,16 @@ class SearchFriends extends Component {
     this.state = {
       search : ""
     };
+
+    this.handleSearchChange = this.handleSeachChange.bind(this)
+    this.handleSearchSubmit = this.handleSeachSubmit.bind(this)
+    this.handleAddUser = this.handleAddUser.bind(this)
   }
 
 //this function updates the text value of the search button
 handleSeachChange (e){
+  console.log('e',e.target.value)
+  console.log('handleSeachChange ran!')
     this.setState({search:e.target.value})
  }
 
@@ -22,6 +28,7 @@ handleSeachChange (e){
 //it also resets the search value to ''
   //searchFriends is the action creator that handles search to the db
 handleSeachSubmit (){
+  console.log('handleSeachSubmit ran!')
 
     this.props.searchFriends(this.state.search)
     this.setState({search:""})
@@ -32,8 +39,8 @@ handleSeachSubmit (){
 searchButton () {
   return (
     <div>
-     <input type="text" value={this.state.search} onChange={this.handleSeachChange()} />
-     <button onClick={this.handleSearchSubmit()}>Submit.</button>
+       <input type="text" value={this.state.search} onChange = { (e)=> (this.handleSeachChange(e)) } />
+       <button onClick={this.handleSearchSubmit}>Submit.</button>
     </div>
   )
  }
@@ -81,16 +88,24 @@ render() {
   //when land on the /friends/Add route, the first display will only be the button to search for a user in the db
   //if searchedFriends is an empty array, it must have an array length of zero, so we know that friends have not been searched yet
   if (this.props.searchedFriends.length === 0){
+    console.log('searchedFriends ran!')
+    console.log('this.searchButton is',this.searchButton())
+
     return (
-       {this.searchButton()}
-    )
+      <div>
+         {this.searchButton()}
+      </div>
+      );
   }
 
   //when a user has searched for a friend, this returns the array of searched friends
-  if (this.props.searchedFriendSelected===false) {
+  else if (this.props.searchedFriendSelected===false) {
+            console.log('searchedFriendSelected false ran!')
+
   return (
 
       //this will display the search button
+      <div>
       <div>
        {this.searchButton()}
       </div>
@@ -99,13 +114,17 @@ render() {
       <List>
         {this.listIt()}
       </List>
+      </div>
     )
   }
 
   //when a user has selected a friend from search to the db, we will render the add user button to the db as a next step.
-  if (this.props.searchedFriendSelected===true) {
+  else if (this.props.searchedFriendSelected===true) {
+        console.log('searchedFriendSelected true ran!')
+
     return (
 
+      <div>
       //this will display the search button
       <div>
        {this.searchButton()}
@@ -120,16 +139,18 @@ render() {
       <div>
         {this.addUserButton()}
       </div>
-    )
+      </div>
+    );
   }
- }
+ };
 }
 
 const mapStateToProps = (state) => {
+  console.log('this is state',state)
   return {
-  searchedFriends: state.friendAdd.searchedFriends,
-  selectedFriend: state.friendAdd.selectedFriend
-  searchedFriendSelected: state.friendsAdd.searchedFriendSelected
+    searchedFriends: state.friendsAdd.searchedFriends,
+    selectedFriend: state.friendsAdd.selectedFriend,
+    searchedFriendSelected: state.friendsAdd.searchedFriendSelected,
   };
 };
 
