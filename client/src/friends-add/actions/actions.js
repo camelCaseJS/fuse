@@ -35,6 +35,7 @@ export function addFriendsToDB(id) {
   const url = 'http://localhost:8000/user/'+id;
   console.log('this is url in addFriendsToDB',url)
 
+
   //this will be a post request to the db.
   const request = axios.post(url)
   .then((response) => {

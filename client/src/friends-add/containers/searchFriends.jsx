@@ -121,7 +121,7 @@ render() {
   //when a user has selected a friend from search to the db, we will render the add user button to the db as a next step.
   else if (this.props.searchedFriendSelected===true) {
         console.log('searchedFriendSelected true ran!')
-
+        console.log('in searchedFriendSelected true this is state',this.state)
     return (
 
       <div>
