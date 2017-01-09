@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { findDOMNode } from 'react-dom';
 import * as cameraActionCreators from '../actions/actions';
 import Main from '../../main';
-// import FriendsList from '../../shared-components/friends-list';
+import FriendsList from '../../shared-components/friends-list';
 import CameraButton from '../../shared-components/camera-button';
 
 // let initialComponents = {
@@ -70,17 +70,18 @@ class Camera extends Component {
 
     return (
       <Main
-                left = {
-                  <button
-                    onClick={() => console.log({
-                      cameraOn: this.props.cameraOn,
-                      pictureTaken: this.props.pictureCaptured,
-                      capturedPicture: this.props.capturedPicture,
-                      anyFriendsSelected: this.props.anyFriendsSelected,
-                      webcamDefault: Webcam.defaultProps,
-                    })}
-                  >STATE CHECKER DELETE ME LATER</button>
-                }
+        left={<FriendsList />}
+                // left = {<FriendsList />
+                  // <button
+                  //   onClick={() => console.log({
+                  //     cameraOn: this.props.cameraOn,
+                  //     pictureTaken: this.props.pictureCaptured,
+                  //     capturedPicture: this.props.capturedPicture,
+                  //     anyFriendsSelected: this.props.anyFriendsSelected,
+                  //     webcamDefault: Webcam.defaultProps,
+                  //   })}
+                  // >STATE CHECKER DELETE ME LATER</button>
+                // }
 
         right={
           <div >
