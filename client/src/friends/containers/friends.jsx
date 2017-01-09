@@ -5,7 +5,7 @@ import FriendsList from '../../shared-components/friends-list';
 const Friends = () => (
   <Main
     left={<FriendsList />}
-    right={<div>Right</div>}
+    right={<div className="child">Right</div>}
   />
   );
 

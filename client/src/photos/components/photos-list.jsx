@@ -49,7 +49,7 @@ class PhotosList extends Component {
       );
     }
     return (
-      <p className="placeholder" />
+      <div className="placeholder" />
     );
   }
 
@@ -68,12 +68,6 @@ class PhotosList extends Component {
     );
   }
 }
-
-
- // <GridList>
- //          {this.listPhotos()}
- //        </GridList>
-
 
 const mapStateToProps = state => (
   {
