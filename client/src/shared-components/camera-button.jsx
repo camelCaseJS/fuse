@@ -5,7 +5,7 @@ import FlatButton from 'material-ui/FlatButton';
 const CameraButton = props => (
   <FlatButton
     label={props.label}
-    onTouchTap={props.onClick()}
+    onTouchTap={props.onClick}
   />
 );
 
