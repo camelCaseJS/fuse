@@ -68,6 +68,9 @@ app.post('/:id', (req, res) => {
       .then((id) => {
         console.log('friend created');
         res.send(id);
+      })
+      .catch((err) => {
+        console.error(err);
       });
     } else {
       console.error('Friend not found');
@@ -76,4 +79,21 @@ app.post('/:id', (req, res) => {
   });
 });
 
+app.get('/:email', (req, res) => {
+  User.findOne({
+    where: {
+      email: req.params.email,
+    },
+  })
+  .then((friend) => {
+    if (friend.length !== 0) {
+      res.send(friend);
+    } else {
+      alert('user not found');
+    }
+  })
+  .catch((err) => {
+    console.error(err);
+  });
+});
 module.exports = app;
