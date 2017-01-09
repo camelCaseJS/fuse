@@ -5,9 +5,10 @@ import {GridList, GridTile} from 'material-ui/GridList';
 const PhotosListEntry = (props) => {
   return (
     <GridTile
-      img src={props.photoEntry}
       onTouchTap={props.onSelect}
-    />
+    >
+      <img src={props.photoEntry} />
+    </GridTile>
   );
 };
 

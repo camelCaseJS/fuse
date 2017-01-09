@@ -14,8 +14,11 @@ class PhotosList extends Component {
   }
 
   listPhotos() {
+    const { selectPhoto } = this.props;
+
     return this.props.selectedUserPhotos.map(photo => (
       <PhotosListEntry
+        key={photo.link}
         photoEntry={photo.link}
         onSelect={() => selectPhoto(photo)}
       />
@@ -23,15 +26,26 @@ class PhotosList extends Component {
     );
   }
 
+  selectedPhoto() {
+    if (this.selectedPhoto) {
+      return (
+        <img src={this.props.selectedPhoto.link} alt="selected" />
+      );
+    }
+    return (
+      <div />
+    );
+  }
+
   render() {
     return (
       <div>
-      <CardMedia>
-        <img src={this.selectedPhoto.link} />
-      </CardMedia>
-      <GridList>
-        {this.listPhotos()}
-      </GridList>
+        <CardMedia>
+          { this.selectedPhoto() }
+        </CardMedia>
+        <GridList>
+          {this.listPhotos()}
+        </GridList>
       </div>
     );
   }
