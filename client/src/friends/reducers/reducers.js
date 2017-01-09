@@ -1,12 +1,23 @@
-import { FETCH_FRIENDS, SELECT_FRIEND } from '../actions/actions';
+import { FETCH_FRIENDS, SELECT_FRIEND, UNSELECT_ALL_FRIENDS } from '../actions/actions';
 
 const INITIAL_STATE = {
   allFriends: [],
   lastSelectedFriend: {} };
 
 export default (state = INITIAL_STATE, action) => {
-
   switch (action.type) {
+    case UNSELECT_ALL_FRIENDS: {
+      const newState = {
+        ...state,
+        allFriends: [...state.allFriends],
+        lastSelectedFriend: {} };
+      newState.allFriends.forEach((friend) => {
+        const newFriend = friend;
+        newFriend.selected = false;
+        return friend;
+      });
+      return newState;
+    }
     case FETCH_FRIENDS:
       // Creates an object with all properties copied from state
       // Then replaces allFriends with action.payload
