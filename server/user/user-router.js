@@ -14,11 +14,15 @@ app.get('/', (req, res) => {
         // userId: 1,
       },
     })
-    .then(friends => friends.map(friend => friend.friendId))
+    .then(friends => friends.map(friend => {
+      return {
+        id: friend.friendId,
+      };
+    }))
     .then((friendIdArray) => {
       User.findAll({
         where: {
-          id: friendIdArray,
+          $or: friendIdArray,
         },
         attributes: {
           exclude: ['email'],
@@ -30,6 +34,7 @@ app.get('/', (req, res) => {
       })
       .catch((err) => {
         console.error(err);
+        res.sendStatus(500)
       });
     });
   } else {
@@ -49,15 +54,16 @@ app.post('/', (req, res) => {
 app.get('/:query', userHandler.userSearch);
 
 app.post('/:id', (req, res) => {
-  Friendship.findOne({
+  Friendship.findAll({
     where: {
-      id: req.params.id,
+      userId: req.params.id,
+      friendId: req.user.id,
     },
   })
   .then((friend) => {
     if (friend.length !== 0) {
       Friendship.create({
-        userId: req.session.passport.user,
+        userId: req.user.id,
         friendId: req.params.id,
       })
       .then((id) => {
@@ -65,30 +71,18 @@ app.post('/:id', (req, res) => {
         res.send(id);
       })
       .catch((err) => {
-        console.error(err);
+        if (err && err.code === '2305') {
+          res.sendStatus(201);
+        } else {
+          res.sendStatus(500);
+        }
       });
     } else {
       console.error('Friend not found');
-      res.redirect('/');
+      res.sendStatus(404);
     }
   });
 });
 
-app.get('/:email', (req, res) => {
-  User.findOne({
-    where: {
-      email: req.params.email,
-    },
-  })
-  .then((friend) => {
-    if (friend.length !== 0) {
-      res.send(friend);
-    } else {
-      alert('user not found');
-    }
-  })
-  .catch((err) => {
-    console.error(err);
-  });
-});
+
 module.exports = app;
