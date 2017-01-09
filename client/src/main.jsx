@@ -1,13 +1,16 @@
 import React from 'react';
-import NavBar from './shared-components/nav-bar';
 import { GridList, GridTile } from 'material-ui/GridList';
 
-const Main = ({right, left}) => (
+import NavBar from './shared-components/nav-bar';
+const Main = ({ right, left }) => (
   <div>
     <NavBar />
-    <GridList cols={2}>
+    <GridList
+      cols={2}
+      cellHeight="auto"
+    >
       <GridTile>
-      {left}
+        {left}
       </GridTile>
       <GridTile>
         {right}

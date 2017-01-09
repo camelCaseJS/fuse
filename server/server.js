@@ -16,6 +16,9 @@ app.use('/user', isAuthenticated, userRouter);
 app.get('/dist/bundle.js', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/dist', 'bundle.js'));
 });
+app.get('/styles/styles.css', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/styles', 'styles.css'));
+});
 
 // Requests to index will be authenticated
   // If authenitcated, user sent to landing page, /friends
