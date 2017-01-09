@@ -3,41 +3,64 @@ import Webcam from 'react-webcam';
 import { connect } from 'react-redux';
 import * as cameraActionCreators from '../actions/actions';
 import Main from '../../main';
-import FriendsList from '../../shared-components/friends-list';
+// import FriendsList from '../../shared-components/friends-list';
 import CameraButton from '../../shared-components/camera-button';
 
-// const toggleForTest = ()
+// let initialComponents = {
+//   mediaBox: <p>BLANK MEDIA PAGE</p>,
+//   cameraLabel: 'start camera',
+//   buttonFunc: (() => (console.log('camera start func'))),
+// };
 
-const mediaBox = <p>YAO</p>;
+let mediaBox = <p>BLANK MEDIA PAGE</p>;
+let cameraLabel = 'start camera';
+let buttonFunc = (() => (console.log('camera start func')));
+
 class Camera extends Component {
   componentWillMount() {
-    console.log(this.state);
+    console.log('initial componentWillMount start');
+    this.props.startCamera();
   }
 
   render() {
-    if (this.props.cameraOn) {
-      const mediaBox = <Webcam />;
+    if (this.props.cameraOn && !this.props.pictureCaptured) {
+      mediaBox = <Webcam />;
+      cameraLabel = 'take picture';
+      buttonFunc = this.props.capturePhoto;
+    } else if (!this.props.cameraOn && this.props.pictureCaptured) {
+      mediaBox = <p>screenshot goes here</p>;
+      cameraLabel = 'send to friends';
+      buttonFunc = this.props.sendPhoto;
+    } else if (!this.props.cameraOn && !this.props.pictureCaptured) {
+      mediaBox = <p>BLANK MEDIA PAGE</p>;
+      cameraLabel = 'start camera';
+      buttonFunc = this.props.startCamera;
     }
-    // cameraOn={this.props.cameraOn}
-    //           pictureCaptured={this.props.pictureCaptured}
-    //           capturedPicture={this.props.capturedPicture}
-    // include if else statements here to change camera button
-    // props.cameraOn ? 'camera on true' : 'camera on false'
-
-                // <Webcam />
 
     return (
       <Main
-        left={<FriendsList />}
+                left = {
+                  <button
+                    onClick={() => console.log({
+                      cameraOn: this.props.cameraOn,
+                      pictureTaken: this.props.pictureCaptured,
+                      capturedPicture: this.props.capturedPicture,
+                      anyFriendsSelected: this.props.anyFriendsSelected,
+                    })}
+                  >STATE CHECKER DELETE ME LATER</button>
+                }
+
         right={
           <div >
             {mediaBox}
             <CameraButton
-              label={!this.props.cameraOn ? 'camera off!' : 'camera on!'}
-              onClick={() => this.props.capturePhoto}
+              label={cameraLabel}
+              onClick={() => buttonFunc}
               startCamera={() => this.props.startCamera}
             />
-          </div>}
+
+          </div>
+        }
       />
     );
   }
@@ -48,7 +71,6 @@ const mapStateToProps = state => (
     cameraOn: state.camera.cameraOn,
     pictureCaptured: state.camera.pictureCaptured,
     capturedPicture: state.camera.capturedPicture,
-    // need to run through friends array and check for selected friend
     anyFriendsSelected: true,
     capturePhoto: state.camera.capturePhoto,
   }
@@ -60,6 +82,8 @@ Camera.propTypes = {
   capturedPicture: React.PropTypes.string.isRequired,
   startCamera: React.PropTypes.func.isRequired,
   capturePhoto: React.PropTypes.func.isRequired,
+  sendPhoto: React.PropTypes.func.isRequired,
+  anyFriendsSelected: React.PropTypes.bool.isRequired,
 };
 
 export default connect(mapStateToProps, cameraActionCreators)(Camera);

@@ -32,7 +32,11 @@ app.get('/login', (req, res) => {
 // React router paths directed to index.html
 const reactRouterPaths = ['/friends', '/photos', '/camera'];
 
-app.get(reactRouterPaths, isAuthenticated, (req, res) => {
+// app.get(reactRouterPaths, isAuthenticated, (req, res) => {
+//   res.sendFile(path.join(__dirname, '../client', 'index.html'));
+// });
+
+app.get(reactRouterPaths, (req, res) => {
   res.sendFile(path.join(__dirname, '../client', 'index.html'));
 });
 

@@ -1,11 +1,12 @@
 
-import { SEND_PHOTOS, CAPTURE_PHOTO, START_CAMERA } from '../actions/actions';
+import { SEND_PHOTO, CAPTURE_PHOTO, START_CAMERA } from '../actions/actions';
 
 const INITIAL_STATE = {
-  cameraOn: false,
+  cameraOn: true,
   pictureCaptured: false,
   anyFriendSelected: false,
   capturedPicture: '',
+  imageFormat: 'image/jpeg',
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -24,14 +25,15 @@ export default (state = INITIAL_STATE, action) => {
         capturedPicture: action.payload,
       };
 
-    case SEND_PHOTOS:
-      return state;
-      // return {
-      //   ...state,
-      //   pictureCaptured: false,
-      //   capturedPicture: null,
-      //   anyFriendSelected: false,
-      // };
+    case SEND_PHOTO:
+      // return state;
+      return {
+        ...state,
+        cameraOn: false,
+        pictureCaptured: false,
+        capturedPicture: '',
+        anyFriendSelected: false,
+      };
 
     default:
       return state;

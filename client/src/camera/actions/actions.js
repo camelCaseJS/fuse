@@ -6,7 +6,6 @@ export const START_CAMERA = 'START_CAMERA';
 
 export function startCamera() {
   console.log('camera on');
-  console.log('camera state', this.state);
   return {
     type: START_CAMERA,
   };
@@ -51,14 +50,14 @@ export function capturePhoto() {
   //   return canvas;
   // }
 
-export function sendPhoto(photo, friendIdArray) {
-  const request = axios.post('http://localhost:8000/photo')
-  .then((response) => {
-    console.log(response.data, 'photo sent to db');
-  });
-
+export function sendPhoto(photo, friendId) {
+  // const request = axios.post('http://localhost:8000/photo')
+  // .then((response) => {
+  //   console.log(response.data, 'photo sent to db');
+  // });
+  console.log('send photo');
   return {
     type: SEND_PHOTO,
-    payload: request,
+    payload: friendId,
   };
 }
