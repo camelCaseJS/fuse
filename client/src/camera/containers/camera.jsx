@@ -89,6 +89,7 @@ class Camera extends Component {
             <CameraButton
               label={cameraLabel}
               onClick={() => buttonFunc()}
+              startCamera={() => this.props.startCamera}
             />
 
           </div>
