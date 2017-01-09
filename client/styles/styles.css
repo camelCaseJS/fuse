@@ -4,3 +4,7 @@ html {
 body {
   min-height: 100%;
 }
+
+.placeholder{
+  height:100%;
+}

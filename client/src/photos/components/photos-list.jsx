@@ -6,10 +6,25 @@ import {GridList, GridTile} from 'material-ui/GridList';
 import PhotosListEntry from './photos-list-entry';
 import * as photosActionCreators from '../actions/actions';
 
+
+const styles = {
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    verticalAlign: 'bottom',
+  },
+  gridList: {
+    display: 'flex',
+    flexWrap: 'nowrap',
+    overflowX: 'auto',
+  },
+};
+
 class PhotosList extends Component {
 
   componentWillMount() {
-    //this will fetchPhotos of selectFriend
+    // this will fetchPhotos of selectFriend
     this.props.fetchPhotos();
   }
 
@@ -17,23 +32,24 @@ class PhotosList extends Component {
     const { selectPhoto } = this.props;
 
     return this.props.selectedUserPhotos.map(photo => (
-      <PhotosListEntry
-        key={photo.link}
-        photoEntry={photo.link}
-        onSelect={() => selectPhoto(photo)}
-      />
+      <GridTile key={photo.link} >
+        <PhotosListEntry
+          onSelect={() => selectPhoto(photo)}
+          photoEntry={photo.link}
+        />
+      </GridTile>
       ),
     );
   }
 
   selectedPhoto() {
-    if (this.selectedPhoto) {
+    if (this.props.selectedPhoto.link !== undefined) {
       return (
         <img src={this.props.selectedPhoto.link} alt="selected" />
       );
     }
     return (
-      <div />
+      <div className="placeholder"/>
     );
   }
 
@@ -43,13 +59,21 @@ class PhotosList extends Component {
         <CardMedia>
           { this.selectedPhoto() }
         </CardMedia>
-        <GridList>
-          {this.listPhotos()}
-        </GridList>
+        <div style={styles.root}>
+          <GridList style={styles.gridList} cols={2.2}>
+            { this.listPhotos() }
+          </GridList>
+        </div>
       </div>
     );
   }
 }
+
+
+ // <GridList>
+ //          {this.listPhotos()}
+ //        </GridList>
+
 
 const mapStateToProps = state => (
   {

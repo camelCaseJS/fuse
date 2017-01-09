@@ -3,7 +3,7 @@ import { GridList, GridTile } from 'material-ui/GridList';
 
 import NavBar from './shared-components/nav-bar';
 const Main = ({ right, left }) => (
-  <div>
+  <div id="main">
     <NavBar />
     <GridList
       cols={2}
