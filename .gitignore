@@ -3,6 +3,9 @@
 #API key formation
 oauth-keys.js
 
+# Media Saved to Server
+server/db/photos/
+
 # Logs
 logs
 *.log

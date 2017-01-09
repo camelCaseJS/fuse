@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { List } from 'material-ui/List';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-import {GridList, GridTile} from 'material-ui/GridList';
+import { GridList, GridTile } from 'material-ui/GridList';
 import PhotosListEntry from './photos-list-entry';
 import * as photosActionCreators from '../actions/actions';
 
@@ -25,7 +25,7 @@ class PhotosList extends Component {
 
   componentWillMount() {
     // this will fetchPhotos of selectFriend
-    this.props.fetchPhotos();
+    // this.props.fetchPhotos(this.props.lastSelectedFriend);
   }
 
   listPhotos() {
@@ -73,6 +73,7 @@ const mapStateToProps = state => (
   {
     selectedPhoto: state.photos.selectedPhoto,
     selectedUserPhotos: state.photos.selectedUserPhotos,
+    lastSelectedFriend: state.friends.lastSelectedFriend,
   }
 );
 

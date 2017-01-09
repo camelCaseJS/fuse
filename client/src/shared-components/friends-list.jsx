@@ -2,7 +2,12 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { List } from 'material-ui/List';
 import UsersListEntry from './users-list-entry';
-import * as friendActionCreators from '../friends/actions/actions';
+import * as friendsActionCreators from '../friends/actions/actions';
+import * as photosActionCreators from '../photos/actions/actions';
+
+const combinedActionCreators = {
+  ...photosActionCreators, ...friendsActionCreators,
+};
 
 class FriendsList extends Component {
 
@@ -13,7 +18,14 @@ class FriendsList extends Component {
 
   onSelect(friend, index) {
     this.props.selectFriend(friend, index);
-    this.context.router.push('/photos');
+    if (this.props.currentRoute === '/friends' || this.props.currentRoute === '/photos') {
+      this.props.unselectAllFriends();
+      this.props.selectFriend(friend, index);
+      this.props.fetchPhotos(friend);
+      this.context.router.push('/photos');
+    } else {
+      this.props.selectFriend(friend, index);
+    }
   }
 
   listIt() {
@@ -44,11 +56,10 @@ class FriendsList extends Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log(state);
   return {
     allFriends: state.friends.allFriends,
     lastSelectedFriend: state.friends.lastSelectedFriend,
-    // currentRoute: state.router.location.pathname
+    currentRoute: state.router.pathname,
   };
 };
 
@@ -56,10 +67,13 @@ FriendsList.contextTypes = {
   router: PropTypes.object };
 
 FriendsList.propTypes = {
+  fetchPhotos: React.PropTypes.func.isRequired,
+  unselectAllFriends: React.PropTypes.func.isRequired,
+  currentRoute: React.PropTypes.string.isRequired,
   allFriends: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
   lastSelectedFriend: React.PropTypes.object.isRequired,
   fetchFriends: React.PropTypes.func.isRequired,
   selectFriend: React.PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, friendActionCreators)(FriendsList);
+export default connect(mapStateToProps, combinedActionCreators)(FriendsList);
