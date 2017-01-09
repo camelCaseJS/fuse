@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
     .then((friendIdArray) => {
       User.findAll({
         where: {
-          id: friendIdArray,
+          $or: friendIdArray,
         },
         attributes: {
           exclude: ['email'],
@@ -49,15 +49,16 @@ app.post('/', (req, res) => {
 app.get('/:query', userHandler.userSearch);
 
 app.post('/:id', (req, res) => {
-  Friendship.findOne({
+  Friendship.findAll({
     where: {
-      id: req.params.id,
+      userId: req.params.id,
+      friendId: req.user.id,
     },
   })
   .then((friend) => {
     if (friend.length !== 0) {
       Friendship.create({
-        userId: req.session.passport.user,
+        userId: req.user.id,
         friendId: req.params.id,
       })
       .then((id) => {

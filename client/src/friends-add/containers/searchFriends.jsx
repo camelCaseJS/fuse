@@ -49,7 +49,8 @@ searchButton () {
 //addFriendsToDB is an action creator that handles the post request to the db.
   //need to talk to Will about how to format data for post request to db to work correctly
 handleAddUser (){
-  this.props.addFriendsToDB()
+  console.log('in handleAddUser. this is state',this.props.searchedFriends[0].id)
+  this.props.addFriendsToDB(this.props.searchedFriends[0].id)
 }
 
 //this is the button that we will use to add users to the db
