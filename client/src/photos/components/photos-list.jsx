@@ -49,7 +49,7 @@ class PhotosList extends Component {
       );
     }
     return (
-      <div className="placeholder"/>
+      <p className="placeholder" />
     );
   }
 
