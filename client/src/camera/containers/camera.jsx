@@ -73,6 +73,7 @@ class Camera extends Component {
       cameraLabel = 'send to friends';
       buttonFunc = this.sendPhotoToActionCreator;
     } else if (!this.props.cameraOn && !this.props.pictureCaptured) {
+      mediaBox= <div className="placeholder" ></div>
       cameraLabel = 'Take New Photo';
       buttonFunc = this.props.startCamera;
     }

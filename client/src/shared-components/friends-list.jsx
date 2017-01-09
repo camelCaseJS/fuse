@@ -17,8 +17,6 @@ class FriendsList extends Component {
   }
 
   onSelect(friend, index) {
-    console.log('this.props.router');
-    console.log(this.props.router);
     if (this.props.router.pathname !== '/camera') {
       this.props.unselectAllFriends();
       this.props.selectFriend(friend, index);
