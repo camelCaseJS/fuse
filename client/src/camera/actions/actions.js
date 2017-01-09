@@ -11,10 +11,8 @@ export function startCamera() {
   };
 }
 
-export function capturePhoto() {
+export function capturePhoto(photo) {
   console.log('captured photo!');
-  const photo = 'picture link here';
-  // const photo = this.refs.webcam.getScreenshot();
   return {
     type: CAPTURE_PHOTO,
     payload: photo,
@@ -22,7 +20,7 @@ export function capturePhoto() {
 }
 
 
-export function sendPhoto(photo, friendId) {
+export function sendPhoto(friendId) {
   // const request = axios.post('http://localhost:8000/photo')
   // .then((response) => {
   //   console.log(response.data, 'photo sent to db');

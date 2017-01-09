@@ -33,6 +33,7 @@ export default (state = INITIAL_STATE, action) => {
         pictureCaptured: false,
         capturedPicture: '',
         anyFriendSelected: false,
+
       };
 
     default:
