@@ -8,6 +8,7 @@ class FriendsList extends Component {
 
   componentWillMount() {
     this.props.fetchFriends();
+    // console.log(this.props.currentRoute);
   }
 
   onSelect(friend, index) {
@@ -43,9 +44,12 @@ class FriendsList extends Component {
 }
 
 const mapStateToProps = (state) => {
+    console.log(state);
   return {
     allFriends: state.friends.allFriends,
-    lastSelectedFriend: state.friends.lastSelectedFriend };
+    lastSelectedFriend: state.friends.lastSelectedFriend,
+    // currentRoute: state.router.location.pathname
+  };
 };
 
 FriendsList.contextTypes = {

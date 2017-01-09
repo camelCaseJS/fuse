@@ -33,7 +33,7 @@ app.get('/login', (req, res) => {
 });
 
 // React router paths directed to index.html
-const reactRouterPaths = ['/friends', '/photos', '/camera'];
+const reactRouterPaths = ['/friends', '/friends/add', '/photos', '/camera'];
 
 app.get(reactRouterPaths, isAuthenticated, (req, res) => {
   res.sendFile(path.join(__dirname, '../client', 'index.html'));
