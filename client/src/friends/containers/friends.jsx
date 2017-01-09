@@ -8,10 +8,13 @@ class Friends extends Component {
     return (
       <Main
         left={<FriendsList />}
-        right={<CameraButton
+        right={<div>
+          <div className="placeholder" />
+          <CameraButton
           label="start camera"
           onClick={() => this.context.router.push('/camera')}
-        />}
+          />
+        </div>}
       />
     );
   }
