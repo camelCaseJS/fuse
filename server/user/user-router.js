@@ -1,6 +1,7 @@
 const express = require('express');
 const Friendship = require('../db/users/User-Friends');
 const User = require('../db/users/User');
+const userHandler = require('./user-route-handler');
 
 const app = express();
 
@@ -13,11 +14,7 @@ app.get('/', (req, res) => {
         // userId: 1,
       },
     })
-    .then(friends =>
-      friends.map(friend =>
-        friend.friendId,
-      ),
-    )
+    .then(friends => friends.map(friend => friend.friendId))
     .then((friendIdArray) => {
       User.findAll({
         where: {
@@ -27,11 +24,7 @@ app.get('/', (req, res) => {
           exclude: ['email'],
         },
       })
-      .then(friendsInfo =>
-        friendsInfo.map(friendInfo =>
-          friendInfo.dataValues,
-        ),
-      )
+      .then(friendsInfo => friendsInfo.map(friendInfo => friendInfo.dataValues))
       .then((friendInfoArray) => {
         res.send(friendInfoArray);
       })
@@ -52,6 +45,8 @@ app.post('/', (req, res) => {
   console.error('select a friend to add');
   res.redirect('/');
 });
+
+app.get('/:query', userHandler.userSearch);
 
 app.post('/:id', (req, res) => {
   Friendship.findOne({
