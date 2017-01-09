@@ -57,7 +57,7 @@ handleAddUser (){
 addUserButton () {
   return (
     <div>
-     <button onClick={this.handleAddUser()}>Submit.</button>
+     <button onClick={this.handleAddUser}>Submit.</button>
     </div>
   )
  }
@@ -84,7 +84,7 @@ listIt() {
 }
 
 render() {
-
+  console.log('this.props.searchedFriendSelected',this.props.searchedFriendSelected)
   //when land on the /friends/Add route, the first display will only be the button to search for a user in the db
   //if searchedFriends is an empty array, it must have an array length of zero, so we know that friends have not been searched yet
   if (this.props.searchedFriends.length === 0){
@@ -100,7 +100,7 @@ render() {
 
   //when a user has searched for a friend, this returns the array of searched friends
   else if (this.props.searchedFriendSelected===false) {
-            console.log('searchedFriendSelected false ran!')
+    console.log('searchedFriendSelected false ran!')
 
   return (
 
@@ -110,7 +110,6 @@ render() {
        {this.searchButton()}
       </div>
 
-      //this will display the list of friends searched in db
       <List>
         {this.listIt()}
       </List>
@@ -125,17 +124,14 @@ render() {
     return (
 
       <div>
-      //this will display the search button
       <div>
        {this.searchButton()}
       </div>
 
-      //this will display the list of friends searched in db and a selected friend
       <List>
         {this.listIt()}
       </List>
 
-      //this will display the add user to db button
       <div>
         {this.addUserButton()}
       </div>
