@@ -88,7 +88,7 @@ class Camera extends Component {
             {mediaBox}
             <CameraButton
               label={cameraLabel}
-              onClick={() => buttonFunc}
+              onClick={() => buttonFunc()}
               startCamera={() => this.props.startCamera}
             />
 
