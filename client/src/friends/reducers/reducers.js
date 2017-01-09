@@ -11,7 +11,7 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         allFriends: [...state.allFriends],
         lastSelectedFriend: {} };
-      newState.allFriends.forEach((friend) => {
+      newState.allFriends.map((friend) => {
         const newFriend = friend;
         newFriend.selected = false;
         return friend;
