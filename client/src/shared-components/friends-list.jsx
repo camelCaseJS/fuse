@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { List } from 'material-ui/List';
 import UsersListEntry from './users-list-entry';
@@ -10,8 +10,13 @@ class FriendsList extends Component {
     this.props.fetchFriends();
   }
 
+  onSelect(friend, index) {
+    this.props.selectFriend(friend, index);
+    this.context.router.push('/photos');
+  }
+
   listIt() {
-    const { selectFriend } = this.props;
+    const onSelect = this.onSelect.bind(this);
 
     return this.props.allFriends.map((friend, index) => {
       return (
@@ -21,7 +26,7 @@ class FriendsList extends Component {
           lastName={friend.lastName}
           profilePictureURL={friend.profilePictureURL}
           selected={friend.selected}
-          onSelect={() => selectFriend(friend, index)}
+          onSelect={() => onSelect(friend, index)}
         />
       );
     },
@@ -42,6 +47,9 @@ const mapStateToProps = (state) => {
     allFriends: state.friends.allFriends,
     lastSelectedFriend: state.friends.lastSelectedFriend };
 };
+
+FriendsList.contextTypes = {
+  router: PropTypes.object };
 
 FriendsList.propTypes = {
   allFriends: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
