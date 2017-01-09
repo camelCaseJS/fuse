@@ -17,8 +17,9 @@ class FriendsList extends Component {
   }
 
   onSelect(friend, index) {
-    this.props.selectFriend(friend, index);
-    if (this.props.currentRoute === '/friends' || this.props.currentRoute === '/photos') {
+    console.log('this.props.router');
+    console.log(this.props.router);
+    if (this.props.router.pathname !== '/camera') {
       this.props.unselectAllFriends();
       this.props.selectFriend(friend, index);
       this.props.fetchPhotos(friend);
@@ -59,7 +60,7 @@ const mapStateToProps = (state) => {
   return {
     allFriends: state.friends.allFriends,
     lastSelectedFriend: state.friends.lastSelectedFriend,
-    currentRoute: state.router.pathname,
+    router: state.router,
   };
 };
 
@@ -69,7 +70,7 @@ FriendsList.contextTypes = {
 FriendsList.propTypes = {
   fetchPhotos: React.PropTypes.func.isRequired,
   unselectAllFriends: React.PropTypes.func.isRequired,
-  currentRoute: React.PropTypes.string.isRequired,
+  router: React.PropTypes.object.isRequired,
   allFriends: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
   lastSelectedFriend: React.PropTypes.object.isRequired,
   fetchFriends: React.PropTypes.func.isRequired,
