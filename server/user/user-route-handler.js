@@ -1,5 +1,4 @@
 const Promise = require('bluebird')
-process.env.NODE_ENV = 'development'
 const dbHandler = require('./user-db-handler')
 
 

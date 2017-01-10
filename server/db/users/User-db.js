@@ -12,8 +12,8 @@ const logging = (dbName[process.env.NODE_ENV] !== 'test');
 const db = new Sequelize(dbName[process.env.NODE_ENV], credentials.user, credentials.password, {
   host: 'localhost',
   dialect: 'postgres',
+  port: 32773,
   logging,
-
   pool: {
     max: 20,
   },
