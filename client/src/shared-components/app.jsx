@@ -8,7 +8,13 @@ class App extends Component {
     this.props.updateRoute(this.props.location);
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.props.updateRoute(nextProps.location);
+  }
+
   render() {
+    // console.log('this.props.location');
+    // console.log(this.props.location);
     return (
       <div>
         { this.props.children }
