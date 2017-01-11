@@ -54,7 +54,7 @@ class Camera extends Component {
   }
 
   sendPhotoToActionCreator() {
-    const currentDate = new Date().toISOString();
+    const currentDate = new Date().getTime();
     const dateString = `${currentDate}.jpg`;
     this.props.sendPhoto(this.props.capturedPicture, dateString);
   }
@@ -69,7 +69,7 @@ class Camera extends Component {
       cameraLabel = 'send to friends';
       buttonFunc = this.sendPhotoToActionCreator;
     } else if (!this.props.cameraOn && !this.props.pictureCaptured) {
-      mediaBox= <div className="placeholder" ></div>
+      mediaBox= <div className="placeholder" ></div>;
       cameraLabel = 'Take New Photo';
       buttonFunc = this.props.startCamera;
     }
