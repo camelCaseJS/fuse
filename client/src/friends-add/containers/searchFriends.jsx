@@ -28,7 +28,7 @@ class SearchFriends extends Component {
 // it also resets the search value to ''
   // searchFriends is the action creator that handles search to the db
   handleSeachSubmit() {
-    // console.log('handleSeachSubmit ran!')
+    console.log('handleSeachSubmit ran!');
     this.props.searchFriends(this.state.search);
     this.setState({ search: '' });
   }
@@ -36,19 +36,16 @@ class SearchFriends extends Component {
 // this is the button that we will use to handle searches to the db
 // will update with material-ui
   searchButton() {
-    return (
-      <div>
-        <input
-          type="text"
-          value={this.state.search}
-          onChange={e => (this.handleSeachChange(e))}
-        />
-        <button
-          onClick={this.handleSearchSubmit}
-        >Submit.
-        </button>
-      </div>
-    );
+  return (
+    <div>
+      <input
+        type="text"
+        value={this.state.search}
+        onChange={e => (this.handleSeachChange(e))}
+      />
+      <button onClick={this.handleSearchSubmit}>Submit.</button>
+    </div>
+  );
   }
 
 // this function adds searched and selected friends to the user's friend list in the db.
@@ -64,10 +61,7 @@ class SearchFriends extends Component {
   addUserButton() {
     return (
       <div>
-        <button
-          onClick={this.handleAddUser}
-        >Submit.
-        </button>
+        <button onClick={this.handleAddUser}>Submit.</button>
       </div>
     );
   }
@@ -93,15 +87,15 @@ class SearchFriends extends Component {
   }
 
   render() {
-    // console.log('this.props.searchedFriendSelected', this.props.searchedFriendSelected);
-    // when land on the /friends/Add route,
-    // the first display will only be the button to search for a user in the db
+  // console.log('this.props.searchedFriendSelected', this.props.searchedFriendSelected);
+  // when land on the /friends/Add route,
+  // the first display will only be the button to search for a user in the db
 
-    // if searchedFriends is an empty array,
-    // it must have an array length of zero, so we know that friends have not been searched yet
+  // if searchedFriends is an empty array,
+  // it must have an array length of zero, so we know that friends have not been searched yet
     if (this.props.searchedFriends.length === 0) {
-      // console.log('searchedFriends ran!');
-      // console.log('this.searchButton is', this.searchButton());
+    // console.log('searchedFriends ran!')
+    // console.log('this.searchButton is',this.searchButton())
 
       return (
         <div>
@@ -109,12 +103,10 @@ class SearchFriends extends Component {
         </div>
       );
     } else if (this.props.searchedFriendSelected === false) {
-    // when a user has searched for a friend, this returns the array of searched friends
+  // when a user has searched for a friend, this returns the array of searched friends
       // console.log('searchedFriendSelected false ran!');
-
       return (
-
-    // this will display the search button
+  // this will display the search button
         <div>
           <div>
             {this.searchButton()}
@@ -131,7 +123,6 @@ class SearchFriends extends Component {
       // console.log('searchedFriendSelected true ran!');
       // console.log('in searchedFriendSelected true this is state', this.state);
       return (
-
         <div>
           <div>
             {this.searchButton()}
