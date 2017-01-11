@@ -2,7 +2,7 @@ const ids = {
   facebook: {
     clientId: 'APP_ID',
     clientSecret: 'APP_SECRET',
-    callbackURL: 'http://localhost:8000/auth/facebook/callback',
+    callbackURL: 'http://localhost:8000/api/auth/facebook/callback',
   },
 };
 

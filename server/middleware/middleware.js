@@ -2,8 +2,9 @@ const express = require('express');
 const expressSession = require('express-session');
 const bodyParser = require('body-parser');
 
-const app = express();
+const loadProcessEnv = require('./process-env-variables')();
 
+const app = express();
 const passport = require('../auth/passport');
 
 app.use(bodyParser.urlencoded({ extended: true }));

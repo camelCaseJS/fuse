@@ -10,7 +10,7 @@ export function fetchPhotos(friend) {
   // expect request to be an array of object photos
   console.log('friend');
   console.log(friend);
-  const request = axios.get(`http://localhost:8000/photo/${friend.id}`)
+  const request = axios.get(`http://localhost:8000/api/photos/${friend.id}`)
   .then((response) => {
     return response.data.map((photo) => {
       const newPhoto = photo;

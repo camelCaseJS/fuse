@@ -30,7 +30,7 @@ class NavBar extends Component {
       <div>
         <ActionExitToApp
           style={iconStyles}
-          onTouchTap={() => { window.location = '/auth/logout'; }}
+          onTouchTap={() => { window.location = 'api/auth/logout'; }}
         />
       </div>
     );
