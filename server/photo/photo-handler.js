@@ -4,7 +4,7 @@ const Promise = require('bluebird');
 const dbHandler = require('./photo-db-handler');
 
 const storageDir = path.resolve(__dirname, '../db/photos');
-const publicPath = process.env.PORT || 'localhost:8000/api/photos';
+const publicPath = process.env.PORT || 'http://localhost:8000/api/photos';
 /*
 * saves photo a in a folder, creates the folder if it does not exist
 *

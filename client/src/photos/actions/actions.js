@@ -11,14 +11,7 @@ export function fetchPhotos(friend) {
   console.log('friend');
   console.log(friend);
   const request = axios.get(`http://localhost:8000/api/photos/${friend.id}`)
-  .then((response) => {
-    return response.data.map((photo) => {
-      const newPhoto = photo;
-      newPhoto.link = `http://${photo.link}`;
-      return newPhoto;
-    });
-  });
-
+  .then(response => (response.data));
 
   return {
     type: FETCH_PHOTOS,
