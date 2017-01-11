@@ -54,8 +54,9 @@ class Camera extends Component {
   }
 
   sendPhotoToActionCreator() {
-    let currentDate = new Date().toString();
-    this.props.sendPhoto(this.props.capturedPicture, currentDate);
+    const currentDate = new Date().toISOString();
+    const dateString = `${currentDate}.jpg`;
+    this.props.sendPhoto(this.props.capturedPicture, dateString);
   }
 
   render() {
