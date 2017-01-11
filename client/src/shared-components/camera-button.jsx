@@ -6,6 +6,7 @@ const CameraButton = props => (
   <FlatButton
     label={props.label}
     onTouchTap={props.onClick}
+    src={props.src}
   />
 );
 

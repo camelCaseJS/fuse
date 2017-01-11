@@ -16,6 +16,7 @@ import CameraButton from '../../shared-components/camera-button';
 let mediaBox = <p>BLANK MEDIA PAGE</p>;
 let cameraLabel = 'start camera';
 let buttonFunc = (() => (console.log('camera start func')));
+let buttonSource = '../../icons/startCamera.png';
 
 class Camera extends Component {
   constructor(props) {
@@ -31,10 +32,8 @@ class Camera extends Component {
 
   getScreenshot() {
     const canvas = this.getCanvas();
-
     const photoRaw = canvas.toDataURL(this.props.imageFormat);
     canvas.toBlob((imageBlob) => {
-      console.log(imageBlob);
       this.props.capturePhoto(photoRaw, imageBlob);
     }, 'image/jpeg');
   }
@@ -44,23 +43,20 @@ class Camera extends Component {
     if (!this.ctx) {
       const canvas = document.createElement('canvas');
       const aspectRatio = video.videoWidth / video.videoHeight;
-
       canvas.width = video.clientWidth;
       canvas.height = video.clientWidth / aspectRatio;
-
       this.canvas = canvas;
       this.ctx = canvas.getContext('2d');
     }
-
     const { ctx, canvas } = this;
     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
     return canvas;
   }
 
   sendPhotoToActionCreator() {
-    let currentDate = new Date().toString();
-    console.log(this.props.capturedPicture, 'capturedPicture');
-    this.props.sendPhoto(this.props.capturedPicture, currentDate);
+    const currentDate = new Date().getTime();
+    const dateString = `${currentDate}.jpg`;
+    this.props.sendPhoto(this.props.capturedPicture, dateString);
   }
 
   render() {
@@ -73,7 +69,7 @@ class Camera extends Component {
       cameraLabel = 'send to friends';
       buttonFunc = this.sendPhotoToActionCreator;
     } else if (!this.props.cameraOn && !this.props.pictureCaptured) {
-      mediaBox= <div className="placeholder" ></div>
+      mediaBox= <div className="placeholder" ></div>;
       cameraLabel = 'Take New Photo';
       buttonFunc = this.props.startCamera;
     }
@@ -85,9 +81,9 @@ class Camera extends Component {
           <div >
             {mediaBox}
             <CameraButton
+              src={buttonSource}
               label={cameraLabel}
               onClick={() => buttonFunc()}
-              startCamera={() => this.props.startCamera}
             />
 
           </div>
