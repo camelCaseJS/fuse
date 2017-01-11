@@ -5,8 +5,6 @@ const photoRouter = require('./photo/photo-router');
 const userRouter = require('./user/user-router');
 const isAuthenticated = require('./auth/is-authenticated');
 
-const PORT = 8000;
-
 // API routes
 app.use('/auth', authRouter);
 app.use('/photo', isAuthenticated, photoRouter);
@@ -39,6 +37,6 @@ app.get(reactRouterPaths, isAuthenticated, (req, res) => {
   res.sendFile(path.join(__dirname, '../client', 'index.html'));
 });
 
-app.listen(PORT);
+app.listen(process.env.WEB_SERVER_PORT);
 
-console.log(`Server up and listening to port ${PORT}`);
+console.log(`Server up and listening to port ${process.env.WEB_SERVER_PORT}`);

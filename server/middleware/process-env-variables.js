@@ -1,4 +1,6 @@
-// module.exports.user = 'joe';
-// module.exports.password = 'bob';
-module.exports.user = 'root';
-module.exports.password = 'root';
+const buildProcessEnv = () => {
+  process.env.WEB_SERVER_PORT = 8000;
+  process.env.NODE_ENV = 'development';
+};
+
+module.exports = buildProcessEnv;
