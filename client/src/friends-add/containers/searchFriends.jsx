@@ -36,16 +36,16 @@ class SearchFriends extends Component {
 // this is the button that we will use to handle searches to the db
 // will update with material-ui
   searchButton() {
-  return (
-    <div>
-      <input
-        type="text"
-        value={this.state.search}
-        onChange={e => (this.handleSeachChange(e))}
-      />
-      <button onClick={this.handleSearchSubmit}>Submit.</button>
-    </div>
-  );
+    return (
+      <div>
+        <input
+          type="text"
+          value={this.state.search}
+          onChange={e => (this.handleSeachChange(e))}
+        />
+        <button onClick={this.handleSearchSubmit}>Submit.</button>
+      </div>
+    );
   }
 
 // this function adds searched and selected friends to the user's friend list in the db.
