@@ -10,9 +10,9 @@ const dbName = {
 const logging = (dbName[process.env.NODE_ENV] !== 'test');
 
 const db = new Sequelize(dbName[process.env.NODE_ENV], credentials.user, credentials.password, {
-  dialect: process.env.DB_DIALECT,
-  host: process.env.DB_HOST,
-  port: process.env.DB_PORT,
+  dialect: process.env.DB_DIALECT || 'postgres',
+  host: process.env.DB_HOST || 'localhost',
+  port: process.env.DB_PORT || 5432,
   logging,
   pool: {
     max: 20,

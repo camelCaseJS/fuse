@@ -3,7 +3,7 @@ const buildProcessEnv = () => {
   process.env.NODE_ENV = 'development';
 
   process.env.DB_HOST = 'localhost';
-  process.env.DB_PORT = 32773;
+  // process.env.DB_PORT = 32773;
   process.env.DB_DIALECT = 'postgres';
 };
 

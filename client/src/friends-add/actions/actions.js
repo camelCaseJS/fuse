@@ -6,7 +6,7 @@ export const ADD_SELECT_FRIEND_TO_DB = 'ADD_SELECT_FRIEND_TO_DB';
 
 export function searchFriends(email) {
   console.log('this is email passed in ',email)
-  const url = 'http://localhost:8000/user/'+email;
+  const url = 'http://localhost:8000/api/users/'+email;
   console.log('this is url',url)
   //need to update here get request to the db with specific query, in this case an email
   const request = axios.get(url)
@@ -32,7 +32,7 @@ export function searchSelectFriend(friend, index) {
 export function addFriendsToDB(id) {
   //select id from friend and post to http://localhost:8000/user/id
   console.log('in addFriendsToDB. this is id',id)
-  const url = 'http://localhost:8000/user/'+id;
+  const url = 'http://localhost:8000/api/users/'+id;
   console.log('this is url in addFriendsToDB',url)
 
 

@@ -5,7 +5,7 @@ export const SELECT_FRIEND = 'SELECT_FRIEND';
 export const UNSELECT_ALL_FRIENDS = 'UNSELECT_ALL_FRIENDS';
 
 export function fetchFriends() {
-  const request = axios.get('http://localhost:8000/user/')
+  const request = axios.get('http://localhost:8000/api/users/')
   .then((response) => {
     return response.data.map((friend) => {
       return { ...friend, selected: false };

@@ -33,7 +33,7 @@ export function sendPhoto(photoBlob, date) {
   const fd = new FormData();
   fd.append('image', photoBlob, date);
 
-  axios.post('http://localhost:8000/photo/', fd)
+  axios.post('http://localhost:8000/api/photos/', fd)
   .then((response) => {
     console.log(response.data, 'photo sent to db');
   });

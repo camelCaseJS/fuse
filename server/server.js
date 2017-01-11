@@ -6,9 +6,9 @@ const userRouter = require('./user/user-router');
 const isAuthenticated = require('./auth/is-authenticated');
 
 // API routes
-app.use('/auth', authRouter);
-app.use('/photo', isAuthenticated, photoRouter);
-app.use('/user', isAuthenticated, userRouter);
+app.use('/api/auth', authRouter);
+app.use('/api/photos', isAuthenticated, photoRouter);
+app.use('/api/users', isAuthenticated, userRouter);
 
 // Serve up webpack bundle
 app.get('/dist/bundle.js', (req, res) => {

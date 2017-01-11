@@ -12,7 +12,7 @@ const Login = () => (
     <CardActions>
       <FlatButton
         label="Facebook"
-        onTouchTap={() => { window.location = '/auth/facebook'; }}
+        onTouchTap={() => { window.location = 'api/auth/facebook'; }}
       />
     </CardActions>
   </Card>
