@@ -39,4 +39,4 @@ node_modules/
 bower_components/
 
 # Docker Env Variables
-*.env
+postgres-variables.env
