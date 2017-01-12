@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import Webcam from 'react-webcam';
 import { connect } from 'react-redux';
 import { findDOMNode } from 'react-dom';
-import * as cameraActionCreators from '../../../actions/camera-actions';
-import Main from '../../../shared-components/main';
-import FriendsList from '../../../shared-components/friends-list';
-import CameraButton from '../../../shared-components/camera-button';
+import * as cameraActionCreators from '../actions/actions';
+import Main from '../../main';
+import FriendsList from '../../shared-components/friends-list';
+import CameraButton from '../../shared-components/camera-button';
+import createSocket from '../../sockets-client/sockets';
 
 // let initialComponents = {
 //   mediaBox: <p>BLANK MEDIA PAGE</p>,
@@ -16,7 +17,7 @@ import CameraButton from '../../../shared-components/camera-button';
 let mediaBox = <p>BLANK MEDIA PAGE</p>;
 let cameraLabel = 'start camera';
 let buttonFunc = (() => (console.log('camera start func')));
-let buttonSource = '../../icons/startCamera.png';
+// let buttonSource = '../../icons/startCamera.png';
 
 class Camera extends Component {
   constructor(props) {
@@ -28,6 +29,7 @@ class Camera extends Component {
 
   componentWillMount() {
     this.props.startCamera();
+    createSocket();
   }
 
   getScreenshot() {
@@ -81,7 +83,7 @@ class Camera extends Component {
           <div >
             {mediaBox}
             <CameraButton
-              src={buttonSource}
+              // src={buttonSource}
               label={cameraLabel}
               onClick={() => buttonFunc()}
             />
