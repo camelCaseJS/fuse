@@ -55,8 +55,8 @@ app.get('/:query', userHandler.userSearch);
 
 app.post('/:id', (req, res) => {
   // console.log(req.user.id);
-  console.log(req.params.id, 'params id');
-  console.log(req.user.id, 'user id');
+  // console.log(req.params.id, 'params id');
+  // console.log(req.user.id, 'user id');
   Friendship.findAll({
     where: {
       userId: req.params.id,

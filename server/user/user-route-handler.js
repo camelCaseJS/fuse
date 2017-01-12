@@ -14,7 +14,7 @@ const userSearch = (req, res) => {
     var users = []
     results.forEach((result) => {
       result.forEach((user) => {
-        console.log('hello')
+        // console.log('hello')
         users.push(user);
       });
     });
