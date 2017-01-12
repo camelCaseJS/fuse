@@ -4,6 +4,7 @@ const authRouter = require('./auth/auth-router');
 const photoRouter = require('./photo/photo-router');
 const userRouter = require('./user/user-router');
 const isAuthenticated = require('./auth/is-authenticated');
+const startSocketServer = require('./socket-server/index');
 
 // API routes
 app.use('/api/auth', authRouter);
@@ -37,6 +38,11 @@ app.get(reactRouterPaths, isAuthenticated, (req, res) => {
   res.sendFile(path.join(__dirname, '../client/resources', 'index.html'));
 });
 
-app.listen(process.env.WEB_SERVER_PORT);
+const webServer = app.listen(process.env.WEB_SERVER_PORT, (err) => {
+  if (err) throw err;
+  console.log('Web server listening at http://%s:%d', process.env.WEB_SERVER_PORT);
+});
+
+startSocketServer(webServer);
 
 console.log(`Server up and listening to port ${process.env.WEB_SERVER_PORT}`);
