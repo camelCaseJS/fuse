@@ -5,7 +5,7 @@ import SearchFriends from './searchFriends';
 const AddFriends = () => (
   <Main
     left={<SearchFriends />}
-    right={<div></div>}
+    right={<div />}
   />
   );
 

@@ -14,7 +14,7 @@ app.get('/', (req, res) => {
         // userId: 1,
       },
     })
-    .then(friends => friends.map(friend => {
+    .then(friends => friends.map((friend) => {
       return {
         id: friend.friendId,
       };
@@ -34,7 +34,7 @@ app.get('/', (req, res) => {
       })
       .catch((err) => {
         console.error(err);
-        res.sendStatus(500)
+        res.sendStatus(500);
       });
     });
   } else {
@@ -43,7 +43,7 @@ app.get('/', (req, res) => {
   }
 });
 
-// From the client side, user would route to /users/:id, looping through an making multiple times
+// From the client side, user would route to /users/:id, looping through multiple times
 
 app.post('/', (req, res) => {
   // console.log(process.env.NODE_ENV);
@@ -54,14 +54,21 @@ app.post('/', (req, res) => {
 app.get('/:query', userHandler.userSearch);
 
 app.post('/:id', (req, res) => {
+  // console.log(req.user.id);
+  console.log(req.params.id, 'params id');
+  console.log(req.user.id, 'user id');
   Friendship.findAll({
     where: {
       userId: req.params.id,
       friendId: req.user.id,
     },
   })
+  // .then((check) => {
+  //   console.log(check.length, '**************CHECK HERE');
+  // });
   .then((friend) => {
-    if (friend.length !== 0) {
+    if (friend.length === 0) {
+      // console.log('HELLOO');
       Friendship.create({
         userId: req.user.id,
         friendId: req.params.id,
@@ -78,8 +85,8 @@ app.post('/:id', (req, res) => {
         }
       });
     } else {
-      console.error('Friend not found');
-      res.sendStatus(404);
+      console.error('Friendship already exists');
+      // res.end();
     }
   });
 });
