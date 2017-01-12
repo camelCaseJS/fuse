@@ -1,10 +1,12 @@
 // During the test the env variable is set to test
 process.env.NODE_ENV = 'test';
+// const loadProcessEnv = require('../../middleware/process-env-variables')();
 
 const expect = require('chai').expect;
 const db = require('./User-db.js');
 const User = require('./User.js');
 const Friendship = require('./User-Friends.js');
+
 
 const clearDB = ((done) => {
   db.sync({ force: true })
