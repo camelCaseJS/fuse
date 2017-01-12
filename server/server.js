@@ -11,11 +11,11 @@ app.use('/api/photos', isAuthenticated, photoRouter);
 app.use('/api/users', isAuthenticated, userRouter);
 
 // Serve up webpack bundle
-app.get('/dist/bundle.js', (req, res) => {
+app.get('/bundle.js', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/dist', 'bundle.js'));
 });
-app.get('/styles/styles.css', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/styles', 'styles.css'));
+app.get('/styles.css', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/resources', 'styles.css'));
 });
 
 // Requests to index will be authenticated
@@ -27,14 +27,14 @@ app.get('/', isAuthenticated, (req, res) => {
 
 // Login path doesn't require authentication
 app.get('/login', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client', 'index.html'));
+  res.sendFile(path.join(__dirname, '../client/resources', 'index.html'));
 });
 
 // React router paths directed to index.html
 const reactRouterPaths = ['/friends', '/friends/add', '/photos', '/camera'];
 
 app.get(reactRouterPaths, isAuthenticated, (req, res) => {
-  res.sendFile(path.join(__dirname, '../client', 'index.html'));
+  res.sendFile(path.join(__dirname, '../client/resources', 'index.html'));
 });
 
 app.listen(process.env.WEB_SERVER_PORT);
