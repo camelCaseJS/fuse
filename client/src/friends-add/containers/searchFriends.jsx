@@ -12,23 +12,23 @@ class SearchFriends extends Component {
       search: '',
     };
 
-    this.handleSearchChange = this.handleSeachChange.bind(this);
-    this.handleSearchSubmit = this.handleSeachSubmit.bind(this);
+    this.handleSearchChange = this.handleSearchChange.bind(this);
+    this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
     this.handleAddUser = this.handleAddUser.bind(this);
   }
 
 // this function updates the text value of the search button
-  handleSeachChange(e) {
+  handleSearchChange(e) {
     // console.log('e', e.target.value);
-    // console.log('handleSeachChange ran!');
+    // console.log('handleSearchChange ran!');
     this.setState({ search: e.target.value });
   }
 
 // this function makes the request to the db with the current search value
 // it also resets the search value to ''
   // searchFriends is the action creator that handles search to the db
-  handleSeachSubmit() {
-    console.log('handleSeachSubmit ran!');
+  handleSearchSubmit() {
+    console.log('handleSearchSubmit ran!');
     this.props.searchFriends(this.state.search);
     this.setState({ search: '' });
   }
@@ -41,7 +41,7 @@ class SearchFriends extends Component {
         <input
           type="text"
           value={this.state.search}
-          onChange={e => (this.handleSeachChange(e))}
+          onChange={e => (this.handleSearchChange(e))}
         />
         <button onClick={this.handleSearchSubmit}>Submit.</button>
       </div>
