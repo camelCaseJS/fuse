@@ -3,11 +3,13 @@
 // FIRE ZE MISSLES
 
 import { combineReducers } from 'redux';
-import photos from './photos/reducers/reducers';
-import friends from './friends/reducers/reducers';
-import friendsAdd from './friends-add/reducers/reducers';
-import camera from './camera/reducers/reducers';
-import router from './shared-components/reducers/reducers';
+
+
+import photos from './reducers/photos-reducer';
+import friends from './reducers/friends-reducer';
+import friendsAdd from './reducers/friends-add-reducer';
+import camera from './reducers/camera-reducer';
+import router from './reducers/shared-components-reducer';
 
 const rootReducer = combineReducers({ friends, camera, photos, router, friendsAdd });
 

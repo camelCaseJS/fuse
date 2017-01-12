@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Webcam from 'react-webcam';
 import { connect } from 'react-redux';
 import { findDOMNode } from 'react-dom';
-import * as cameraActionCreators from '../actions/actions';
+import * as cameraActionCreators from '../../actions/camera-actions';
 import Main from '../../main';
 import FriendsList from '../../shared-components/friends-list';
 import CameraButton from '../../shared-components/camera-button';
