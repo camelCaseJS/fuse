@@ -1,0 +1,27 @@
+# docker.webpack
+
+# start with ubuntu image
+FROM ubuntu:latest
+
+# create /app inside webpack container
+WORKDIR /app
+
+# copy files from host into container's /app foler
+RUN mkdir -p /app/client/src
+COPY ./client /app/client
+COPY ./client/package.json /app/package.json
+COPY ./webpack.config.js /app/webpack.config.js
+
+# update apt-get then install curl to download node
+RUN apt-get update
+RUN apt-get install curl -y
+
+# install node
+RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - && apt-get install nodejs -y
+
+# install webpack
+RUN npm install webpack -g
+RUN npm install
+
+# run webpack with watch mode for live reload
+ CMD webpack --watch

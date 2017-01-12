@@ -3,15 +3,35 @@ version: '2' # specify docker-compose version
 # Define the services/containers to be run
 services:
   server: #name of the server service
-    build: . # specify the directory of the Dockerfile
+    build: # specify the directory of the Dockerfile
+      context: .
+      dockerfile:  dockerfile.server
     ports:
       - "8000:8000" #specify ports forewarding
     links:
       - database # link this service to the database service
+    volumes:
+      - wwwroot:/usr/src/app/client/dist
 
   database: # name of the third service
     image: postgres # specify image to build container from
     ports:
       - "5433:5432" # specify port forewarding
     env_file:
-      - postgres-variables.env
+      - dockerfiles/postgres-variables.env #specify variables for running postgres - username, password and dbname
+
+  webpack:
+    build:
+      context: .
+      dockerfile: dockerfile.webpack
+    image: my-webpack
+    container_name: my-webpack-container
+    ports:
+      - "35729:35729" # for live reload
+    volumes:
+      - ./client:/app/client # create volume linking root location on host to /app in container
+      - wwwroot:/app/client/dist #wwwroot available in container at /client/dist
+
+volumes:
+  wwwroot:
+    driver: local

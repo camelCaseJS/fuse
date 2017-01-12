@@ -1,5 +1,4 @@
 node_modules/
-client/src/
 
 # Docker Env Variables
 *.env
