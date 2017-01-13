@@ -1,5 +1,5 @@
 // ze routes lives here
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { Route } from 'react-router';
 import Friends from './features/friends/containers/friends';
 import Photos from './features/photos/containers/photos';
@@ -21,12 +21,13 @@ const CameraTemp = () => (
   </div>
 );
 
-const FriendRoute = () => (
+const FriendandCameraRoute = () => (
   <Main
     left={<Friends />}
-    right={<CameraTemp />}
+    right={<Camera />}
   />
 );
+
 
 export default (
   <Route path="/" component={App}>
@@ -40,7 +41,7 @@ export default (
     />
     <Route
       path="friends"
-      component={FriendRoute}
+      component={FriendandCameraRoute}
     />
     <Route
       path="search"
@@ -48,7 +49,7 @@ export default (
     />
     <Route
       path="camera"
-      component={Camera}
+      component={FriendandCameraRoute}
     />
   </Route>
 );

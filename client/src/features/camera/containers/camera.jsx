@@ -4,15 +4,9 @@ import { connect } from 'react-redux';
 import { findDOMNode } from 'react-dom';
 import * as cameraActionCreators from '../../../actions/camera-actions';
 import Main from '../../../shared-components/main';
-import FriendsList from '../../../shared-components/friends-list';
+import Friends from '../../friends/containers/friends';
 import CameraButton from '../../../shared-components/camera-button';
 import createSocket from '../../../sockets-client/sockets';
-
-// let initialComponents = {
-//   mediaBox: <p>BLANK MEDIA PAGE</p>,
-//   cameraLabel: 'start camera',
-//   buttonFunc: (() => (console.log('camera start func'))),
-// };
 
 let mediaBox = <p>BLANK MEDIA PAGE</p>;
 let cameraLabel = 'start camera';
@@ -82,7 +76,7 @@ class Camera extends Component {
 
     return (
       <Main
-        left={<FriendsList />}
+        left={<Friends />}
         right={
           <div >
             {mediaBox}
