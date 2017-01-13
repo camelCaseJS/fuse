@@ -19,7 +19,7 @@ class NavBar extends Component {
         />
         <ActionFace
           style={iconStyles}
-          onTouchTap={() => { this.context.router.push('/friends/add'); }}
+          onTouchTap={() => { this.context.router.push('/search'); }}
         />
       </div>
     );

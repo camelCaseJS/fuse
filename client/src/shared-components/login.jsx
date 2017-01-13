@@ -5,7 +5,7 @@ import FlatButton from 'material-ui/FlatButton';
 const Login = () => (
   <Card>
     <CardMedia
-      overlay={<CardTitle title="Fuse!" subtitle="Picture messaging app" />}
+      overlay={<CardTitle title="Fuse" subtitle="Picture messaging app" />}
     >
       <img src="http://www.allmacwallpaper.com/get/iMac-21-inch-wallpapers/Abstract-blue-leaf-1920x1080/1995-9.jpg" alt="Fuse" />
     </CardMedia>
