@@ -143,9 +143,9 @@ class SearchFriends extends Component {
 const mapStateToProps = state => (
   // console.log('this is state', state);
   {
-    searchedFriends: state.friendsAdd.searchedFriends,
-    selectedFriend: state.friendsAdd.selectedFriend,
-    searchedFriendSelected: state.friendsAdd.searchedFriendSelected,
+    searchedFriends: state.search.searchedFriends,
+    selectedFriend: state.search.selectedFriend,
+    searchedFriendSelected: state.search.searchedFriendSelected,
   }
 );
 
