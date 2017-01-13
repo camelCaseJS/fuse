@@ -29,6 +29,7 @@ class Camera extends Component {
 
   componentWillMount() {
     this.props.startCamera();
+
     createSocket();
   }
 
@@ -67,11 +68,14 @@ class Camera extends Component {
       cameraLabel = 'take picture';
       buttonFunc = this.getScreenshot;
     } else if (!this.props.cameraOn && this.props.pictureCaptured) {
-      mediaBox = <img src={this.props.capturedPictureRaw} />;
+      mediaBox = (<img
+        src={this.props.capturedPictureRaw}
+        role="presentation"
+      />);
       cameraLabel = 'send to friends';
       buttonFunc = this.sendPhotoToActionCreator;
     } else if (!this.props.cameraOn && !this.props.pictureCaptured) {
-      mediaBox= <div className="placeholder" ></div>;
+      mediaBox = <div className="placeholder" />;
       cameraLabel = 'Take New Photo';
       buttonFunc = this.props.startCamera;
     }
@@ -104,6 +108,8 @@ const mapStateToProps = state => (
     anyFriendsSelected: true,
     capturePhoto: state.camera.capturePhoto,
     imageFormat: state.camera.imageFormat,
+    serverSocketConnectionActive: state.camera.serverSocketConnectionActive,
+    startSocketConnection: state.camera.startSocketConnection,
   }
 );
 
@@ -115,6 +121,8 @@ Camera.propTypes = {
   startCamera: React.PropTypes.func.isRequired,
   capturePhoto: React.PropTypes.func.isRequired,
   sendPhoto: React.PropTypes.func.isRequired,
+  startSocketConnection: React.PropTypes.func.isRequired,
+  serverSocketConnectionActive: React.PropTypes.bool.isRequired,
   // anyFriendsSelected: React.PropTypes.bool.isRequired,
   imageFormat: React.PropTypes.string.isRequired,
 };
