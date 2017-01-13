@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as routerActionCreator from './actions/actions';
+import * as routerActionCreator from '../actions/shared-components-actions';
 
 class App extends Component {
 

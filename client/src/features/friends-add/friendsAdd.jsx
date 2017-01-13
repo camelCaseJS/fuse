@@ -1,5 +1,5 @@
 import React from 'react';
-import Main from '../../main';
+import Main from '../../shared-components/main';
 import SearchFriends from './searchFriends';
 
 const AddFriends = () => (

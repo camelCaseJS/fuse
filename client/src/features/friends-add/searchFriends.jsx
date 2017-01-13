@@ -2,7 +2,7 @@ import React, { Component } from 'react' ;
 import { connect } from 'react-redux';
 import { List } from 'material-ui/List';
 import SearchedFriendsEntry from './searchedFriends-Entry';
-import * as searchFriendsActionCreators from '../actions/actions';
+import * as searchFriendsActionCreators from '../../actions/friends-add-actions';
 
 class SearchFriends extends Component {
   constructor(props) {

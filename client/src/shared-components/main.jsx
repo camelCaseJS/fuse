@@ -1,7 +1,8 @@
 import React from 'react';
 import { GridList, GridTile } from 'material-ui/GridList';
 
-import NavBar from './shared-components/nav-bar';
+import NavBar from './nav-bar';
+
 const Main = ({ right, left }) => (
   <div id="main">
     <NavBar />
