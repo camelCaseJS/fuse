@@ -1,5 +1,4 @@
-
-import { SEND_PHOTO, CAPTURE_PHOTO, START_CAMERA } from '../actions/actions';
+import { SEND_PHOTO, CAPTURE_PHOTO, START_CAMERA } from '../actions/camera-actions';
 
 const INITIAL_STATE = {
   cameraOn: true,

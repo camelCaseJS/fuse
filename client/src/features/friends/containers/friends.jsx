@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-import Main from '../../main';
-import FriendsList from '../../shared-components/friends-list';
-import CameraButton from '../../shared-components/camera-button';
+import Main from '../../../shared-components/main';
+import FriendsList from '../../../shared-components/friends-list';
+import CameraButton from '../../../shared-components/camera-button';
 
 class Friends extends Component {
   render() {

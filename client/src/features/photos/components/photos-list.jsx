@@ -4,7 +4,7 @@ import { List } from 'material-ui/List';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import { GridList, GridTile } from 'material-ui/GridList';
 import PhotosListEntry from './photos-list-entry';
-import * as photosActionCreators from '../actions/actions';
+import * as photosActionCreators from '../../../actions/photos-actions';
 
 
 const styles = {

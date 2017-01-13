@@ -2,8 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { List } from 'material-ui/List';
 import UsersListEntry from './users-list-entry';
-import * as friendsActionCreators from '../friends/actions/actions';
-import * as photosActionCreators from '../photos/actions/actions';
+import * as friendsActionCreators from '../actions/friends-actions';
+import * as photosActionCreators from '../actions/photos-actions';
 
 const combinedActionCreators = {
   ...photosActionCreators, ...friendsActionCreators,

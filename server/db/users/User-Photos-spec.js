@@ -1,4 +1,4 @@
-// During the test the env variable is set to test
+
 const loadProcessEnv = require('../../middleware/process-env-variables')();
 
 const expect = require('chai').expect;

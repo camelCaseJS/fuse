@@ -1,5 +1,5 @@
-import { SELECT_PHOTO, FETCH_PHOTOS } from '../actions/actions';
-import { SELECT_FRIEND } from '../../friends/actions/actions';
+import { SELECT_PHOTO, FETCH_PHOTOS } from '../actions/photos-actions';
+import { SELECT_FRIEND } from '../actions/friends-actions';
 
 const INITIAL_STATE = {
   selectedUserPhotos: [],

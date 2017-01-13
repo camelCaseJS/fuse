@@ -1,4 +1,4 @@
-import { FETCH_FRIENDS, SELECT_FRIEND, UNSELECT_ALL_FRIENDS } from '../actions/actions';
+import { FETCH_FRIENDS, SELECT_FRIEND, UNSELECT_ALL_FRIENDS } from '../actions/friends-actions';
 
 const INITIAL_STATE = {
   allFriends: [],
