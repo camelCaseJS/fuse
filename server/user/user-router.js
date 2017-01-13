@@ -8,6 +8,14 @@ const app = express();
 app.get('/', (req, res) => {
   if (req.session.passport || process.env.NODE_ENV === 'test') {
     // console.log(req.user.id);
+    // User.findOne({
+    //   where: {
+    //     userId: req.user.id,
+    //   },
+    // })
+    // .then(user)
+
+
 
     Friendship.findAll({
       where: {

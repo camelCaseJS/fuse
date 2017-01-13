@@ -30,7 +30,13 @@ const userConnectionStart = (req, res) => {
   // socketHandler.openConnection(req.params.id);
 };
 
+const userIdHasher = (req, res) => {
+
+}
+
 module.exports.userConnectionStart = userConnectionStart;
 
 module.exports.userSearch = userSearch;
+
+module.exports.userIdHasher = userIdHasher;
 
