@@ -8,6 +8,7 @@ const app = express();
 app.get('/', (req, res) => {
   if (req.session.passport || process.env.NODE_ENV === 'test') {
     // console.log(req.user.id);
+
     Friendship.findAll({
       where: {
         userId: req.user.id,
@@ -50,6 +51,8 @@ app.post('/', (req, res) => {
   console.error('select a friend to add');
   res.redirect('/');
 });
+
+// app.get('/', userHandler.userConnectionStart);
 
 app.get('/:query', userHandler.userSearch);
 
