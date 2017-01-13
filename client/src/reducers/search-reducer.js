@@ -1,4 +1,4 @@
-import { SEARCH_SELECT_FRIEND, SEARCH_FRIENDS, ADD_SELECT_FRIEND_TO_DB } from '../actions/friends-add-actions';
+import { SEARCH_SELECT_FRIEND, SEARCH_FRIENDS, ADD_SELECT_FRIEND_TO_DB } from '../actions/search-actions';
 
 const INITIAL_STATE = {
   searchedFriends: [],

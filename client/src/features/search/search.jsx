@@ -2,11 +2,11 @@ import React from 'react';
 import Main from '../../shared-components/main';
 import SearchFriends from './searchFriends';
 
-const AddFriends = () => (
+const Search = () => (
   <Main
     left={<SearchFriends />}
     right={<div />}
   />
   );
 
-export default AddFriends;
+export default Search;

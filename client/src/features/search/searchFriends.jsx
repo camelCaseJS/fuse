@@ -2,7 +2,7 @@ import React, { Component } from 'react' ;
 import { connect } from 'react-redux';
 import { List } from 'material-ui/List';
 import SearchedFriendsEntry from './searchedFriends-Entry';
-import * as searchFriendsActionCreators from '../../actions/friends-add-actions';
+import * as searchActionCreators from '../../actions/search-actions';
 
 class SearchFriends extends Component {
   constructor(props) {
@@ -158,4 +158,4 @@ SearchFriends.propTypes = {
   addFriendsToDB: React.PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, searchFriendsActionCreators)(SearchFriends);
+export default connect(mapStateToProps, searchActionCreators)(SearchFriends);
