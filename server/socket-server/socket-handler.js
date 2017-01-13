@@ -2,14 +2,14 @@
 
 const io = require('socket.io');
 
-const openConnection = (socket) => {
-  // console.log(socket);
+const openConnection = (userId) => {
+  console.log(userId);
   // socket.on(channel, (data) => {
-  //   // connections.forEach((connectedSocket) => {
-  //   //   if (connectedSocket !== socket) {
-  //   //     connectedSocket.emit('photo', data);
-  //   //   }
-  //   console.log(data, 'data got to photo channel in server!');
+    // connections.forEach((connectedSocket) => {
+    //   if (connectedSocket !== socket) {
+    //     connectedSocket.emit('photo', data);
+    //   }
+    // console.log(data, 'data got to photo channel in server!');
   // });
 };
 
@@ -23,6 +23,10 @@ const startSocketServer = (server) => {
     .on('connection', (socket) => {
       console.log(`${userId}' has connected to socket channel`);
       connections.push(socket);
+      socket.emit('check', { suh: 'doood' });
+      socket.on('send photo', (data) => {
+        console.log(data, 'data in server from send photo');
+      });
 
       socket.emit('from server', {
         data: 'from',
@@ -42,4 +46,6 @@ const startSocketServer = (server) => {
     });
 };
 
-module.exports = startSocketServer;
+module.exports.startSocketServer = startSocketServer;
+
+module.exports.openConnection = openConnection;
