@@ -1,6 +1,5 @@
 // During the test the env variable is set to test
-process.env.NODE_ENV = 'test';
-// const loadProcessEnv = require('../../middleware/process-env-variables')();
+const loadProcessEnv = require('../../middleware/process-env-variables')();
 
 const db = require('./User-db.js');
 const User = require('./User.js');

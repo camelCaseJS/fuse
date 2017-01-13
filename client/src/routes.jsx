@@ -14,7 +14,7 @@ export default (
     <Route path="login" component={Login} />
     <Route path="photos" component={Photos} />
     <Route path="friends" component={Friends} />
-    <Route path="friends/Add" component={AddFriends} />
+    <Route path="search" component={AddFriends} />
     <Route path="camera" component={Camera} />
   </Route>
 );
