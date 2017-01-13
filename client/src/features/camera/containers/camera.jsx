@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import Webcam from 'react-webcam';
 import { connect } from 'react-redux';
 import { findDOMNode } from 'react-dom';
-import * as cameraActionCreators from '../actions/actions';
-import Main from '../../main';
-import FriendsList from '../../shared-components/friends-list';
-import CameraButton from '../../shared-components/camera-button';
-import createSocket from '../../sockets-client/sockets';
+import * as cameraActionCreators from '../../../actions/camera-actions';
+import Main from '../../../shared-components/main';
+import FriendsList from '../../../shared-components/friends-list';
+import CameraButton from '../../../shared-components/camera-button';
+import createSocket from '../../../sockets-client/sockets';
 
 // let initialComponents = {
 //   mediaBox: <p>BLANK MEDIA PAGE</p>,
@@ -29,7 +29,7 @@ class Camera extends Component {
 
   componentWillMount() {
     this.props.startCamera();
-
+    this.props.startSocketConnection();
     createSocket();
   }
 
@@ -108,23 +108,23 @@ const mapStateToProps = state => (
     anyFriendsSelected: true,
     capturePhoto: state.camera.capturePhoto,
     imageFormat: state.camera.imageFormat,
-    serverSocketConnectionActive: state.camera.serverSocketConnectionActive,
+    // serverSocketConnectionActive: state.camera.serverSocketConnectionActive,
     startSocketConnection: state.camera.startSocketConnection,
   }
 );
 
 Camera.propTypes = {
-  cameraOn: React.PropTypes.bool.isRequired,
-  pictureCaptured: React.PropTypes.bool.isRequired,
-  capturedPictureRaw: React.PropTypes.string.isRequired,
-  capturedPicture: React.PropTypes.object.isRequired,
-  startCamera: React.PropTypes.func.isRequired,
-  capturePhoto: React.PropTypes.func.isRequired,
-  sendPhoto: React.PropTypes.func.isRequired,
-  startSocketConnection: React.PropTypes.func.isRequired,
-  serverSocketConnectionActive: React.PropTypes.bool.isRequired,
-  // anyFriendsSelected: React.PropTypes.bool.isRequired,
-  imageFormat: React.PropTypes.string.isRequired,
+  cameraOn: PropTypes.bool.isRequired,
+  pictureCaptured: PropTypes.bool.isRequired,
+  capturedPictureRaw: PropTypes.string.isRequired,
+  capturedPicture: PropTypes.object.isRequired,
+  startCamera: PropTypes.func.isRequired,
+  capturePhoto: PropTypes.func.isRequired,
+  sendPhoto: PropTypes.func.isRequired,
+  startSocketConnection: PropTypes.func.isRequired,
+  // serverSocketConnectionActive: PropTypes.bool.isRequired,
+  // anyFriendsSelected: PropTypes.bool.isRequired,
+  imageFormat: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps, cameraActionCreators)(Camera);

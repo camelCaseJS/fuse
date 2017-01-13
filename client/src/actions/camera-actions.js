@@ -28,12 +28,6 @@ export function capturePhoto(photoRaw, photoImg) {
 
 
 export function sendPhoto(photoBlob, date) {
-  // const header = {
-  //   headers: {
-  //     'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundaryqAxDdHuytAhP8M4X',
-  //   },
-  // };
-
   const fd = new FormData();
   fd.append('image', photoBlob, date);
 
@@ -48,10 +42,10 @@ export function sendPhoto(photoBlob, date) {
   };
 }
 
-export function serverStartSocketConnection(userId) {
-  axios.get(`${url}/api/user/${userId}`)
+export function startSocketConnection() {
+  axios.get(`${url}/api/users/socketTest`)
   .then((response) => {
-    console.log(response.data.active);
+    console.log(response.data);
   });
   return {
     type: START_SOCKET_CONN,
