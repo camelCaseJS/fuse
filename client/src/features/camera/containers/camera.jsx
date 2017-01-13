@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import Webcam from 'react-webcam';
 import { connect } from 'react-redux';
 import { findDOMNode } from 'react-dom';
@@ -6,6 +6,7 @@ import * as cameraActionCreators from '../../../actions/camera-actions';
 import Main from '../../../shared-components/main';
 import FriendsList from '../../../shared-components/friends-list';
 import CameraButton from '../../../shared-components/camera-button';
+import createSocket from '../../../sockets-client/sockets';
 
 // let initialComponents = {
 //   mediaBox: <p>BLANK MEDIA PAGE</p>,
@@ -16,7 +17,7 @@ import CameraButton from '../../../shared-components/camera-button';
 let mediaBox = <p>BLANK MEDIA PAGE</p>;
 let cameraLabel = 'start camera';
 let buttonFunc = (() => (console.log('camera start func')));
-let buttonSource = '../../icons/startCamera.png';
+// let buttonSource = '../../icons/startCamera.png';
 
 class Camera extends Component {
   constructor(props) {
@@ -28,6 +29,8 @@ class Camera extends Component {
 
   componentWillMount() {
     this.props.startCamera();
+    this.props.startSocketConnection();
+    createSocket();
   }
 
   getScreenshot() {
@@ -65,11 +68,14 @@ class Camera extends Component {
       cameraLabel = 'take picture';
       buttonFunc = this.getScreenshot;
     } else if (!this.props.cameraOn && this.props.pictureCaptured) {
-      mediaBox = <img src={this.props.capturedPictureRaw} />;
+      mediaBox = (<img
+        src={this.props.capturedPictureRaw}
+        role="presentation"
+      />);
       cameraLabel = 'send to friends';
       buttonFunc = this.sendPhotoToActionCreator;
     } else if (!this.props.cameraOn && !this.props.pictureCaptured) {
-      mediaBox= <div className="placeholder" ></div>;
+      mediaBox = <div className="placeholder" />;
       cameraLabel = 'Take New Photo';
       buttonFunc = this.props.startCamera;
     }
@@ -81,7 +87,7 @@ class Camera extends Component {
           <div >
             {mediaBox}
             <CameraButton
-              src={buttonSource}
+              // src={buttonSource}
               label={cameraLabel}
               onClick={() => buttonFunc()}
             />
@@ -102,19 +108,23 @@ const mapStateToProps = state => (
     anyFriendsSelected: true,
     capturePhoto: state.camera.capturePhoto,
     imageFormat: state.camera.imageFormat,
+    // serverSocketConnectionActive: state.camera.serverSocketConnectionActive,
+    startSocketConnection: state.camera.startSocketConnection,
   }
 );
 
 Camera.propTypes = {
-  cameraOn: React.PropTypes.bool.isRequired,
-  pictureCaptured: React.PropTypes.bool.isRequired,
-  capturedPictureRaw: React.PropTypes.string.isRequired,
-  capturedPicture: React.PropTypes.object.isRequired,
-  startCamera: React.PropTypes.func.isRequired,
-  capturePhoto: React.PropTypes.func.isRequired,
-  sendPhoto: React.PropTypes.func.isRequired,
-  // anyFriendsSelected: React.PropTypes.bool.isRequired,
-  imageFormat: React.PropTypes.string.isRequired,
+  cameraOn: PropTypes.bool.isRequired,
+  pictureCaptured: PropTypes.bool.isRequired,
+  capturedPictureRaw: PropTypes.string.isRequired,
+  capturedPicture: PropTypes.object.isRequired,
+  startCamera: PropTypes.func.isRequired,
+  capturePhoto: PropTypes.func.isRequired,
+  sendPhoto: PropTypes.func.isRequired,
+  startSocketConnection: PropTypes.func.isRequired,
+  // serverSocketConnectionActive: PropTypes.bool.isRequired,
+  // anyFriendsSelected: PropTypes.bool.isRequired,
+  imageFormat: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps, cameraActionCreators)(Camera);

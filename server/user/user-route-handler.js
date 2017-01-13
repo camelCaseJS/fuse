@@ -1,20 +1,20 @@
-const Promise = require('bluebird')
-const dbHandler = require('./user-db-handler')
-
+const Promise = require('bluebird');
+const dbHandler = require('./user-db-handler');
+const socketHandler = require('../socket-server/socket-handler');
 
 const userSearch = (req, res) => {
-  var keys = req.params.query.split(' ');
+  const keys = req.params.query.split(' ');
   return Promise.all(keys.map((token) => {
-    if(token.match('@')) {
-      return dbHandler.emailSearch(token)
+    if (token.match('@')) {
+      return dbHandler.emailSearch(token);
     }
     return dbHandler.nameSearch(token);
   }))
   .then((results) => {
-    var users = []
+    const users = [];
     results.forEach((result) => {
       result.forEach((user) => {
-        console.log('hello')
+        // console.log('hello')
         users.push(user);
       });
     });
@@ -25,4 +25,18 @@ const userSearch = (req, res) => {
   });
 };
 
+const userConnectionStart = (req, res) => {
+  console.log();
+  // socketHandler.openConnection(req.params.id);
+};
+
+const userIdHasher = (req, res) => {
+
+}
+
+module.exports.userConnectionStart = userConnectionStart;
+
 module.exports.userSearch = userSearch;
+
+module.exports.userIdHasher = userIdHasher;
+

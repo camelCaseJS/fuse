@@ -8,6 +8,15 @@ const app = express();
 app.get('/', (req, res) => {
   if (req.session.passport || process.env.NODE_ENV === 'test') {
     // console.log(req.user.id);
+    // User.findOne({
+    //   where: {
+    //     userId: req.user.id,
+    //   },
+    // })
+    // .then(user)
+
+
+
     Friendship.findAll({
       where: {
         userId: req.user.id,
@@ -51,12 +60,14 @@ app.post('/', (req, res) => {
   res.redirect('/');
 });
 
+// app.get('/', userHandler.userConnectionStart);
+
 app.get('/:query', userHandler.userSearch);
 
 app.post('/:id', (req, res) => {
   // console.log(req.user.id);
-  console.log(req.params.id, 'params id');
-  console.log(req.user.id, 'user id');
+  // console.log(req.params.id, 'params id');
+  // console.log(req.user.id, 'user id');
   Friendship.findAll({
     where: {
       userId: req.params.id,
