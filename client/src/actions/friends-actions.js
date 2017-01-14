@@ -4,8 +4,13 @@ export const FETCH_FRIENDS = 'FETCH_FRIENDS';
 export const SELECT_FRIEND = 'SELECT_FRIEND';
 export const UNSELECT_ALL_FRIENDS = 'UNSELECT_ALL_FRIENDS';
 
+export const GET_USER_INFO = 'GET_USER_INFO';
+
+const url = 'http://localhost:8000';
+
+
 export function fetchFriends() {
-  const request = axios.get('http://localhost:8000/api/users/')
+  const request = axios.get(`${url}api/users/`)
   .then((response) => {
     return response.data.map((friend) => {
       return { ...friend, selected: false };
@@ -29,5 +34,16 @@ export function unselectAllFriends() {
   return {
     type: UNSELECT_ALL_FRIENDS,
     payload: null,
+  };
+}
+
+export function getUserInfo() {
+  const request = axios.get(`${url}/api/users/userInfo`)
+  .then(response =>
+    response.data,
+  );
+  return {
+    type: GET_USER_INFO,
+    payload: request,
   };
 }
