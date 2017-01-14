@@ -11,17 +11,14 @@ import Search from './features/search/search';
 import App from './shared-components/app';
 import Login from './shared-components/login';
 
-const CameraTemp = () => (
-  <div>
-    <div className="placeholder" />
-    <CameraButton
-      label="start camera"
-      onClick={() => this.context.router.push('/camera')}
-    />
-  </div>
+const FriendsRoute = () => (
+  <Main
+    left={<Friends />}
+    right={<div/>}
+  />
 );
 
-const FriendandCameraRoute = () => (
+const CameraRoute = () => (
   <Main
     left={<Friends />}
     right={<Camera />}
@@ -41,7 +38,7 @@ export default (
     />
     <Route
       path="friends"
-      component={FriendandCameraRoute}
+      component={FriendsRoute}
     />
     <Route
       path="search"
@@ -49,7 +46,7 @@ export default (
     />
     <Route
       path="camera"
-      component={FriendandCameraRoute}
+      component={CameraRoute}
     />
   </Route>
 );

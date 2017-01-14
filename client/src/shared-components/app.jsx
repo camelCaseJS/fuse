@@ -9,7 +9,9 @@ class App extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.props.updateRoute(nextProps.location);
+    if (this.props.router.pathname !== nextProps.location.pathname) {
+      this.props.updateRoute(nextProps.location);
+    }
   }
 
   render() {

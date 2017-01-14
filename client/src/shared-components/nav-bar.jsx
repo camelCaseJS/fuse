@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import ActionHome from 'material-ui/svg-icons/action/home';
 import ActionFace from 'material-ui/svg-icons/action/face';
 import ActionExitToApp from 'material-ui/svg-icons/action/exit-to-app';
+import CameraEnhance from 'material-ui/svg-icons/action/camera-enhance';
 import AppBar from 'material-ui/AppBar';
 
 const iconStyles = {
@@ -28,6 +29,10 @@ class NavBar extends Component {
   rightButtons() {
     return (
       <div>
+        <CameraEnhance
+          style={iconStyles}
+          onTouchTap={() => { this.context.router.push('/camera'); }}
+        />
         <ActionExitToApp
           style={iconStyles}
           onTouchTap={() => { window.location = 'api/auth/logout'; }}
