@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { findDOMNode } from 'react-dom';
 import * as cameraActionCreators from '../../../actions/camera-actions';
 import CameraButton from '../../../shared-components/camera-button';
-import createSocket from '../../../sockets-client/sockets';
 
 let cameraMode = 'OFF';
 
@@ -20,8 +19,6 @@ class Camera extends Component {
 
   componentWillMount() {
     this.props.startCamera();
-    this.props.startSocketConnection();
-    createSocket();
   }
 
   onCameraButtonPress(mode) {
@@ -127,10 +124,10 @@ const mapStateToProps = ({ camera, router }) => {
     capturePhoto: camera.capturePhoto,
     imageFormat: camera.imageFormat,
     // serverSocketConnectionActive: camera.serverSocketConnectionActive,
-    startSocketConnection: camera.startSocketConnection,
     router,
   };
 };
+
 
 Camera.propTypes = {
   cameraOn: PropTypes.bool.isRequired,
@@ -140,9 +137,6 @@ Camera.propTypes = {
   startCamera: PropTypes.func.isRequired,
   capturePhoto: PropTypes.func.isRequired,
   sendPhoto: PropTypes.func.isRequired,
-  startSocketConnection: PropTypes.func.isRequired,
-  // serverSocketConnectionActive: PropTypes.bool.isRequired,
-  // anyFriendsSelected: PropTypes.bool.isRequired,
   imageFormat: PropTypes.string.isRequired,
 };
 
