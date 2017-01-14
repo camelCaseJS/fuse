@@ -23,6 +23,10 @@ class UsersList extends Component {
   }
 
   renderUserList() {
+    if (this.state.users.length === 0 && this.props.componentForEmptyList !== null) {
+      return this.props.componentForEmptyList;
+    }
+
     const onSelect = this.onSelect.bind(this);
 
     return this.state.users.map((user, index) =>
@@ -52,11 +56,13 @@ UsersList.propTypes = {
   users: PropTypes.arrayOf(PropTypes.object).isRequired,
   componentWillMount: PropTypes.func,
   onSelect: PropTypes.func,
+  componentForEmptyList: PropTypes.func,
 };
 
 UsersList.defaultProps = {
   ComponentWillMount: () => {},
   onSelect: () => {},
+  componentForEmptyList: null,
 };
 
 export default UsersList;

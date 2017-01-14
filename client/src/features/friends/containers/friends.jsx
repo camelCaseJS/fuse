@@ -3,10 +3,16 @@ import { connect } from 'react-redux';
 import UsersList from '../../../shared-components/users-list';
 import * as friendsActionCreators from '../../../actions/friends-actions';
 import * as photosActionCreators from '../../../actions/photos-actions';
+import { ListItem } from 'material-ui/List';
+import ActionFace from 'material-ui/svg-icons/action/face';
 
 const combinedActionCreators = {
   ...photosActionCreators, ...friendsActionCreators,
 };
+
+const emptyListMessage = () => (
+  <p>Click the <ActionFace /> to search for friends</p>
+  );
 
 class Friends extends Component {
 
@@ -31,6 +37,10 @@ class Friends extends Component {
         onSelect={() => this.onFriendSelect}
         componentWillMount={() => this.onFriendsListMount}
         users={this.props.allFriends}
+        componentForEmptyList={<ListItem
+          primaryText={emptyListMessage()}
+          disabled={true}
+        />}
       />
     );
   }

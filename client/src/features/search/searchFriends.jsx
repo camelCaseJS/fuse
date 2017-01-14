@@ -14,14 +14,14 @@ const styles = {
   button: {
     padding: 10,
     // height: 36,
-    // flex: 1,
-    // flexDirection: 'row',
+    flex: 1,
+    flexDirection: 'row',
     // backgroundColor: '#48BBEC',
     // borderColor: '#48BBEC',
-    // borderWidth: 1,
-    // borderRadius: 8,
+    borderWidth: 1,
+    borderRadius: 8,
     // marginBottom: 10,
-    // alignSelf: 'stretch',
+    alignSelf: 'stretch',
     // justifyContent: 'center',
   },
 };
@@ -77,6 +77,7 @@ class SearchFriends extends Component {
           onChange={this.handleSearchChange}
         />
         <FlatButton
+          styles={styles.button}
           label="Search"
           onClick={this.handleSearchSubmit}
         />
@@ -97,7 +98,11 @@ class SearchFriends extends Component {
   addUserButton() {
     return (
       <div>
-        <button onClick={this.handleAddUser}>Submit.</button>
+        <FlatButton
+          styles={styles.button}
+          label="Submit"
+          onClick={this.handleAddUser}
+        />
       </div>
     );
   }
