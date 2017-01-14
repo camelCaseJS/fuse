@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-const defaultReducer = state => state;
+const defaultReducer = state => null;
 
 // import photos from './reducers/photos-reducer';
 // import friends from './reducers/friends-reducer';

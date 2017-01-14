@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import promise from 'redux-promise';
-import RootContainer from './root-container';
-import reducers from './root-reducer';
+import RootContainer from './RootContainer';
+import reducers from './RootReducer';
 
 const createStoreWithMiddleware = applyMiddleware(
   promise,

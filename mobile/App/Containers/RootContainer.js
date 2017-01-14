@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { View, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
-import NavigationRouter from '../navigation/navigation-router';
+import NavigationRouter from '../Navigation/NavigationRouter';
 
 // Styles
-import styles from './styles/RootContainerStyle';
+import styles from './Styles/RootContainerStyle';
 
 class RootContainer extends Component {
   render() {
