@@ -5,7 +5,6 @@ import Friends from './features/friends/containers/friends';
 import Photos from './features/photos/containers/photos';
 import Camera from './features/camera/containers/camera';
 import Main from './shared-components/main';
-import CameraButton from './shared-components/camera-button';
 import Search from './features/search/search';
 
 import App from './shared-components/app';
