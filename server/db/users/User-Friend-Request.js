@@ -1,3 +1,5 @@
+process.env.NODE_ENV = 'test'
+
 const db = require('./User-db.js');
 const User = require('./User.js');
 const Friendship = require('./User-Friends.js');
@@ -10,10 +12,16 @@ User.belongsToMany(User, {
   onDelete: 'cascade',
   hooks: true,
 });
+/*
+Rather than adding friendships directly one adds to to friend requests,
+if a matching friend request exists, both requests are deleted and a new
+friendship is added to the friendship table
 
+*/
 const FriendRequests = db.model('friendRequests');
 
-FriendRequests.hooks('beforeCreate', (request) => {
+
+FriendRequests.hook('beforeCreate', (request) => {
   Friendship.find({ where: {
     userId: request.userId,
     friendId: request.requestId,
@@ -26,24 +34,32 @@ FriendRequests.hooks('beforeCreate', (request) => {
   });
 });
 
-FriendRequests.hooks('afterCreate', (request) => {
-  FriendRequests.find({ where : {
+//adds a deleted property to check if the new friendship now exists
+FriendRequests.hook('afterCreate', (request) => {
+  return FriendRequests.find({ where : {
     userId: request.requestId,
     requestId: request.userId,
   }})
   .then((matchingRequest) => {
     if(matchingRequest) {
+      console.log('true')
       return FriendRequests.destroy({ where: {
-        $or: [request, matchingRequest]
+        $or: [
+          {requestId: request.requestId, userId: request.userId}, 
+          {requestId: matchingRequest.requestId, userId: matchingRequest.userId}
+        ]
       }
       })
       .then(() => Friendship.create({ userId: request.userId, friendId: request.requestId }))
       .then((friendship) => {
-        return [friendship, true];
+        request.deleted = true;
       })
     } else {
-      return [request, false];
+      console.log('false')
+      request.deleted = false
     }
-  })
+  });
 })
+
+
 
