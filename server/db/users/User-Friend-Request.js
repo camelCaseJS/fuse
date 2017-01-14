@@ -42,7 +42,6 @@ FriendRequests.hook('afterCreate', (request) => {
   }})
   .then((matchingRequest) => {
     if(matchingRequest) {
-      console.log('true')
       return FriendRequests.destroy({ where: {
         $or: [
           {requestId: request.requestId, userId: request.userId}, 
@@ -55,7 +54,6 @@ FriendRequests.hook('afterCreate', (request) => {
         request.deleted = true;
       })
     } else {
-      console.log('false')
       request.deleted = false
     }
   });
