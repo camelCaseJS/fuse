@@ -14,7 +14,7 @@ const styles = {
   text: {
     marginLeft: 20,
     fontSize: 32,
-    color: '#ffffff'
+    color: '#ffffff',
   },
   toolbar: {
     backgroundColor: '#2cc8f7',
