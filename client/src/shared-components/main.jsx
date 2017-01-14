@@ -5,36 +5,20 @@ import Paper from 'material-ui/Paper';
 
 import NavBar from './nav-bar';
 
-// const styles = { left: {
-//   position: 'absolute',
-//   display: 'inline',
-//   bottom: 0,
-//   left: 0,
-//   margin: 10 },
-//   right: {
-//     position: 'absolute',
-//     display: 'inline',
-//     bottom: 0,
-//     right: 0,
-//     margin: 10 },
-// };
-
 const styles = {
   left: {
     flexGrow: 1,
     flexShrink: 0,
     flexBasis: 'max-content',
     width: '45%',
-    margin: 10,
-    // left: 0,
+    margin: 8,
   },
   right: {
     flexGrow: 1,
     flexShrink: 0,
     flexBasis: 'max-content',
     width: '45%',
-    margin: 10,
-    // right: 0,
+    margin: 8,
   },
 };
 
@@ -51,44 +35,5 @@ const Main = ({ right, left }) => (
     </div>
   </div>
 );
-
-
-// const Main = ({ right, left }) => (
-//   <div id="main">
-//     <NavBar />
-//       <GridList
-//         cols={2}
-//         cellHeight="auto"
-//       >
-//       <GridTile>
-//         <Paper style={styles.left} zDepth={1} >
-//         {left}
-//         </Paper>
-//       </GridTile>
-//       <GridTile>
-//         <Paper style={styles.right} zDepth={1} >
-//           {right}
-//         </Paper>
-//       </GridTile>
-//     </GridList>
-//   </div>
-// );
-
-// const Main = ({ right, left }) => (
-//   <div id="main">
-//     <NavBar />
-//     <GridList
-//       cols={2}
-//       cellHeight="auto"
-//     >
-//       <GridTile>
-//         {left}
-//       </GridTile>
-//       <GridTile >
-//         {right}
-//       </GridTile>
-//     </GridList>
-//   </div>
-// );
 
 export default Main;
