@@ -12,17 +12,9 @@ const styles = {
     padding: 25,
   },
   button: {
-    padding: 10,
-    // height: 36,
-    flex: 1,
-    flexDirection: 'row',
-    // backgroundColor: '#48BBEC',
-    // borderColor: '#48BBEC',
     borderWidth: 1,
     borderRadius: 8,
-    // marginBottom: 10,
-    alignSelf: 'stretch',
-    // justifyContent: 'center',
+    margin: 10,
   },
 };
 
