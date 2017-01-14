@@ -1,52 +1,58 @@
 
-
-const io = require('socket.io');
+const socketInit = require('socket.io');
 
 const startSocketServer = (server) => {
-  const socketServer = io(server);
-  const connections = [];
-  const userId = 'ryan';
-  const userChannel = socketServer
-    .of(`/${userId}`)
-    .on('connection', (socket) => {
-      console.log(`${userId}' has connected to socket channel`);
-      connections.push(socket);
-      socket.emit('check', { suh: 'doood' });
-      socket.on('send photo', (data) => {
-        console.log(data, 'data in server from send photo');
-      });
+  const io = socketInit(server);
 
-      socket.emit('from server', {
-        data: 'from',
-        SERVER: 'thru /ryan using "socket" ',
-      });
+  const photoNsp = io.of('/photoSocket');
+  photoNsp.on('connection', (socket) => {
+    console.log('connected to photo socket namespace');
 
-      userChannel.emit('from server DOS', {
-        data: 'from',
-        SERVER: 'thru /ryan using "userChannel" ',
-      });
-
-      socket.on('disconnect', () => {
-        const index = connections.indexOf(socket);
-        connections.splice(index, 1);
-        console.log(`${userId} has disconnected from socket channel`);
+    // emit namespace connection success
+    photoNsp.emit('photo socket connect', 'connected to namespace: "/photoSocket"');
+    // listen for join room request
+    socket.on('join photo room', (data) => {
+      const userPhotoRoom = `photoRoom:${data}`;
+      // create new room base on user id
+      socket.join(userPhotoRoom, () => {
+        // emit room connection success
+        photoNsp.in(userPhotoRoom).emit('photo room connected', `in photo room #${data.roomId}`);
       });
     });
+
+    socket.on('disconnect', () => {
+      console.log('disconnected from photo socket namespace');
+    });
+  });
+
+  const friendNsp = io.of('/friendSocket');
+  friendNsp.on('connection', (socket) => {
+    console.log('connected to friend socket namespace');
+
+    // emit namespace connection success
+    friendNsp.emit('friend socket connect', 'connected to namespace: "/friendSocket"');
+    // listen for join room request
+    socket.on('join friend room', (data) => {
+      const userfriendRoom = `friendRoom:${data}`;
+      // create new room base on user id
+      socket.join(userfriendRoom, () => {
+        // emit room connection success
+        friendNsp.in(userfriendRoom).emit('friend room connected', `in friend room #${data.roomId}`);
+      });
+    });
+
+    socket.on('disconnect', () => {
+      console.log('disconnected from photo socket namespace');
+    });
+  });
 };
 
+const userIdHasher = (userId) => {
 
-const openConnection = (userId) => {
-  console.log(userId);
-  // socket.on(channel, (data) => {
-    // connections.forEach((connectedSocket) => {
-    //   if (connectedSocket !== socket) {
-    //     connectedSocket.emit('photo', data);
-    //   }
-    // console.log(data, 'data got to photo channel in server!');
-  // });
 };
 
 
 module.exports.startSocketServer = startSocketServer;
 
-module.exports.openConnection = openConnection;
+module.exports.userIdHasher = userIdHasher;
+

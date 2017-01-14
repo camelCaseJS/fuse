@@ -47,6 +47,3 @@ socketHandler.startSocketServer(webServer);
 
 console.log(`Server up and listening to port ${process.env.WEB_SERVER_PORT}`);
 
-
-
-
