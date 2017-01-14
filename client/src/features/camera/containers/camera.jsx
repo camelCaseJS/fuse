@@ -3,20 +3,11 @@ import Webcam from 'react-webcam';
 import { connect } from 'react-redux';
 import { findDOMNode } from 'react-dom';
 import * as cameraActionCreators from '../../../actions/camera-actions';
-import Main from '../../../shared-components/main';
-import FriendsList from '../../../shared-components/friends-list';
 import CameraButton from '../../../shared-components/camera-button';
 import createSocket from '../../../sockets-client/sockets';
 
-// let initialComponents = {
-//   mediaBox: <p>BLANK MEDIA PAGE</p>,
-//   cameraLabel: 'start camera',
-//   buttonFunc: (() => (console.log('camera start func'))),
-// };
+let cameraMode = 'OFF';
 
-let mediaBox = <p>BLANK MEDIA PAGE</p>;
-let cameraLabel = 'start camera';
-let buttonFunc = (() => (console.log('camera start func')));
 // let buttonSource = '../../icons/startCamera.png';
 
 class Camera extends Component {
@@ -33,13 +24,27 @@ class Camera extends Component {
     createSocket();
   }
 
+  onCameraButtonPress(mode) {
+    console.log(mode);
+    if (mode === 'ON') {
+      this.getScreenshot();
+    } else if (mode === 'PICTURE') {
+      this.sendPhotoToActionCreator();
+    } else {
+      // mode === 'OFF'
+      this.props.startCamera();
+    }
+  }
+
   getScreenshot() {
+    console.log('getScreenshot');
     const canvas = this.getCanvas();
     const photoRaw = canvas.toDataURL(this.props.imageFormat);
     canvas.toBlob((imageBlob) => {
       this.props.capturePhoto(photoRaw, imageBlob);
     }, 'image/jpeg');
   }
+
 
   getCanvas() {
     const video = findDOMNode(this.refs.webcam);
@@ -62,56 +67,70 @@ class Camera extends Component {
     this.props.sendPhoto(this.props.capturedPicture, dateString);
   }
 
+  generateMediaBox(mode) {
+    if (mode === 'ON') {
+      return (<Webcam ref="webcam" />);
+    }
+    if (mode === 'PICTURE') {
+      return (
+        <img
+          src={this.props.capturedPictureRaw}
+          role="presentation"
+        />
+      );
+    }
+    // mode === 'OFF'
+    return (<div className="placeholder" />);
+  }
+
+  generateCameraLabel(mode) {
+    if (mode === 'ON') {
+      return 'Take picture';
+    }
+    if (mode === 'PICTURE') {
+      return 'Send to friends';
+    }
+    // mode === 'OFF'
+    return 'Camera ON';
+  }
+
   render() {
     if (this.props.cameraOn && !this.props.pictureCaptured) {
-      mediaBox = <Webcam ref="webcam" />;
-      cameraLabel = 'take picture';
-      buttonFunc = this.getScreenshot;
+      cameraMode = 'ON';
     } else if (!this.props.cameraOn && this.props.pictureCaptured) {
-      mediaBox = (<img
-        src={this.props.capturedPictureRaw}
-        role="presentation"
-      />);
-      cameraLabel = 'send to friends';
-      buttonFunc = this.sendPhotoToActionCreator;
+      cameraMode = 'PICTURE';
     } else if (!this.props.cameraOn && !this.props.pictureCaptured) {
-      mediaBox = <div className="placeholder" />;
-      cameraLabel = 'Take New Photo';
-      buttonFunc = this.props.startCamera;
+      cameraMode = 'OFF';
     }
+    console.log('camera mode', cameraMode);
 
     return (
-      <Main
-        left={<FriendsList />}
-        right={
-          <div >
-            {mediaBox}
-            <CameraButton
-              // src={buttonSource}
-              label={cameraLabel}
-              onClick={() => buttonFunc()}
-            />
-
-          </div>
-        }
-      />
+      <div >
+        {this.generateMediaBox(cameraMode)}
+        <CameraButton
+          // src={buttonSource}
+          label={this.generateCameraLabel(cameraMode)}
+          onClick={() => this.onCameraButtonPress(cameraMode)}
+        />
+      </div>
     );
   }
 }
 
-const mapStateToProps = state => (
-  {
-    cameraOn: state.camera.cameraOn,
-    pictureCaptured: state.camera.pictureCaptured,
-    capturedPicture: state.camera.capturedPicture,
-    capturedPictureRaw: state.camera.capturedPictureRaw,
-    anyFriendsSelected: true,
-    capturePhoto: state.camera.capturePhoto,
-    imageFormat: state.camera.imageFormat,
-    // serverSocketConnectionActive: state.camera.serverSocketConnectionActive,
-    startSocketConnection: state.camera.startSocketConnection,
-  }
-);
+const mapStateToProps = ({ camera, router }) => {
+  return {
+    cameraOn: camera.cameraOn,
+    pictureCaptured: camera.pictureCaptured,
+    capturedPicture: camera.capturedPicture,
+    capturedPictureRaw: camera.capturedPictureRaw,
+    // anyFriendsSelected: true,
+    capturePhoto: camera.capturePhoto,
+    imageFormat: camera.imageFormat,
+    // serverSocketConnectionActive: camera.serverSocketConnectionActive,
+    startSocketConnection: camera.startSocketConnection,
+    router,
+  };
+};
 
 Camera.propTypes = {
   cameraOn: PropTypes.bool.isRequired,
@@ -126,5 +145,9 @@ Camera.propTypes = {
   // anyFriendsSelected: PropTypes.bool.isRequired,
   imageFormat: PropTypes.string.isRequired,
 };
+
+Camera.contextTypes = {
+  router: PropTypes.object };
+
 
 export default connect(mapStateToProps, cameraActionCreators)(Camera);

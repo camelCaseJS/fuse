@@ -1,5 +1,7 @@
 ### node etc ###
 
+ignite/
+
 #API key formation
 oauth-keys.js
 

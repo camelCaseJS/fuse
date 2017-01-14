@@ -1,8 +1,25 @@
 import React, { Component } from 'react' ;
 import { connect } from 'react-redux';
 import { List } from 'material-ui/List';
+import TextField from 'material-ui/TextField';
+import FlatButton from 'material-ui/FlatButton';
+
 import SearchedFriendsEntry from './searchedFriends-Entry';
 import * as searchActionCreators from '../../actions/search-actions';
+
+const styles = {
+  searchField: {
+    padding: 25,
+  },
+  button: {
+    borderWidth: 1,
+    borderRadius: 8,
+    margin: 10,
+  },
+  list: {
+    margin: 10,
+  },
+};
 
 class SearchFriends extends Component {
   constructor(props) {
@@ -18,7 +35,9 @@ class SearchFriends extends Component {
   }
 
 // this function updates the text value of the search button
-  handleSearchChange(e) {
+  handleSearchChange(e, string) {
+    console.log(e.target.value);
+    console.log(string);
     // console.log('e', e.target.value);
     // console.log('handleSearchChange ran!');
     this.setState({ search: e.target.value });
@@ -35,15 +54,28 @@ class SearchFriends extends Component {
 
 // this is the button that we will use to handle searches to the db
 // will update with material-ui
+        // <TextField
+        //   style={styles.searchField}
+        //   hintText="Search by name or email"
+        //   errorText="This field is required"
+        //   // value={this.state.search}
+        //   onChange={console.log}
+        // />
+
   searchButton() {
     return (
       <div>
-        <input
-          type="text"
+        <TextField
+          className="search-text"
+          hintText="Find more friends!"
           value={this.state.search}
-          onChange={e => (this.handleSearchChange(e))}
+          onChange={this.handleSearchChange}
         />
-        <button onClick={this.handleSearchSubmit}>Submit.</button>
+        <FlatButton
+          style={styles.button}
+          label="Search"
+          onClick={this.handleSearchSubmit}
+        />
       </div>
     );
   }
@@ -61,7 +93,11 @@ class SearchFriends extends Component {
   addUserButton() {
     return (
       <div>
-        <button onClick={this.handleAddUser}>Submit.</button>
+        <FlatButton
+          style={styles.button}
+          label="Submit"
+          onClick={this.handleAddUser}
+        />
       </div>
     );
   }
@@ -128,7 +164,9 @@ class SearchFriends extends Component {
             {this.searchButton()}
           </div>
 
-          <List>
+          <List
+            style={styles.list}
+          >
             {this.listIt()}
           </List>
           <div>
@@ -143,9 +181,9 @@ class SearchFriends extends Component {
 const mapStateToProps = state => (
   // console.log('this is state', state);
   {
-    searchedFriends: state.friendsAdd.searchedFriends,
-    selectedFriend: state.friendsAdd.selectedFriend,
-    searchedFriendSelected: state.friendsAdd.searchedFriendSelected,
+    searchedFriends: state.search.searchedFriends,
+    selectedFriend: state.search.selectedFriend,
+    searchedFriendSelected: state.search.searchedFriendSelected,
   }
 );
 

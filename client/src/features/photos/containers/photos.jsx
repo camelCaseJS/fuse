@@ -1,6 +1,6 @@
 import React from 'react';
 import Main from '../../../shared-components/main';
-import FriendsList from '../../../shared-components/friends-list';
+import Friends from '../../friends/containers/friends';
 import PhotosList from '../components/photos-list';
 
 
@@ -8,7 +8,7 @@ const Photos = () => {
 
   return (
     <Main
-      left={<FriendsList />}
+      left={<Friends />}
       right={<PhotosList />}
     />
   );

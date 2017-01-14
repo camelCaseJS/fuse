@@ -1,26 +1,69 @@
 import React, { Component, PropTypes } from 'react';
-import Main from '../../../shared-components/main';
-import FriendsList from '../../../shared-components/friends-list';
-import CameraButton from '../../../shared-components/camera-button';
+import { connect } from 'react-redux';
+import UsersList from '../../../shared-components/users-list';
+import * as friendsActionCreators from '../../../actions/friends-actions';
+import * as photosActionCreators from '../../../actions/photos-actions';
+import { ListItem } from 'material-ui/List';
+import ActionFace from 'material-ui/svg-icons/action/face';
+
+const combinedActionCreators = {
+  ...photosActionCreators, ...friendsActionCreators,
+};
+
+const emptyListMessage = () => (
+  <p>Click the <ActionFace /> to search for friends</p>
+  );
 
 class Friends extends Component {
+
+  onFriendSelect(friend, index) {
+    if (this.props.router.pathname !== '/camera') {
+      this.props.unselectAllFriends();
+      this.props.selectFriend(friend, index);
+      this.props.fetchPhotos(friend);
+      this.context.router.push('/photos');
+    } else {
+      this.props.selectFriend(friend, index);
+    }
+  }
+
+  onFriendsListMount() {
+    this.props.fetchFriends();
+  }
+
   render() {
     return (
-      <Main
-        left={<FriendsList />}
-        right={<div>
-          <div className="placeholder" />
-          <CameraButton
-            label="start camera"
-            onClick={() => this.context.router.push('/camera')}
-          />
-        </div>}
+      <UsersList
+        onSelect={() => this.onFriendSelect}
+        componentWillMount={() => this.onFriendsListMount}
+        users={this.props.allFriends}
+        componentForEmptyList={<ListItem
+          primaryText={emptyListMessage()}
+          disabled={true}
+        />}
       />
     );
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    allFriends: state.friends.allFriends,
+    lastSelectedFriend: state.friends.lastSelectedFriend,
+    router: state.router,
+  };
+};
+
+Friends.propTypes = {
+  allFriends: PropTypes.arrayOf(PropTypes.array, PropTypes.object),
+  router: PropTypes.object,
+  unselectAllFriends: PropTypes.func.isRequired,
+  selectFriend: PropTypes.func.isRequired,
+  fetchPhotos: PropTypes.func.isRequired,
+  fetchFriends: PropTypes.func.isRequired,
+};
+
 Friends.contextTypes = {
   router: PropTypes.object };
 
-export default Friends;
+export default connect(mapStateToProps, combinedActionCreators)(Friends);
