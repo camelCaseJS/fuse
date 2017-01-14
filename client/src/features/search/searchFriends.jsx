@@ -16,6 +16,9 @@ const styles = {
     borderRadius: 8,
     margin: 10,
   },
+  list: {
+    margin: 10,
+  },
 };
 
 class SearchFriends extends Component {
@@ -161,7 +164,9 @@ class SearchFriends extends Component {
             {this.searchButton()}
           </div>
 
-          <List>
+          <List
+            style={styles.list}
+          >
             {this.listIt()}
           </List>
           <div>

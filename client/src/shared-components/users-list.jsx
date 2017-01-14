@@ -2,8 +2,9 @@ import React, { Component, PropTypes } from 'react';
 import { List } from 'material-ui/List';
 import UsersListEntry from './users-list-entry';
 
-// onSelect
-// componentWillMount
+const styles = { list:
+  { margin: 10 },
+};
 
 class UsersList extends Component {
 
@@ -45,7 +46,9 @@ class UsersList extends Component {
 
   render() {
     return (
-      <List>
+      <List
+        style={styles.list}
+      >
         {this.renderUserList()}
       </List>
     );
