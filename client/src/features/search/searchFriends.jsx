@@ -77,7 +77,7 @@ class SearchFriends extends Component {
           onChange={this.handleSearchChange}
         />
         <FlatButton
-          styles={styles.button}
+          style={styles.button}
           label="Search"
           onClick={this.handleSearchSubmit}
         />
@@ -99,7 +99,7 @@ class SearchFriends extends Component {
     return (
       <div>
         <FlatButton
-          styles={styles.button}
+          style={styles.button}
           label="Submit"
           onClick={this.handleAddUser}
         />
