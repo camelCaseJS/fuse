@@ -3,51 +3,54 @@ import ActionHome from 'material-ui/svg-icons/action/home';
 import ActionFace from 'material-ui/svg-icons/action/face';
 import ActionExitToApp from 'material-ui/svg-icons/action/exit-to-app';
 import CameraEnhance from 'material-ui/svg-icons/action/camera-enhance';
-import AppBar from 'material-ui/AppBar';
+import { Toolbar, ToolbarGroup, ToolbarTitle } from 'material-ui/Toolbar';
 
-const iconStyles = {
-  height: '36px',
-  width: '36px' };
+const styles = {
+  icons: {
+    marginLeft: 20,
+    marginRight: 20,
+    height: '36px',
+    width: '36px' },
+  text: {
+    marginLeft: 20,
+    fontSize: 32,
+    color: '#ffffff'
+  },
+  toolbar: {
+    backgroundColor: '#2cc8f7',
+  },
+};
 
 class NavBar extends Component {
 
-  leftButtons() {
-    return (
-      <div>
-        <ActionHome
-          style={iconStyles}
-          onTouchTap={() => { this.context.router.push('/friends'); }}
-        />
-        <ActionFace
-          style={iconStyles}
-          onTouchTap={() => { this.context.router.push('/search'); }}
-        />
-      </div>
-    );
-  }
-
-  rightButtons() {
-    return (
-      <div>
-        <CameraEnhance
-          style={iconStyles}
-          onTouchTap={() => { this.context.router.push('/camera'); }}
-        />
-        <ActionExitToApp
-          style={iconStyles}
-          onTouchTap={() => { window.location = 'api/auth/logout'; }}
-        />
-      </div>
-    );
-  }
-
   render() {
     return (
-      <AppBar
-        title={<span> fuse </span>}
-        iconElementLeft={this.leftButtons()}
-        iconElementRight={this.rightButtons()}
-      />
+      <Toolbar style={styles.toolbar}>
+        <ToolbarGroup firstChild={true}>
+          <ActionHome
+            style={styles.icons}
+            onTouchTap={() => { this.context.router.push('/friends'); }}
+          />
+          <ActionFace
+            style={styles.icons}
+            onTouchTap={() => { this.context.router.push('/search'); }}
+          />
+          <ToolbarTitle
+            style={styles.text}
+            text="fuse"
+          />
+        </ToolbarGroup>
+        <ToolbarGroup lastChild={true}>
+          <CameraEnhance
+              style={styles.icons}
+              onTouchTap={() => { this.context.router.push('/camera'); }}
+          />
+          <ActionExitToApp
+            style={styles.icons}
+            onTouchTap={() => { window.location = 'api/auth/logout'; }}
+          />
+        </ToolbarGroup>
+      </Toolbar>
     );
   }
 }

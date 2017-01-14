@@ -56,7 +56,7 @@ UsersList.propTypes = {
   users: PropTypes.arrayOf(PropTypes.object).isRequired,
   componentWillMount: PropTypes.func,
   onSelect: PropTypes.func,
-  componentForEmptyList: PropTypes.func,
+  componentForEmptyList: PropTypes.object,
 };
 
 UsersList.defaultProps = {
