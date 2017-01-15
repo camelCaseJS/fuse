@@ -9,9 +9,9 @@ import Styles from './Styles/NavigationContainerStyle';
 
 // screens identified by the router
 import PresentationScreen from '../Containers/PresentationScreen';
-import Friends from '../Containers/Friends';
-// import Photos from '../Containers/Photos';
-// import Search from '../Containers/Search';
+import FriendsList from '../Containers/FriendsList';
+import Photos from '../Containers/Photos';
+import Search from '../Containers/Search';
 import Camera from '../Containers/Camera';
 
 /* **************************
@@ -35,14 +35,9 @@ class NavigationRouter extends Component {
             title="Fuse"
           />
           <Scene
-            key="friends"
-            component={Friends}
+            key="friendsList"
+            component={FriendsList}
             title="Friends"
-          />
-          <Scene
-            key="photos"
-            component={PresentationScreen}
-            title="Fuse"
           />
           <Scene
             key="camera"
@@ -50,8 +45,13 @@ class NavigationRouter extends Component {
             title="Fuse"
           />
           <Scene
+            key="photos"
+            component={Photos}
+            title="Fuse"
+          />
+          <Scene
             key="search"
-            component={PresentationScreen}
+            component={Search}
             title="Fuse"
           />
         </Scene>

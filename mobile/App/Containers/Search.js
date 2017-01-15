@@ -3,7 +3,7 @@ import { ScrollView, Text, Image, View } from 'react-native';
 import { Images } from '../Themes';
 import styles from './Styles/PresentationScreenStyle';
 
-class Camera extends Component {
+class Search extends Component {
   render() {
     return (
       <View style={styles.mainContainer}>
@@ -11,7 +11,7 @@ class Camera extends Component {
         <ScrollView style={styles.container}>
           <View style={styles.section} >
             <Text style={styles.sectionText} >
-              Take Photo
+              Search
             </Text>
           </View>
         </ScrollView>
@@ -20,4 +20,4 @@ class Camera extends Component {
   }
 }
 
-export default Camera;
+export default Search;

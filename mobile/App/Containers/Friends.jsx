@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import UsersList from './UsersList';
+// import UsersList from './UsersList';
 // import * as friendsActionCreators from '../../../actions/friends-actions';
 // import * as photosActionCreators from '../../../actions/photos-actions';
 import { ListItem } from 'material-ui/List';
