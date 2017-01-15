@@ -1,10 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { ListItem } from 'material-ui/List';
+import ActionFace from 'material-ui/svg-icons/action/face';
 import UsersList from '../../../shared-components/users-list';
 import * as friendsActionCreators from '../../../actions/friends-actions';
 import * as photosActionCreators from '../../../actions/photos-actions';
-import { ListItem } from 'material-ui/List';
-import ActionFace from 'material-ui/svg-icons/action/face';
 
 const combinedActionCreators = {
   ...photosActionCreators, ...friendsActionCreators,
