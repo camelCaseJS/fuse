@@ -1,22 +1,37 @@
+const userChannel = 10208433383245426;
 
-const userChannel = 'ryan';
+const url = 'http://localhost:8000/';
 
-const createSocket = () => {
-  const myChannel = io.connect(`http://localhost:8000/${userChannel}`);
+export function connectToPhotosNamespace(userFBId) {
+  // connect to the namespace '/photoSocket'
+  const myPhotoConnection = io('/photoSocket');
 
-  myChannel.on('check', (data) => {
-    console.log(data, 'data got to client!');
-    myChannel.emit('send photo', { client: 'data' });
+  // listen for connection success signal
+  myPhotoConnection.on('photo socket connect', (data) => {
+    console.log(data);
+    // emit join room request with user id to create custom rooms
+    myPhotoConnection.emit('join photo room', { roomId: userFBId });
+    // listen for room connect success signal
+    myPhotoConnection.on('photo room connected', (data) => {
+      console.log(data);
+    });
   });
 
-  myChannel.on('from server', (data) => {
-    console.log(data, '** data got to photo 1');
+}
+
+export function connectToFriendsNamespace(userFBId) {
+  // connect to the namespace '/photoSocket;
+  const myFriendsConnection = io('/friendSocket');
+
+  // listen for connection success signal
+  myFriendsConnection.on('friend socket connect', (data) => {
+    console.log(data);
+    // emit join room request with user id to create custom rooms
+    myFriendsConnection.emit('join friend room', { roomId: userFBId });
+    // listen for room connect success signal
+    myFriendsConnection.on('friend room connected', (data) => {
+      console.log(data);
+    });
   });
+}
 
-  myChannel.on('from server DOS', (data) => {
-    console.log(data, '&& data got to photo 2');
-  });
-};
-
-
-export default createSocket;

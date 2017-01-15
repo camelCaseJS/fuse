@@ -10,13 +10,11 @@ class UsersList extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      users: props.users,
-    };
   }
 
+
   componentWillMount() {
-    this.props.componentWillMount();
+    this.props.listComponentWillMount();
   }
 
   onSelect(user, index) {
@@ -24,13 +22,14 @@ class UsersList extends Component {
   }
 
   renderUserList() {
-    if (this.state.users.length === 0 && this.props.componentForEmptyList !== null) {
+    const onSelect = this.onSelect.bind(this);
+    console.log(this.props.users, 'props');
+
+    if (this.props.users.length === 0 && this.props.componentForEmptyList !== null) {
       return this.props.componentForEmptyList;
     }
 
-    const onSelect = this.onSelect.bind(this);
-
-    return this.state.users.map((user, index) =>
+    return this.props.users.map((user, index) =>
       (
         <UsersListEntry
           key={user.id}
@@ -57,13 +56,13 @@ class UsersList extends Component {
 
 UsersList.propTypes = {
   users: PropTypes.arrayOf(PropTypes.object).isRequired,
-  componentWillMount: PropTypes.func,
+  listComponentWillMount: PropTypes.func,
   onSelect: PropTypes.func,
   componentForEmptyList: PropTypes.object,
 };
 
 UsersList.defaultProps = {
-  ComponentWillMount: () => {},
+  listComponentWillMount: () => {},
   onSelect: () => {},
   componentForEmptyList: null,
 };

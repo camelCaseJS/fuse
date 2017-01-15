@@ -25,18 +25,16 @@ const userSearch = (req, res) => {
   });
 };
 
-const userConnectionStart = (req, res) => {
-  console.log();
-  // socketHandler.openConnection(req.params.id);
+const getUserInfo = (req, res) => {
+  res.send({
+    user: req.user,
+    session: req.session,
+  });
+  // socketHandler.userRoomConnectionStart(req.session.passport.user);
 };
 
-const userIdHasher = (req, res) => {
-
-}
-
-module.exports.userConnectionStart = userConnectionStart;
 
 module.exports.userSearch = userSearch;
 
-module.exports.userIdHasher = userIdHasher;
+module.exports.getUserInfo = getUserInfo;
 

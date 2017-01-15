@@ -7,16 +7,6 @@ const app = express();
 
 app.get('/', (req, res) => {
   if (req.session.passport || process.env.NODE_ENV === 'test') {
-    // console.log(req.user.id);
-    // User.findOne({
-    //   where: {
-    //     userId: req.user.id,
-    //   },
-    // })
-    // .then(user)
-
-
-
     Friendship.findAll({
       where: {
         userId: req.user.id,
@@ -60,7 +50,11 @@ app.post('/', (req, res) => {
   res.redirect('/');
 });
 
-// app.get('/', userHandler.userConnectionStart);
+// need to refactor this to put into '/'. spun out right now to test
+// //////////////////////////////////////////////////
+app.get('/userInfo', userHandler.getUserInfo);
+
+// /////////////////////////////////////////////////////////
 
 app.get('/:query', userHandler.userSearch);
 

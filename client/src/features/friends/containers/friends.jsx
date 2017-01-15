@@ -1,10 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { ListItem } from 'material-ui/List';
+import ActionFace from 'material-ui/svg-icons/action/face';
 import UsersList from '../../../shared-components/users-list';
 import * as friendsActionCreators from '../../../actions/friends-actions';
 import * as photosActionCreators from '../../../actions/photos-actions';
-import { ListItem } from 'material-ui/List';
-import ActionFace from 'material-ui/svg-icons/action/face';
 
 const combinedActionCreators = {
   ...photosActionCreators, ...friendsActionCreators,
@@ -16,6 +16,9 @@ const emptyListMessage = () => (
 
 class Friends extends Component {
 
+  // componentWillMount() {
+  //   this.props.fetchFriends();
+  // }
   onFriendSelect(friend, index) {
     if (this.props.router.pathname !== '/camera') {
       this.props.unselectAllFriends();
@@ -29,13 +32,16 @@ class Friends extends Component {
 
   onFriendsListMount() {
     this.props.fetchFriends();
+    // console.log(this.props.allFriends);
   }
 
   render() {
+    console.log(this.props.allFriends);
+
     return (
       <UsersList
         onSelect={() => this.onFriendSelect}
-        componentWillMount={() => this.onFriendsListMount}
+        listComponentWillMount={() => this.onFriendsListMount()}
         users={this.props.allFriends}
         componentForEmptyList={<ListItem
           primaryText={emptyListMessage()}
@@ -47,6 +53,7 @@ class Friends extends Component {
 }
 
 const mapStateToProps = (state) => {
+  console.log(state, 'in mapStateToProps');
   return {
     allFriends: state.friends.allFriends,
     lastSelectedFriend: state.friends.lastSelectedFriend,
@@ -55,7 +62,7 @@ const mapStateToProps = (state) => {
 };
 
 Friends.propTypes = {
-  allFriends: PropTypes.arrayOf(PropTypes.array, PropTypes.object),
+  allFriends: PropTypes.arrayOf(PropTypes.object),
   router: PropTypes.object,
   unselectAllFriends: PropTypes.func.isRequired,
   selectFriend: PropTypes.func.isRequired,

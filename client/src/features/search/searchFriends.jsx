@@ -36,8 +36,8 @@ class SearchFriends extends Component {
 
 // this function updates the text value of the search button
   handleSearchChange(e, string) {
-    console.log(e.target.value);
-    console.log(string);
+    // console.log(e.target.value);
+    // console.log(string);
     // console.log('e', e.target.value);
     // console.log('handleSearchChange ran!');
     this.setState({ search: e.target.value });
