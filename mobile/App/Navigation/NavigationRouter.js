@@ -9,6 +9,10 @@ import Styles from './Styles/NavigationContainerStyle';
 
 // screens identified by the router
 import PresentationScreen from '../Containers/PresentationScreen';
+import Friends from '../Containers/Friends';
+// import Photos from '../Containers/Photos';
+// import Search from '../Containers/Search';
+import Camera from '../Containers/Camera';
 
 /* **************************
 * Documentation: https://github.com/aksonov/react-native-router-flux
@@ -26,7 +30,27 @@ class NavigationRouter extends Component {
           rightButtonTextStyle={Styles.rightButton}
         >
           <Scene
-            initial key="Main View"
+            initial key="presentationScreen"
+            component={PresentationScreen}
+            title="Fuse"
+          />
+          <Scene
+            key="friends"
+            component={Friends}
+            title="Friends"
+          />
+          <Scene
+            key="photos"
+            component={PresentationScreen}
+            title="Fuse"
+          />
+          <Scene
+            key="camera"
+            component={Camera}
+            title="Fuse"
+          />
+          <Scene
+            key="search"
             component={PresentationScreen}
             title="Fuse"
           />
