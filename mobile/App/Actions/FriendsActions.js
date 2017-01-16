@@ -12,8 +12,6 @@ export function fetchFriends() {
   const request = axios.get(URL.users)
   .then((response) => {
     return response.data.map((friend) => {
-      console.log('friend in fetchFriends');
-      console.log(friend);
       return { ...friend, selected: false };
     });
   });
