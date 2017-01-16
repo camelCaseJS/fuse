@@ -1,11 +1,10 @@
 import axios from 'axios';
+import url from '../configs/urls';
 
 export const GET_USER_INFO = 'GET_USER_INFO';
 
-const url = 'http://localhost:8000';
-
 export function getUserInfo() {
-  const request = axios.get(`${url}/api/users/userInfo`)
+  const request = axios.get(`${url.users}/userInfo`)
   .then(response =>
     response.data,
   );

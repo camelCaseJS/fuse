@@ -1,4 +1,5 @@
 import axios from 'axios';
+import url from '../configs/urls';
 
 export const FETCH_FRIENDS = 'FETCH_FRIENDS';
 export const SELECT_FRIEND = 'SELECT_FRIEND';
@@ -6,10 +7,9 @@ export const UNSELECT_ALL_FRIENDS = 'UNSELECT_ALL_FRIENDS';
 
 export const GET_USER_INFO = 'GET_USER_INFO';
 
-const url = 'http://localhost:8000';
 
 export function fetchFriends() {
-  const request = axios.get(`${url}/api/users/`)
+  const request = axios.get(`${url.users}`)
   .then((response) => {
     // console.log(response.data, 'data in actions');
     return response.data.map((friend) => {
@@ -38,7 +38,7 @@ export function unselectAllFriends() {
 }
 
 export function getUserInfo() {
-  const request = axios.get(`${url}/api/users/userInfo`)
+  const request = axios.get(`${url.users}/userInfo`)
   .then(response =>
     response.data,
   );

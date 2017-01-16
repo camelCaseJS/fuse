@@ -1,4 +1,5 @@
 import axios from 'axios';
+import url from '../configs/urls';
 
 export const SEARCH_FRIENDS = 'SEARCH_FRIENDS';
 export const SEARCH_SELECT_FRIEND = 'SEARCH_SELECT_FRIEND';
@@ -6,10 +7,10 @@ export const ADD_SELECT_FRIEND_TO_DB = 'ADD_SELECT_FRIEND_TO_DB';
 
 export function searchFriends(email) {
   // console.log('this is email passed in ', email);
-  const url = `http://localhost:8000/api/users/${email}`;
+  const getEmailUrl = `${url.users}/${email}`;
   // console.log('this is url', url);
   // need to update here get request to the db with specific query, in this case an email
-  const request = axios.get(url)
+  const request = axios.get(getEmailUrl)
   .then((response) => {
     return response.data.map((friend) => {
       return { ...friend, selected: false };
@@ -32,12 +33,12 @@ export function searchSelectFriend(friend, index) {
 export function addFriendsToDB(id) {
   // select id from friend and post to http://localhost:8000/user/id
   // console.log('in addFriendsToDB. this is id', id);
-  const url = `http://localhost:8000/api/users/${id}`;
+  const postFriendUrl = `${url.photos}/${id}`;
   // console.log('this is url in addFriendsToDB', url);
 
 
   // this will be a post request to the db.
-  axios.post(url)
+  axios.post(postFriendUrl)
   .then((response) => {
     console.log(response.data);
   });
