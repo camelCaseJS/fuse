@@ -6,7 +6,7 @@ const userHandler = require('./user-route-handler');
 const app = express();
 
 app.get('/', (req, res) => {
-  if (req.session.passport || process.env.NODE_ENV === 'test') {
+  if (req.user || process.env.NODE_ENV === 'test') {
     Friendship.findAll({
       where: {
         userId: req.user.id,
