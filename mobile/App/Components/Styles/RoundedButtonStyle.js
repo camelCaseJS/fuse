@@ -19,5 +19,13 @@ export default StyleSheet.create({
     fontWeight: 'bold',
     fontSize: Fonts.size.medium,
     marginVertical: Metrics.baseMargin
-  }
+  },
+  facebookButton: {
+    height: 45,
+    borderRadius: 5,
+    marginHorizontal: Metrics.section,
+    marginVertical: Metrics.baseMargin,
+    backgroundColor: Colors.facebook,
+    justifyContent: 'center',
+  },
 })
