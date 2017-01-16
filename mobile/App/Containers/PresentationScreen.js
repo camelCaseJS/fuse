@@ -3,6 +3,7 @@ import { ScrollView, Text, Image, View } from 'react-native';
 import { Images } from '../Themes';
 import RoundedButton from '../Components/RoundedButton';
 import { Actions as NavigationActions } from 'react-native-router-flux';
+import Login from '../Components/Login';
 
 // Styles
 import styles from './Styles/PresentationScreenStyle';
@@ -11,10 +12,10 @@ export default class PresentationScreen extends React.Component {
   render() {
     return (
       <View style={styles.mainContainer}>
-        <Image source={Images.blueBackground} style={styles.backgroundImage} resizeMode='stretch' />
+        <Image source={Images.background} style={styles.backgroundImage} resizeMode='stretch' />
         <ScrollView style={styles.container}>
 
-          <RoundedButton onPress={NavigationActions.friendsList}>
+          <RoundedButton onPress={NavigationActions.friends}>
             Friends
           </RoundedButton>
 
@@ -29,6 +30,12 @@ export default class PresentationScreen extends React.Component {
           <RoundedButton onPress={NavigationActions.search}>
             Search
           </RoundedButton>
+
+          <View style={styles.loginButton}>
+
+            <Login />
+
+          </View>
 
         </ScrollView>
       </View>

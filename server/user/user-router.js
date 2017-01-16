@@ -38,7 +38,7 @@ app.get('/', (req, res) => {
     });
   } else {
     console.log('no session');
-    res.redirect('/auth/facebook');
+    res.redirect('/api/auth/facebook');
   }
 });
 

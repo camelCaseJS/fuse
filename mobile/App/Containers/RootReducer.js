@@ -1,13 +1,11 @@
 import { combineReducers } from 'redux';
 
-const defaultReducer = state => null;
-
 // import photos from './reducers/photos-reducer';
-// import friends from './reducers/friends-reducer';
+import Friends from '../Reducers/FriendsReducer';
 // import search from './reducers/search-reducer';
 // import camera from './reducers/camera-reducer';
 // import router from './reducers/shared-components-reducer';
 
-const rootReducer = combineReducers({ defaultReducer });
+const RootReducer = combineReducers({ friends: Friends });
 
-export default rootReducer;
+export default RootReducer;

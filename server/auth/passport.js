@@ -35,6 +35,8 @@ passport.use(new FacebookStrategy({
 
 // Facebook will send back the token and profile
 }, (accessToken, refreshToken, profile, done) => {
+  console.log('accessToken');
+  console.log(accessToken);
   // Find the user based on facebook profile.id
   User.findOne({ where: { facebookId: profile.id } })
     .then((user) => {
