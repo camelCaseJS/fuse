@@ -12,6 +12,7 @@ export default class PresentationScreen extends React.Component {
   render() {
     return (
       <View style={styles.mainContainer}>
+        <Image source={Images.background} style={styles.backgroundImage} resizeMode='stretch' />
         <ScrollView style={styles.container}>
 
           <RoundedButton onPress={NavigationActions.friends}>
@@ -30,7 +31,11 @@ export default class PresentationScreen extends React.Component {
             Search
           </RoundedButton>
 
-          <Login />
+          <View style={styles.loginButton}>
+
+            <Login />
+
+          </View>
 
         </ScrollView>
       </View>
