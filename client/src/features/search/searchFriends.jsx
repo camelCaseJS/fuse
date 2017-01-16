@@ -6,6 +6,7 @@ import FlatButton from 'material-ui/FlatButton';
 
 import SearchedFriendsEntry from './searchedFriends-Entry';
 import * as searchActionCreators from '../../actions/search-actions';
+import * as socketActions from '../../sockets-client/sockets';
 
 const styles = {
   searchField: {
@@ -47,7 +48,7 @@ class SearchFriends extends Component {
 // it also resets the search value to ''
   // searchFriends is the action creator that handles search to the db
   handleSearchSubmit() {
-    console.log('handleSearchSubmit ran!');
+    // console.log('handleSearchSubmit ran!');
     this.props.searchFriends(this.state.search);
     this.setState({ search: '' });
   }
@@ -85,7 +86,8 @@ class SearchFriends extends Component {
 // need to talk to Will about how to format data for post request to db to work correctly
   handleAddUser() {
     // console.log('in handleAddUser. this is state', this.props.searchedFriends[0].id);
-    this.props.addFriendsToDB(this.props.searchedFriends[0].id);
+    socketActions.sendFriendRequest(this.props.searchedFriends[0].facebookId);
+    // this.props.addFriendsToDB(this.props.searchedFriends[0].id);
   }
 
 // this is the button that we will use to add users to the db
@@ -194,6 +196,7 @@ SearchFriends.propTypes = {
   searchSelectFriend: React.PropTypes.func.isRequired,
   searchedFriendSelected: React.PropTypes.bool.isRequired,
   addFriendsToDB: React.PropTypes.func.isRequired,
+  // sendFriendRequest: React.PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, searchActionCreators)(SearchFriends);

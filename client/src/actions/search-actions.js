@@ -40,7 +40,6 @@ export function addFriendsToDB(id) {
   axios.post(url)
   .then((response) => {
     console.log(response.data);
-
   });
 
   // won't really be using payload, just make it a boolean?
