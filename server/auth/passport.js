@@ -1,6 +1,7 @@
 const express = require('express');
 const passport = require('passport');
 const FacebookStrategy = require('passport-facebook').Strategy;
+var FacebookTokenStrategy = require('passport-facebook-token');
 const apiKeys = require('./oauth-keys');
 const User = require('../db/users/User');
 
@@ -25,18 +26,8 @@ passport.deserializeUser((facebookId, done) => {
     });
 });
 
-passport.use(new FacebookStrategy({
 
-  // Pull facebook API info from oauth-keys.js
-  clientID: apiKeys.facebook.clientId,
-  clientSecret: apiKeys.facebook.clientSecret,
-  callbackURL: apiKeys.facebook.callbackURL,
-  profileFields: ['id', 'first_name', 'last_name', 'picture', 'email'],
-
-// Facebook will send back the token and profile
-}, (accessToken, refreshToken, profile, done) => {
-  console.log('accessToken');
-  console.log(accessToken);
+const authenicationCallback = (accessToken, refreshToken, profile, done) => {
   // Find the user based on facebook profile.id
   User.findOne({ where: { facebookId: profile.id } })
     .then((user) => {
@@ -59,6 +50,29 @@ passport.use(new FacebookStrategy({
     .catch((err) => {
       return done(err);
     });
-}));
+};
+
+// // Token based Authenication for Mobile
+
+passport.use(new FacebookTokenStrategy({
+  // Pull facebook API info from oauth-keys.js
+  clientID: apiKeys.facebook.clientId,
+  clientSecret: apiKeys.facebook.clientSecret,
+    profileFields: ['id', 'first_name', 'last_name', 'picture', 'email'],
+
+  }, authenicationCallback));
+
+// Web based Authentication
+
+passport.use(new FacebookStrategy({
+
+  // Pull facebook API info from oauth-keys.js
+  clientID: apiKeys.facebook.clientId,
+  clientSecret: apiKeys.facebook.clientSecret,
+  callbackURL: apiKeys.facebook.callbackURL,
+  profileFields: ['id', 'first_name', 'last_name', 'picture', 'email'],
+
+// Facebook will send back the token and profile
+}, authenicationCallback));
 
 module.exports = passport;
