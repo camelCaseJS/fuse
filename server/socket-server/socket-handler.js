@@ -10,6 +10,7 @@ const startSocketServer = (server) => {
 
     // emit namespace connection success
     photoNsp.emit('photo socket connect', 'connected to namespace: "/photoSocket"');
+
     // listen for join room request
     socket.on('join photo room', (data) => {
       const userPhotoRoom = `photoRoom:${data}`;
@@ -18,6 +19,10 @@ const startSocketServer = (server) => {
         // emit room connection success
         photoNsp.in(userPhotoRoom).emit('photo room connected', `in photo room #${data.roomId}`);
       });
+    });
+
+    socket.on('send to photos test', (data) => {
+      console.log(data, 'inside photos nsp from friends nsp');
     });
 
     socket.on('disconnect', () => {
@@ -40,6 +45,12 @@ const startSocketServer = (server) => {
         friendNsp.in(userfriendRoom).emit('friend room connected', `in friend room #${data.roomId}`);
       });
     });
+
+    socket.on('send friend request', (data) => {
+      console.log(data, 'data through send friend request function');
+      photoNsp.in('photoRoom:10208433383245426').emit('send to photos test', 'AY SOMEONE TRYNA HIT YOU UP BRUH');
+    });
+
 
     socket.on('disconnect', () => {
       console.log('disconnected from photo socket namespace');

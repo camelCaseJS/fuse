@@ -1,4 +1,4 @@
-process.env.NODE_ENV = 'test'
+process.env.NODE_ENV = 'test';
 
 const db = require('./User-db.js');
 const User = require('./User.js');
@@ -12,12 +12,13 @@ User.belongsToMany(User, {
   onDelete: 'cascade',
   hooks: true,
 });
+
 /*
 Rather than adding friendships directly one adds to to friend requests,
 if a matching friend request exists, both requests are deleted and a new
 friendship is added to the friendship table
-
 */
+
 const FriendRequests = db.model('friendRequests');
 
 
@@ -44,7 +45,7 @@ FriendRequests.hook('afterCreate', (request) => {
     if(matchingRequest) {
       return FriendRequests.destroy({ where: {
         $or: [
-          {requestId: request.requestId, userId: request.userId}, 
+          {requestId: request.requestId, userId: request.userId},
           {requestId: matchingRequest.requestId, userId: matchingRequest.userId}
         ]
       }
