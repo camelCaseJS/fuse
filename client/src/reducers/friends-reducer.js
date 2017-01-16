@@ -43,7 +43,6 @@ export default (state = INITIAL_STATE, action) => {
     }
 
     case GET_USER_INFO: {
-      // console.log(action.payload, 'GOT TO GET USER INFO');
       return {
         ...state,
         userInfo: action.payload,
