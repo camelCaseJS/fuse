@@ -11,19 +11,27 @@ const dataObjects = [
   { id: 1,
     firstName: 'Philip',
     lastName: 'Fry',
-    profilePictureURL: 'https://www.wired.com/images_blogs/underwire/2010/06/fry_660.jpg',
+    image: 'https://www.wired.com/images_blogs/underwire/2010/06/fry_660.jpg',
   },
   { id: 2,
     firstName: 'Bender',
     lastName: 'Rodriguez',
-    profilePictureURL: 'https://upload.wikimedia.org/wikipedia/en/a/a6/Bender_Rodriguez.png',
+    image: 'https://upload.wikimedia.org/wikipedia/en/a/a6/Bender_Rodriguez.png',
   },
   { id: 3,
     firstName: 'Prof',
     lastName: 'Fransworth',
-    profilePictureURL: 'http://suptg.thisisnotatrueending.com/archive/4552543/images/1242295402621.jpg',
+    image: 'http://suptg.thisisnotatrueending.com/archive/4552543/images/1242295402621.jpg',
   },
 ];
+
+dataObjects.map((user) => {
+  user.image =  <Image
+    source={{uri: user.image }}
+    style={{ height: 40, width: 40 }}
+  />;
+  return user;
+});
 
 class UsersList extends Component {
 
@@ -39,7 +47,7 @@ class UsersList extends Component {
       (
         <ListItem
           key={user.id}
-          leftElement={<Image source={{uri: user.profilePictureURL}} style={{ height:40, width:40 }} />}
+          leftElement={user.image}
           centerElement={`${user.firstName} ${user.lastName}`}
           onPress={() => {}}
         />

@@ -11,10 +11,10 @@ export default class PresentationScreen extends React.Component {
   render() {
     return (
       <View style={styles.mainContainer}>
-        <Image source={Images.blueBackground} style={styles.backgroundImage} resizeMode='stretch' />
+        <Image source={Images.background} style={styles.backgroundImage} resizeMode='stretch' />
         <ScrollView style={styles.container}>
 
-          <RoundedButton onPress={NavigationActions.friendsList}>
+          <RoundedButton onPress={NavigationActions.friends}>
             Friends
           </RoundedButton>
 

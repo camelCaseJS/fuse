@@ -21,6 +21,6 @@ const colors = {
   fire: '#e73536',
   drawer: 'rgba(30, 30, 29, 0.95)',
   navBarBlue: '#2cc8f7',
-}
+};
 
-export default colors
+export default colors;

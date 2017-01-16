@@ -5,14 +5,17 @@ import styles from './Styles/PresentationScreenStyle';
 import UsersList from './UsersList';
 
 
-class FriendsList extends Component {
+class Friends extends Component {
   render() {
     return (
       <View style={styles.mainContainer}>
-        <UsersList />
+        <Image source={Images.background} style={styles.backgroundImage} resizeMode='stretch' />
+        <ScrollView style={styles.container}>
+          <UsersList />
+        </ScrollView>
       </View>
     );
   }
 }
 
-export default FriendsList;
+export default Friends;
