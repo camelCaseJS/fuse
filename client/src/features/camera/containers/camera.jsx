@@ -22,7 +22,7 @@ class Camera extends Component {
   }
 
   onCameraButtonPress(mode) {
-    console.log(mode);
+    // console.log(mode);
     if (mode === 'ON') {
       this.getScreenshot();
     } else if (mode === 'PICTURE') {
@@ -34,7 +34,7 @@ class Camera extends Component {
   }
 
   getScreenshot() {
-    console.log('getScreenshot');
+    // console.log('getScreenshot');
     const canvas = this.getCanvas();
     const photoRaw = canvas.toDataURL(this.props.imageFormat);
     canvas.toBlob((imageBlob) => {
@@ -77,18 +77,8 @@ class Camera extends Component {
       );
     }
     // mode === 'OFF'
-    return (<div className="placeholder" />);
-  }
-
-  generateCameraLabel(mode) {
-    if (mode === 'ON') {
-      return 'Take picture';
-    }
-    if (mode === 'PICTURE') {
-      return 'Send to friends';
-    }
-    // mode === 'OFF'
-    return 'Camera ON';
+    // return (<div className="placeholder" />);
+    return (<Webcam ref="webcam" />);
   }
 
   render() {
@@ -99,41 +89,39 @@ class Camera extends Component {
     } else if (!this.props.cameraOn && !this.props.pictureCaptured) {
       cameraMode = 'OFF';
     }
-    console.log('camera mode', cameraMode);
 
     return (
       <div >
-        {this.generateMediaBox(cameraMode)}
+        <div>
+          {this.generateMediaBox(cameraMode)}
+        </div>
         <CameraButton
-          // src={buttonSource}
-          label={this.generateCameraLabel(cameraMode)}
           onClick={() => this.onCameraButtonPress(cameraMode)}
+          mode={cameraMode}
         />
       </div>
     );
   }
 }
 
-const mapStateToProps = ({ camera, router }) => {
-  return {
+const mapStateToProps = ({ camera, router }) => (
+  {
     cameraOn: camera.cameraOn,
     pictureCaptured: camera.pictureCaptured,
     capturedPicture: camera.capturedPicture,
     capturedPictureRaw: camera.capturedPictureRaw,
-    // anyFriendsSelected: true,
     capturePhoto: camera.capturePhoto,
     imageFormat: camera.imageFormat,
-    // serverSocketConnectionActive: camera.serverSocketConnectionActive,
     router,
-  };
-};
+  }
+);
 
 
 Camera.propTypes = {
   cameraOn: PropTypes.bool.isRequired,
   pictureCaptured: PropTypes.bool.isRequired,
   capturedPictureRaw: PropTypes.string.isRequired,
-  capturedPicture: PropTypes.object.isRequired,
+  capturedPicture: PropTypes.objectOf(PropTypes.string.isRequired),
   startCamera: PropTypes.func.isRequired,
   capturePhoto: PropTypes.func.isRequired,
   sendPhoto: PropTypes.func.isRequired,
