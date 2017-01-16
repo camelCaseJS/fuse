@@ -1,4 +1,4 @@
-import { FETCH_FRIENDS, SELECT_FRIEND, UNSELECT_ALL_FRIENDS, GET_USER_INFO } from '../actions/friends-actions';
+import { FETCH_FRIENDS, SELECT_FRIEND, UNSELECT_ALL_FRIENDS, GET_USER_INFO } from '../Actions/FriendsActions';
 
 
 // NEED TO PUT USER INFO INTO STATE OF ANY COMPONENT THAT USES GETINFO
@@ -43,7 +43,6 @@ export default (state = INITIAL_STATE, action) => {
     }
 
     case GET_USER_INFO: {
-      // console.log(action.payload, 'GOT TO GET USER INFO');
       return {
         ...state,
         userInfo: action.payload,
