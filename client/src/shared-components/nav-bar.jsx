@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import ActionHome from 'material-ui/svg-icons/action/home';
-import ActionFace from 'material-ui/svg-icons/action/face';
+import Search from 'material-ui/svg-icons/action/search';
 import ActionExitToApp from 'material-ui/svg-icons/action/exit-to-app';
 import CameraEnhance from 'material-ui/svg-icons/action/camera-enhance';
 import { Toolbar, ToolbarGroup, ToolbarTitle } from 'material-ui/Toolbar';
@@ -9,8 +9,17 @@ const styles = {
   icons: {
     marginLeft: 20,
     marginRight: 20,
+    color: 'FFFFFF',
     height: '36px',
-    width: '36px' },
+    width: '36px',
+  },
+  iconHover: {
+    marginLeft: 20,
+    marginRight: 20,
+    color: 'FFFFFF',
+    height: '38px',
+    width: '38px',
+  },
   text: {
     marginLeft: 20,
     fontSize: 32,
@@ -31,7 +40,7 @@ class NavBar extends Component {
             style={styles.icons}
             onTouchTap={() => { this.context.router.push('/friends'); }}
           />
-          <ActionFace
+          <Search
             style={styles.icons}
             onTouchTap={() => { this.context.router.push('/search'); }}
           />
