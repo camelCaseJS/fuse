@@ -3,9 +3,8 @@ import { ScrollView, Text, Image, View } from 'react-native';
 import { Avatar, ListItem, Subheader, Toolbar } from 'react-native-material-ui/src';
 // import UsersListEntry from './users-list-entry';
 
-const styles = { list:
-  { margin: 10 },
-};
+// Styles
+import styles from './Styles/ListviewExampleStyle';
 
 // const dataObjects = [
 //   { id: 1,
@@ -46,7 +45,10 @@ class UsersList extends Component {
       (
         <ListItem
           key={user.id}
-          // leftElement={user.image}
+          leftElement={<Image
+            source={{uri: user.profilePictureURL }}
+            style={{ height: 40, width: 40 }}
+          />}
           centerElement={`${user.firstName} ${user.lastName}`}
           selected={user.selected}
           onSelect={() => onSelect(user, index)}
@@ -85,10 +87,8 @@ class UsersList extends Component {
   // }
 
   render() {
-    console.log('render');
     return (
       <ScrollView style={styles.container}>
-        <Subheader text="One line" />
          {this.renderUserList()}
       </ScrollView>
     );

@@ -8,42 +8,10 @@ export const SELECT_FRIEND = 'SELECT_FRIEND';
 export const UNSELECT_ALL_FRIENDS = 'UNSELECT_ALL_FRIENDS';
 export const GET_USER_INFO = 'GET_USER_INFO';
 
-const dataObjects = [
-  { id: 1,
-    firstName: 'Philip',
-    lastName: 'Fry',
-    image: 'https://www.wired.com/images_blogs/underwire/2010/06/fry_660.jpg',
-  },
-  { id: 2,
-    firstName: 'Bender',
-    lastName: 'Rodriguez',
-    image: 'https://upload.wikimedia.org/wikipedia/en/a/a6/Bender_Rodriguez.png',
-  },
-  { id: 3,
-    firstName: 'Prof',
-    lastName: 'Fransworth',
-    image: 'http://suptg.thisisnotatrueending.com/archive/4552543/images/1242295402621.jpg',
-  },
-];
-
-dataObjects.map((user) => {
-  user.image =  <Image
-    source={{uri: user.image }}
-    style={{ height: 40, width: 40 }}
-  />;
-  return user;
-});
-
 export function fetchFriends() {
-  console.log('URL.users');
-  console.log(URL.users);
   const request = axios.get(URL.users)
   .then((response) => {
-    console.log('response');
-    console.log(response);
     return response.data.map((friend) => {
-      console.log('friend!');
-      console.log(friend);
       return { ...friend, selected: false };
     });
   });

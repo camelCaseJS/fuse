@@ -21,4 +21,12 @@ app.get('/facebook/callback',
     successRedirect: '/',
     failureRedirect: '/login' }));
 
+
+app.post('/facebook/token',
+  passport.authenticate('facebook-token'), (req, res) => {
+    // do something with req.user
+    res.send(req.user? 200 : 401);
+  }
+);
+
 module.exports = app;

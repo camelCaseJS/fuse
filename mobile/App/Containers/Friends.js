@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { ScrollView, Text, Image, View } from 'react-native';
 import { Images } from '../Themes';
-import styles from './Styles/PresentationScreenStyle';
+import styles from './Styles/ListviewExampleStyle';
 import UsersList from './UsersList';
 import * as friendsActionCreators from '../Actions/FriendsActions';
 
@@ -44,7 +44,7 @@ class Friends extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, action) => {
   return {
     allFriends: state.friends.allFriends,
     lastSelectedFriend: state.friends.lastSelectedFriend,
