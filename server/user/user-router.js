@@ -2,11 +2,13 @@ const express = require('express');
 const Friendship = require('../db/users/User-Friends');
 const User = require('../db/users/User');
 const userHandler = require('./user-route-handler');
+process.env.NODE_ENV = 'test';
 
 const app = express();
 
 app.get('/', (req, res) => {
   if (req.session.passport || process.env.NODE_ENV === 'test') {
+    req.user= {id: 3};
     Friendship.findAll({
       where: {
         userId: req.user.id,
@@ -38,7 +40,7 @@ app.get('/', (req, res) => {
     });
   } else {
     console.log('no session');
-    res.redirect('/auth/facebook');
+    res.redirect('/api/auth/facebook');
   }
 });
 

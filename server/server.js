@@ -8,8 +8,8 @@ const socketHandler = require('./socket-server/socket-handler');
 
 // API routes
 app.use('/api/auth', authRouter);
-app.use('/api/photos', isAuthenticated, photoRouter);
-app.use('/api/users', isAuthenticated, userRouter);
+app.use('/api/photos', photoRouter);
+app.use('/api/users', userRouter);
 
 // Serve up webpack bundle
 app.get('/bundle.js', (req, res) => {

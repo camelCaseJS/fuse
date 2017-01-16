@@ -6,6 +6,7 @@ const buildProcessEnv = () => {
   process.env.DB_HOST = 'database';
   // ENV setting for a localhost DB
   // process.env.DB_HOST = 'localhost';
+  // process.env.DB_PORT = 5433;
 };
 
 module.exports = buildProcessEnv;
