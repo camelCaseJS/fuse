@@ -4,7 +4,7 @@ import url from '../configs/urls';
 export const FETCH_FRIENDS = 'FETCH_FRIENDS';
 export const SELECT_FRIEND = 'SELECT_FRIEND';
 export const UNSELECT_ALL_FRIENDS = 'UNSELECT_ALL_FRIENDS';
-
+export const HANDLE_TAB_SWITCH = 'HANDLE_TAB_SWITCH';
 export const GET_USER_INFO = 'GET_USER_INFO';
 
 
@@ -47,3 +47,11 @@ export function getUserInfo() {
     payload: request,
   };
 }
+
+export function handleTabSwitch(value) {
+  return {
+    type: HANDLE_TAB_SWITCH,
+    payload: value,
+  };
+}
+

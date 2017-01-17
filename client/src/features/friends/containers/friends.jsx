@@ -2,6 +2,11 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { ListItem } from 'material-ui/List';
 import Search from 'material-ui/svg-icons/action/search';
+import {Tabs, Tab} from 'material-ui/Tabs';
+// From https://github.com/oliviertassinari/react-swipeable-views
+import SwipeableViews from 'react-swipeable-views';
+
+
 import UsersList from '../../../shared-components/users-list';
 import * as friendsActionCreators from '../../../actions/friends-actions';
 import * as photosActionCreators from '../../../actions/photos-actions';
@@ -16,7 +21,27 @@ const emptyListMessage = () => (
   <p>Click the <Search /> to search for friends</p>
   );
 
+const styles = {
+  headline: {
+    fontSize: 24,
+    paddingTop: 16,
+    marginBottom: 12,
+    fontWeight: 400,
+  },
+  slide: {
+    padding: 10,
+  },
+  inkBarStyle: {
+    background: '#FFFFFF',
+  },
+};
+
 class Friends extends Component {
+  constructor(props) {
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
 
   componentWillUpdate() {
     if (this.props.userInfo.user !== undefined) {
@@ -26,12 +51,6 @@ class Friends extends Component {
       connectToNamespaces(userFBId);
     }
   }
-  // componentWillMount() {
-  //   this.props.fetchFriends();
-  //   this.props.getUserInfo();
-  //   console.log('friends component mount');
-  //   // console.log(this.props.userInfo, 'props inside of friendslist mount');
-  // }
 
   onFriendSelect(friend, index) {
     if (this.props.router.pathname !== '/camera') {
@@ -49,23 +68,45 @@ class Friends extends Component {
     this.props.getUserInfo();
   }
 
-  // connectToNsp(user) {
-  //   connectToPhotosNamespace(user.facebookId);
-  //   connectToFriendsNamespace(user.facebookId);
-  // }
+  handleChange(value) {
+    // console.log(value);
+    this.props.handleTabSwitch(value);
+  }
 
   render() {
     // console.log(this.props.userInfo);
     return (
-      <UsersList
-        onSelect={(user, index) => this.onFriendSelect(user, index)}
-        listComponentWillMount={() => this.onFriendsListMount()}
-        users={this.props.allFriends}
-        componentForEmptyList={<ListItem
-          primaryText={emptyListMessage()}
-          disabled={true}
-        />}
-      />
+      <div>
+        <Tabs
+          inkBarStyle={{ background: '#DB0B00' }}
+          tabItemContainerStyle={{ backgroundColor: '#666C7F' }}
+          onChange={this.handleChange}
+          value={this.props.slideIndex}
+        >
+          <Tab label="Tab One" value={0} />
+          <Tab label="Tab Two" value={1} />
+        </Tabs>
+        <SwipeableViews
+          index={this.props.slideIndex}
+          onChangeIndex={this.handleChange}
+        >
+          <div>
+            <UsersList
+              style={styles}
+              onSelect={(user, index) => this.onFriendSelect(user, index)}
+              listComponentWillMount={() => this.onFriendsListMount()}
+              users={this.props.allFriends}
+              componentForEmptyList={<ListItem
+                primaryText={emptyListMessage()}
+                disabled={true}
+              />}
+            />
+          </div>
+          <div style={styles}>
+            <h2>Pending friends list goes here</h2>
+          </div>
+        </SwipeableViews>
+      </div>
     );
   }
 }
@@ -75,6 +116,7 @@ const mapStateToProps = (state) => {
     allFriends: state.friends.allFriends,
     lastSelectedFriend: state.friends.lastSelectedFriend,
     userInfo: state.friends.userInfo,
+    slideIndex: state.friends.slideIndex,
     router: state.router,
   };
 };
@@ -87,6 +129,8 @@ Friends.propTypes = {
   fetchPhotos: PropTypes.func.isRequired,
   fetchFriends: PropTypes.func.isRequired,
   getUserInfo: React.PropTypes.func.isRequired,
+  handleTabSwitch: React.PropTypes.func.isRequired,
+  slideIndex: React.PropTypes.number.isRequired,
   userInfo: PropTypes.objectOf(PropTypes.object),
 };
 
