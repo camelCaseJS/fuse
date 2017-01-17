@@ -66,7 +66,11 @@ class Camera extends Component {
 
   generateMediaBox(mode) {
     if (mode === 'ON') {
-      return (<Webcam ref="webcam" />);
+      return (<Webcam
+        ref="webcam"
+        height="70%"
+        width="100%"
+      />);
     }
     if (mode === 'PICTURE') {
       return (

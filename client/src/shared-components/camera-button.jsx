@@ -1,5 +1,6 @@
 import React from 'react';
-import IconButton from 'material-ui/IconButton';
+import RaisedButton from 'material-ui/RaisedButton';
+// import IconButton from 'material-ui/IconButton';
 import TakePicture from 'material-ui/svg-icons/image/camera';
 // import Search from 'material-ui/svg-icons/action/search';
 import Send from 'material-ui/svg-icons/content/send';
@@ -13,13 +14,18 @@ function buttonLogo(mode) {
   }
   return <Camera />;
 }
+const style = {
+  margin: 12,
+  textAlign: 'center',
+};
 
 const CameraButton = props => (
-  <IconButton
+  <RaisedButton
     onTouchTap={props.onClick}
-  >
-    {buttonLogo(props.mode)}
-  </IconButton>
+    icon={buttonLogo(props.mode)}
+    style={style}
+  />
+  // </RaisedButton>
 );
 
 CameraButton.propTypes = {
