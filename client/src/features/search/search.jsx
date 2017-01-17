@@ -1,12 +1,12 @@
-import React from 'react';
-import Main from '../../shared-components/main';
-import SearchFriends from './searchFriends';
+// import React from 'react';
+// import Main from '../../shared-components/main';
+// import SearchFriends from './searchFriends';
 
-const Search = () => (
-  <Main
-    left={<SearchFriends />}
-    right={<div />}
-  />
-  );
+// const Search = () => (
+//   <Main
+//     left={<div />}
+//     right={<SearchFriends />}
+//   />
+//   );
 
-export default Search;
+// export default Search;

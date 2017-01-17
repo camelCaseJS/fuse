@@ -3,6 +3,9 @@ import { connect } from 'react-redux';
 import { List } from 'material-ui/List';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
+// TODO: SEARCH HAS BEEN IMPORTED HERE TO PLACE IN FRONT OF
+// INPUT BAR IF TIME ALLOWS (MATCH MOBILE STYLE)
+// import Search from 'material-ui/svg-icons/action/search';
 
 import SearchedFriendsEntry from './searchedFriends-Entry';
 import * as searchActionCreators from '../../actions/search-actions';
