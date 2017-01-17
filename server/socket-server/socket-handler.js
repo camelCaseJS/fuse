@@ -49,6 +49,11 @@ const startSocketServer = (server) => {
       friendNsp.in(`friendRoom:${data.friendFacebookId}`).emit('send to friend test', 'BACK TO CLIENT THRU NSP/ROOM');
     });
 
+    // socket.on('send friend request', (data) => {
+    //   console.log(data, `emitting through friendRoom:${data.friendFacebookId}`);
+    //   friendNsp.in('friendRoom:10208433383245426').emit('send to friend test', 'BACK TO CLIENT THRU NSP/ROOM');
+    // });
+
     socket.on('disconnect', () => {
       console.log('disconnected from photo socket namespace');
     });

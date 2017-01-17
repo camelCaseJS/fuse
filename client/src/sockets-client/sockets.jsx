@@ -35,11 +35,10 @@ export function connectToNamespaces(userFBId) {
     });
   });
 
-  myFriendsConnection.on('send to friends test', (friendData) => {
-    // alert('AY SOMEONE TRYNA SLIDE IN YO DMS');
+  myFriendsConnection.on('send to friend test', (friendData) => {
+    alert('AY SOMEONE TRYNA SLIDE IN YO DMS');
     console.log(friendData, 'thru user friends room in friends nsp');
   });
-  // myFriendsConnection.on('new friend request');
 }
 
 
