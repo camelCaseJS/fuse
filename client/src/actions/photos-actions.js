@@ -12,7 +12,7 @@ export function fetchPhotos(friend) {
   // expect request to be an array of object photos
   // console.log('friend');
   console.log(friend);
-  const request = axios.get(`${url.photos}/${friend.id}`)
+  const request = axios.get(`${url.photos}${friend.id}`)
   .then(response => (response.data));
 
   return {

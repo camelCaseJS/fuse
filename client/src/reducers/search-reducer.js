@@ -1,4 +1,4 @@
-import { SEARCH_SELECT_FRIEND, SEARCH_FRIENDS, ADD_SELECT_FRIEND_TO_DB } from '../actions/search-actions';
+import { SEARCH_SELECT_FRIEND, SEARCH_FRIENDS, ADD_FRIEND_REQUEST_TO_DB } from '../actions/search-actions';
 
 const INITIAL_STATE = {
   searchedFriends: [],
@@ -29,7 +29,7 @@ export default (state = INITIAL_STATE, action) => {
 
       return newState;
     }
-    case ADD_SELECT_FRIEND_TO_DB: {
+    case ADD_FRIEND_REQUEST_TO_DB: {
       const newState = {
         searchedFriends: [],
         selectedFriend: {},

@@ -3,8 +3,10 @@ const dbHandler = require('./user-db-handler');
 const socketHandler = require('../socket-server/socket-handler');
 
 const userSearch = (req, res) => {
+
   const keys = req.params.query.split(' ');
   return Promise.all(keys.map((token) => {
+    console.log(token);
     if (token.match('@')) {
       return dbHandler.emailSearch(token);
     }
@@ -14,7 +16,6 @@ const userSearch = (req, res) => {
     const users = [];
     results.forEach((result) => {
       result.forEach((user) => {
-        // console.log('hello')
         users.push(user);
       });
     });
@@ -33,8 +34,13 @@ const getUserInfo = (req, res) => {
   // socketHandler.userRoomConnectionStart(req.session.passport.user);
 };
 
+const addFriendRequest = (req, res) => {
+  const friendId = req.params;
+  console.log(friendId, 'FRIEND IDDDDD');
+};
 
 module.exports.userSearch = userSearch;
 
 module.exports.getUserInfo = getUserInfo;
 
+module.exports.addFriendRequest = addFriendRequest

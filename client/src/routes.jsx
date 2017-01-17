@@ -24,12 +24,10 @@ const CameraRoute = () => (
   />
 );
 
-const SearchRoute = () => (
-  <Main
-    left={<Friends />}
-    right={<SearchFriends />}
-  />
-);
+ // <Route
+ //      path="search"
+ //      component={SearchRoute}
+ //    />
 
 export default (
   <Route path="/" component={App}>
@@ -45,10 +43,7 @@ export default (
       path="friends"
       component={FriendsRoute}
     />
-    <Route
-      path="search"
-      component={SearchRoute}
-    />
+
     <Route
       path="camera"
       component={CameraRoute}
