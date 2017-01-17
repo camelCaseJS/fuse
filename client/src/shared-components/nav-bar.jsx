@@ -40,6 +40,13 @@ function decreaseButtonSize() {
   this.style.width = '36px';
 }
 
+// <Search
+//   style={styles.icons}
+//   onMouseEnter={increaseButtonSize}
+//   onMouseLeave={decreaseButtonSize}
+//   onTouchTap={() => { this.context.router.push('/search'); }}
+// />
+
 class NavBar extends Component {
 
   render() {
@@ -52,12 +59,7 @@ class NavBar extends Component {
             onMouseLeave={decreaseButtonSize}
             onTouchTap={() => { this.context.router.push('/friends'); }}
           />
-          <Search
-            style={styles.icons}
-            onMouseEnter={increaseButtonSize}
-            onMouseLeave={decreaseButtonSize}
-            onTouchTap={() => { this.context.router.push('/search'); }}
-          />
+
           <ToolbarTitle
             style={styles.text}
             text="fuse"
