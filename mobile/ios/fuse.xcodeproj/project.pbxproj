@@ -24,7 +24,7 @@
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
-		E825D9821E2CB9CA00CCBFDA /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E825D97E1E2CB9CA00CCBFDA /* Bolts.framework */; };
+		E825D9821E2CB9CA00CCBFDA /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E825D97E1E2CB9CA00CCBFDA /* Bolts.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		E825D9831E2CB9CA00CCBFDA /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E825D97F1E2CB9CA00CCBFDA /* FBSDKCoreKit.framework */; };
 		E825D9841E2CB9CA00CCBFDA /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E825D9801E2CB9CA00CCBFDA /* FBSDKLoginKit.framework */; };
 		E825D9851E2CB9CA00CCBFDA /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E825D9811E2CB9CA00CCBFDA /* FBSDKShareKit.framework */; };
@@ -980,7 +980,7 @@
 					"values>",
 					f,
 				);
-				"FRAMEWORK_SEARCH_PATHS[arch=*]" = /Users/JP/Documents/FacebookSDK/;
+				"FRAMEWORK_SEARCH_PATHS[arch=*]" = /Users/ryanchoi/Documents/FacebookSDK/;
 				INFOPLIST_FILE = fuse/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -1005,7 +1005,7 @@
 					"values>",
 					f,
 				);
-				"FRAMEWORK_SEARCH_PATHS[arch=*]" = /Users/JP/Documents/FacebookSDK/;
+				"FRAMEWORK_SEARCH_PATHS[arch=*]" = /Users/ryanchoi/Documents/FacebookSDK/;
 				INFOPLIST_FILE = fuse/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
