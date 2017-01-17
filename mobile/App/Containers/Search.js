@@ -26,7 +26,6 @@ class Search extends Component {
   }
 
   handleSearchSubmit() {
-    console.log('handlesearchsumbit');
     axios.get(`${URL.users}${this.state.search}`)
       .then((response) => {
         console.log(response.data);
@@ -36,6 +35,7 @@ class Search extends Component {
   }
 
   handleAddUser(id) {
+    console.log(`${URL.users}${id}`);
     axios.post(`${URL.users}${id}`)
       .then((response) => {
         console.log(response.data);
@@ -45,14 +45,12 @@ class Search extends Component {
     return (
       <View style={styles.container}>
         <Image source={Images.background} style={styles.backgroundImage} resizeMode='stretch' />
-        <ScrollView>
           <SearchBar
             onSearch={()=> {this.handleSearchSubmit()}}
             onCancel={()=> {this.handleSearchSubmit()}}
             searchTerm={this.state.search}
             onChange={(e)=> {this.handleSearchChange(e)}}
           />
-        </ScrollView>
       </View>
     );
   }
@@ -65,7 +63,7 @@ class Search extends Component {
           {this.searchButton()}
           <View>
           <UsersList
-            onSelect={(user, index) => this.onFriendSelect(user, index)}
+            onSelect={(user, index) => this.handleAddUser(user.id)}
             users={this.state.searchResults}
           />
           </View>

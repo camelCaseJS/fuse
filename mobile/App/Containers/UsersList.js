@@ -23,21 +23,26 @@ class UsersList extends Component {
   renderUserList() {
     const onSelect = this.onSelect.bind(this);
 
-    return this.props.users.map((user, index) =>
-      (
-        <ListItem
-          key={user.id}
-          leftElement={<Image
-            source={{uri: user.profilePictureURL }}
-            style={{ height: 40, width: 40 }}
-          />}
-          centerElement={`${user.firstName} ${user.lastName}`}
-          selected={user.selected}
-          onPress={() => onSelect(user, index)}
-        />
-      ),
-    );
+    if(this.props.users) {
+
+      return this.props.users.map((user, index) =>
+        (
+          <ListItem
+            key={user.id}
+            leftElement={<Image
+              source={{uri: user.profilePictureURL }}
+              style={{ height: 40, width: 40 }}
+            />}
+            centerElement={`${user.firstName} ${user.lastName}`}
+            selected={user.selected}
+            onPress={() => onSelect(user, index)}
+          />
+        ),
+      );
+    }
+    return <View />;
   }
+
 
   render() {
     return (
