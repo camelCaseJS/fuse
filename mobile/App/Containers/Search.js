@@ -7,7 +7,6 @@ import { Images } from '../Themes';
 import styles from './Styles/ListviewExampleStyle';
 import UsersList from './UsersList';
 import SearchBar from '../Components/SearchBar';
-// import * as friendsActionCreators from '../Actions/FriendsActions';
 
 class Search extends Component {
 
@@ -26,11 +25,14 @@ class Search extends Component {
   }
 
   handleSearchSubmit() {
-    axios.get(`${URL.users}${this.state.search}`)
+    axios.get(`${URL.search}${this.state.search}`)
       .then((response) => {
         console.log(response.data);
         this.setState({ searchResults: response.data});
         this.setState({ search: '' });
+      })
+      .catch((error) => {
+        console.log(error);
       });
   }
 
@@ -39,7 +41,10 @@ class Search extends Component {
     axios.post(`${URL.users}${id}`)
       .then((response) => {
         console.log(response.data);
-    });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
   searchButton() {
     return (
@@ -73,13 +78,9 @@ class Search extends Component {
   }
 }
 
-// Friends.propTypes = {
-//   allFriends: PropTypes.array.isRequired,
-//   unselectAllFriends: PropTypes.func.isRequired,
-//   selectFriend: PropTypes.func.isRequired,
-//   // fetchPhotos: PropTypes.func.isRequired,
-//   fetchFriends: PropTypes.func.isRequired,
-// };
-
+Search.propTypes = {
+  search: PropTypes.string.isRequired,
+  searchResults: PropTypes.array.isRequired,
+};
 
 export default Search;
