@@ -38,7 +38,7 @@ export function unselectAllFriends() {
 }
 
 export function getUserInfo() {
-  const request = axios.get(`${url.users}/userInfo`)
+  const request = axios.get(`${url.userInfo}`)
   .then(response =>
     response.data,
   );
