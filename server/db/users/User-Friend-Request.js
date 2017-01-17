@@ -26,7 +26,7 @@ FriendRequests.hook('beforeCreate', (request) => {
   Friendship.find({ where: {
     userId: request.userId,
     friendId: request.requestId,
-  }})
+  } })
   .then((exists) => {
     if (exists) {
       throw new Error('That Friendship exists');
@@ -35,30 +35,30 @@ FriendRequests.hook('beforeCreate', (request) => {
   });
 });
 
-//adds a deleted property to check if the new friendship now exists
-FriendRequests.hook('afterCreate', (request) => {
-  return FriendRequests.find({ where : {
-    userId: request.requestId,
-    requestId: request.userId,
-  }})
+// adds a deleted property to check if the new friendship now exists
+FriendRequests.hook('afterCreate', request => (
+  FriendRequests.find({
+    where: {
+      userId: request.requestId,
+      requestId: request.userId,
+    },
+  })
   .then((matchingRequest) => {
-    if(matchingRequest) {
-      return FriendRequests.destroy({ where: {
-        $or: [
-          {requestId: request.requestId, userId: request.userId},
-          {requestId: matchingRequest.requestId, userId: matchingRequest.userId}
-        ]
-      }
+    if (matchingRequest) {
+      return FriendRequests.destroy({
+        where: {
+          $or: [
+            { requestId: request.requestId, userId: request.userId },
+            { requestId: matchingRequest.requestId, userId: matchingRequest.userId },
+          ],
+        },
       })
       .then(() => Friendship.create({ userId: request.userId, friendId: request.requestId }))
-      .then((friendship) => {
+      .then(() => {
         request.deleted = true;
-      })
-    } else {
-      request.deleted = false
+      });
     }
-  });
-})
-
-
+    request.deleted = false;
+  })
+));
 
