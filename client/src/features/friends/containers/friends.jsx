@@ -55,7 +55,7 @@ class Friends extends Component {
   // }
 
   render() {
-    console.log(this.props.userInfo);
+    // console.log(this.props.userInfo);
     return (
       <UsersList
         onSelect={(user, index) => this.onFriendSelect(user, index)}
