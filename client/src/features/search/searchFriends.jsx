@@ -39,11 +39,7 @@ class SearchFriends extends Component {
   }
 
 // this function updates the text value of the search button
-  handleSearchChange(e, string) {
-    // console.log(e.target.value);
-    // console.log(string);
-    // console.log('e', e.target.value);
-    // console.log('handleSearchChange ran!');
+  handleSearchChange(e) {
     this.setState({ search: e.target.value });
   }
 
@@ -58,13 +54,6 @@ class SearchFriends extends Component {
 
 // this is the button that we will use to handle searches to the db
 // will update with material-ui
-        // <TextField
-        //   style={styles.searchField}
-        //   hintText="Search by name or email"
-        //   errorText="This field is required"
-        //   // value={this.state.search}
-        //   onChange={console.log}
-        // />
 
   searchButton() {
     return (
@@ -90,7 +79,7 @@ class SearchFriends extends Component {
   handleAddUser() {
     // console.log('in handleAddUser. this is state', this.props.searchedFriends[0].id);
     socketActions.sendFriendRequest(this.props.searchedFriends[0].facebookId);
-    // this.props.addFriendsToDB(this.props.searchedFriends[0].id);
+    this.props.addFriendRequestToDB(this.props.searchedFriends[0].id);
   }
 
 // this is the button that we will use to add users to the db
@@ -198,8 +187,7 @@ SearchFriends.propTypes = {
   searchFriends: React.PropTypes.func.isRequired,
   searchSelectFriend: React.PropTypes.func.isRequired,
   searchedFriendSelected: React.PropTypes.bool.isRequired,
-  addFriendsToDB: React.PropTypes.func.isRequired,
-  // sendFriendRequest: React.PropTypes.func.isRequired,
+  addFriendRequestToDB: React.PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, searchActionCreators)(SearchFriends);

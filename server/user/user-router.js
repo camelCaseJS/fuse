@@ -56,45 +56,43 @@ app.get('/userInfo', userHandler.getUserInfo);
 
 // /////////////////////////////////////////////////////////
 
-app.get('/:query', userHandler.userSearch);
+app.get('/search/:query?', userHandler.userSearch);
 
-app.post('/:id', (req, res) => {
-  // console.log(req.user.id);
-  // console.log(req.params.id, 'params id');
-  // console.log(req.user.id, 'user id');
-  Friendship.findAll({
-    where: {
-      userId: req.params.id,
-      friendId: req.user.id,
-    },
-  })
-  // .then((check) => {
-  //   console.log(check.length, '**************CHECK HERE');
-  // });
-  .then((friend) => {
-    if (friend.length === 0) {
-      // console.log('HELLOO');
-      Friendship.create({
-        userId: req.user.id,
-        friendId: req.params.id,
-      })
-      .then((id) => {
-        console.log('friend created');
-        res.send(id);
-      })
-      .catch((err) => {
-        if (err && err.code === '2305') {
-          res.sendStatus(201);
-        } else {
-          res.sendStatus(500);
-        }
-      });
-    } else {
-      console.error('Friendship already exists');
-      // res.end();
-    }
-  });
-});
+app.post('/:id', userHandler.addFriendRequest);
+// app.post('/:id', (req, res) => {
+//   // console.log(req.user.id);
+//   // console.log(req.params.id, 'params id');
+//   // console.log(req.user.id, 'user id');
+//   Friendship.findAll({
+//     where: {
+//       userId: req.params.id,
+//       friendId: req.user.id,
+//     },
+//   })
+//   .then((friend) => {
+//     if (friend.length === 0) {
+//       // console.log('HELLOO');
+//       Friendship.create({
+//         userId: req.user.id,
+//         friendId: req.params.id,
+//       })
+//       .then((id) => {
+//         console.log('friend created');
+//         res.send(id);
+//       })
+//       .catch((err) => {
+//         if (err && err.code === '2305') {
+//           res.sendStatus(201);
+//         } else {
+//           res.sendStatus(500);
+//         }
+//       });
+//     } else {
+//       console.error('Friendship already exists');
+//       // res.end();
+//     }
+//   });
+// });
 
 
 module.exports = app;
