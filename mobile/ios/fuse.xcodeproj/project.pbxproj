@@ -980,7 +980,7 @@
 					"values>",
 					f,
 				);
-				"FRAMEWORK_SEARCH_PATHS[arch=*]" = /Users/ryanchoi/Documents/FacebookSDK/;
+				"FRAMEWORK_SEARCH_PATHS[arch=*]" = "~/Documents/FacebookSDK/";
 				INFOPLIST_FILE = fuse/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -1005,7 +1005,7 @@
 					"values>",
 					f,
 				);
-				"FRAMEWORK_SEARCH_PATHS[arch=*]" = /Users/ryanchoi/Documents/FacebookSDK/;
+				"FRAMEWORK_SEARCH_PATHS[arch=*]" = "~/Documents/FacebookSDK/";
 				INFOPLIST_FILE = fuse/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
