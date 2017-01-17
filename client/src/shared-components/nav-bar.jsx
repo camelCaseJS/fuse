@@ -26,7 +26,7 @@ const styles = {
     color: '#ffffff',
   },
   toolbar: {
-    backgroundColor: '#2cc8f7',
+    backgroundColor: '#666C7F',
   },
 };
 
@@ -48,15 +48,15 @@ class NavBar extends Component {
         <ToolbarGroup firstChild={true}>
           <ActionHome
             style={styles.icons}
-            onTouchTap={() => { this.context.router.push('/friends'); }}
             onMouseEnter={increaseButtonSize}
             onMouseLeave={decreaseButtonSize}
+            onTouchTap={() => { this.context.router.push('/friends'); }}
           />
           <Search
             style={styles.icons}
-            onTouchTap={() => { this.context.router.push('/search'); }}
             onMouseEnter={increaseButtonSize}
             onMouseLeave={decreaseButtonSize}
+            onTouchTap={() => { this.context.router.push('/search'); }}
           />
           <ToolbarTitle
             style={styles.text}
