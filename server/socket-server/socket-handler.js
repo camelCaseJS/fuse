@@ -29,19 +29,23 @@ const startSocketServer = (server) => {
   //   });
   // });
 
+  // console.log(friendNsp);
   friendNsp.on('connection', (socket) => {
     console.log('connected to friend socket namespace');
     // emit namespace connection success
     friendNsp.emit('friend socket connect', 'connected to namespace: "/friendSocket"');
+
     // listen for join room request
     socket.on('join friend room', (data) => {
       const userFriendRoom = `friendRoom:${data.roomId}`;
-      // create new room base on user id
-      socket.join(userFriendRoom, () => {
-        console.log(socket.rooms);
-        // emit room connection success
-        friendNsp.in(userFriendRoom).emit('friend room connected', `joined room "${userFriendRoom}"`);
-      });
+      if (socket.rooms[`friendRoom:${data.roomId}`] === undefined) {
+        // create new room base on user id
+        socket.join(userFriendRoom, () => {
+          // console.log(socket.rooms[`friendRoom:${data.roomId}`], ' ===================socket.rooms');
+          // emit room connection success
+          friendNsp.in(userFriendRoom).emit('friend room connected', `joined room "${userFriendRoom}"`);
+        });
+      }
     });
 
     socket.on('send friend request', (data) => {
