@@ -28,8 +28,11 @@ class Search extends Component {
     axios.get(`${URL.search}${this.state.search}`)
       .then((response) => {
         console.log(response.data);
-        this.setState({ searchResults: response.data});
-        this.setState({ search: '' });
+        // if not authenitcated, response will not be a useable array
+        if(response.data && Array.isArray(response.data)) {
+          this.setState({ searchResults: response.data});
+          this.setState({ search: '' });
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -77,10 +80,5 @@ class Search extends Component {
     );
   }
 }
-
-Search.propTypes = {
-  search: PropTypes.string.isRequired,
-  searchResults: PropTypes.array.isRequired,
-};
 
 export default Search;
