@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { ScrollView, Text, Image, View } from 'react-native';
+import { Actions as NavigationActions } from 'react-native-router-flux';
 import { Images } from '../Themes';
 import styles from './Styles/ListviewExampleStyle';
 import UsersList from './UsersList';
@@ -10,31 +11,26 @@ import * as friendsActionCreators from '../Actions/FriendsActions';
 class Friends extends Component {
 
   componentWillMount() {
-    this.props.fetchFriends();
   }
 
   onFriendSelect(friend, index) {
-    //   this.props.unselectAllFriends();
-    //   this.props.selectFriend(friend, index);
-    //   this.props.fetchPhotos(friend);
-    //   this.context.router.push('/photos');
-    // } else {
-    //   this.props.selectFriend(friend, index);
-    // }
+    console.log('friendselect');
+    this.props.unselectAllFriends();
+    this.props.selectFriend(friend, index);
+    NavigationActions.photos();
   }
 
   onFriendsListMount() {
     this.props.fetchFriends();
-    // console.log(this.props.allFriends);
   }
 
   render() {
     return (
-      <View style={styles.mainContainer}>
+      <View>
         <Image source={Images.background} style={styles.backgroundImage} resizeMode='stretch' />
-        <ScrollView style={styles.container}>
+        <ScrollView>
           <UsersList
-            onSelect={() => this.onFriendSelect}
+            onSelect={(user, index) => this.onFriendSelect(user, index)}
             listComponentWillMount={() => this.onFriendsListMount()}
             users={this.props.allFriends}
           />
@@ -45,6 +41,7 @@ class Friends extends Component {
 }
 
 const mapStateToProps = (state, action) => {
+  console.log(state.friends);
   return {
     allFriends: state.friends.allFriends,
     lastSelectedFriend: state.friends.lastSelectedFriend,

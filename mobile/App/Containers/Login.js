@@ -5,23 +5,25 @@ import { View } from 'react-native';
 import styles from '../Components/Styles/RoundedButtonStyle';
 import URL from '../Config/URL';
 import { userLogout } from '../Actions/SharedComponentsActions';
-
-const sendToken = (token) => {
-  console.log('URL.token', URL.token);
-  fetch(URL.token,
-    {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      body: '',
-    },
-  ).then((response) => {
-    console.log('response', response);
-  });
-};
+import { fetchFriends } from '../Actions/FriendsActions';
 
 class Login extends Component {
+
+  sendToken(token) {
+    console.log('URL.token', URL.token);
+    fetch(URL.token,
+      {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: '',
+      },
+    ).then(() => {
+      this.props.fetchFriends();
+    });
+}
+
 
   userLogout() {
     fetch(URL.logout, { method: 'GET' })
@@ -36,7 +38,7 @@ class Login extends Component {
   userLogin() {
     AccessToken.getCurrentAccessToken()
       .then((data) => {
-        sendToken(data.accessToken.toString());
+        this.sendToken(data.accessToken.toString());
       });
   }
 
@@ -65,4 +67,4 @@ Login.propTypes = {
   userLogout: PropTypes.func.isRequired,
 };
 
-export default connect(null, { userLogout })(Login);
+export default connect(null, { userLogout, fetchFriends })(Login);

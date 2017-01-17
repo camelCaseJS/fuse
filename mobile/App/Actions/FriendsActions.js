@@ -9,11 +9,20 @@ export const UNSELECT_ALL_FRIENDS = 'UNSELECT_ALL_FRIENDS';
 export const GET_USER_INFO = 'GET_USER_INFO';
 
 export function fetchFriends() {
+  console.log('fetchFriends!!');
   const request = axios.get(URL.users)
   .then((response) => {
-    return response.data.map((friend) => {
-      return { ...friend, selected: false };
-    });
+    if (Array.isArray(response.data)){
+      return response.data.map((friend) => {
+        return { ...friend, selected: false };
+      });
+    }
+    // if response from server is not an array, return an empty array instead
+    // This solves a problem if the server redirects
+    return [];
+  })
+  .catch((error) => {
+    console.log(`${error} in fetchFriends`);
   });
 
   return {
