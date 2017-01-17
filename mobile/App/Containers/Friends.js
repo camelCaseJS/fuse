@@ -17,7 +17,6 @@ class Friends extends Component {
     console.log('friendselect');
     this.props.unselectAllFriends();
     this.props.selectFriend(friend, index);
-    // this.props.fetchPhotos(friend);
     NavigationActions.photos();
   }
 
@@ -27,7 +26,7 @@ class Friends extends Component {
 
   render() {
     return (
-      <View style={styles.ontainer}>
+      <View>
         <Image source={Images.background} style={styles.backgroundImage} resizeMode='stretch' />
         <ScrollView>
           <UsersList
