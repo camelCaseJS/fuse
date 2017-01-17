@@ -25,8 +25,8 @@ app.get('/facebook/callback',
 app.post('/facebook/token',
   passport.authenticate('facebook-token'), (req, res) => {
     // do something with req.user
-    res.send(req.user? 200 : 401);
-  }
+    res.sendStatus(req.user ? 200 : 401);
+  },
 );
 
 module.exports = app;
