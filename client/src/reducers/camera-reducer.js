@@ -29,7 +29,7 @@ export default (state = INITIAL_STATE, action) => {
     case SEND_PHOTO:
       return {
         ...state,
-        cameraOn: false,
+        cameraOn: true,
         pictureCaptured: false,
         capturedPictureRaw: '',
         capturedPicture: {},

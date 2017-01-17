@@ -8,11 +8,6 @@ const styles = { list:
 
 class UsersList extends Component {
 
-  constructor(props) {
-    super(props);
-  }
-
-
   componentWillMount() {
     this.props.listComponentWillMount();
   }
@@ -23,7 +18,7 @@ class UsersList extends Component {
 
   renderUserList() {
     const onSelect = this.onSelect.bind(this);
-    console.log(this.props.users, 'props');
+    // console.log(this.props.users, 'props');
 
     if (this.props.users.length === 0 && this.props.componentForEmptyList !== null) {
       return this.props.componentForEmptyList;
