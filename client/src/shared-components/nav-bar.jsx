@@ -30,6 +30,16 @@ const styles = {
   },
 };
 
+function increaseButtonSize() {
+  this.style.height = '46px';
+  this.style.width = '46px';
+}
+
+function decreaseButtonSize() {
+  this.style.height = '36px';
+  this.style.width = '36px';
+}
+
 class NavBar extends Component {
 
   render() {
@@ -39,10 +49,14 @@ class NavBar extends Component {
           <ActionHome
             style={styles.icons}
             onTouchTap={() => { this.context.router.push('/friends'); }}
+            onMouseEnter={increaseButtonSize}
+            onMouseLeave={decreaseButtonSize}
           />
           <Search
             style={styles.icons}
             onTouchTap={() => { this.context.router.push('/search'); }}
+            onMouseEnter={increaseButtonSize}
+            onMouseLeave={decreaseButtonSize}
           />
           <ToolbarTitle
             style={styles.text}
@@ -51,12 +65,16 @@ class NavBar extends Component {
         </ToolbarGroup>
         <ToolbarGroup lastChild={true}>
           <CameraEnhance
-              style={styles.icons}
-              onTouchTap={() => { this.context.router.push('/camera'); }}
+            style={styles.icons}
+            onTouchTap={() => { this.context.router.push('/camera'); }}
+            onMouseEnter={increaseButtonSize}
+            onMouseLeave={decreaseButtonSize}
           />
           <ActionExitToApp
             style={styles.icons}
             onTouchTap={() => { window.location = 'api/auth/logout'; }}
+            onMouseEnter={increaseButtonSize}
+            onMouseLeave={decreaseButtonSize}
           />
         </ToolbarGroup>
       </Toolbar>
