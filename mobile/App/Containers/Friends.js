@@ -34,7 +34,7 @@ class Friends extends Component {
         <Image source={Images.background} style={styles.backgroundImage} resizeMode='stretch' />
         <ScrollView style={styles.container}>
           <UsersList
-            onSelect={() => this.onFriendSelect}
+            onSelect={(user, index) => this.onFriendSelect(user, index)}
             listComponentWillMount={() => this.onFriendsListMount()}
             users={this.props.allFriends}
           />

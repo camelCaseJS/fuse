@@ -1,6 +1,8 @@
 ### node etc ###
 
-ignite/
+# Mobile cookie files
+*.watchman*
+
 
 #API key formation
 oauth-keys.js
