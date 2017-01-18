@@ -8,9 +8,13 @@ import SwipeableViews from 'react-swipeable-views';
 
 
 import UsersList from '../../../shared-components/users-list';
+import PendingList from '../../../shared-components/pending-list';
+
 import * as friendsActionCreators from '../../../actions/friends-actions';
 import * as photosActionCreators from '../../../actions/photos-actions';
+
 // import { connectToFriendsNamespace, connectToPhotosNamespace } from '../../../sockets-client/sockets';
+
 import { connectToNamespaces } from '../../../sockets-client/sockets';
 
 const combinedActionCreators = {
@@ -40,16 +44,27 @@ class Friends extends Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
+
+    this.WHATTHEFUCKISGOINGON = this.WHATTHEFUCKISGOINGON.bind(this);
   }
 
+  componentWillMount() {
+    this.props.fetchFriends();
+    this.props.getUserInfo()
+    .then((userInfo) => {
+      connectToNamespaces(userInfo.payload.user.facebookId);
+    });
+    this.props.fetchPendingFriends();
+  }
 
-  componentWillUpdate() {
-    if (this.props.userInfo.user !== undefined) {
-      const userFBId = this.props.userInfo.user.facebookId;
-      // connectToPhotosNamespace(userFBId);
-      // connectToFriendsNamespace(userFBId);
-      connectToNamespaces(userFBId);
-    }
+  componentDidMount() {
+    // console.log(this.props.userInfo, 'DID');
+    // if (this.props.userInfo.user !== undefined) {
+    //   const userFBId = this.props.userInfo.user.facebookId;
+    //   // connectToPhotosNamespace(userFBId);
+    //   // connectToFriendsNamespace(userFBId);
+    //   connectToNamespaces(userFBId);
+    // }
   }
 
   onFriendSelect(friend, index) {
@@ -63,14 +78,22 @@ class Friends extends Component {
     }
   }
 
-  onFriendsListMount() {
-    this.props.fetchFriends();
-    this.props.getUserInfo();
-  }
+  // onFriendsListMount() {
+  //   this.props.fetchFriends();
+  //   this.props.getUserInfo();
+  // }
+
+  // onPendingListMount() {
+  //   this.props.fetchPendingFriends();
+  // }
 
   handleChange(value) {
     // console.log(value);
     this.props.handleTabSwitch(value);
+  }
+
+  WHATTHEFUCKISGOINGON() {
+    console.log(this.props);
   }
 
   render() {
@@ -83,8 +106,8 @@ class Friends extends Component {
           onChange={this.handleChange}
           value={this.props.slideIndex}
         >
-          <Tab label="Tab One" value={0} />
-          <Tab label="Tab Two" value={1} />
+          <Tab label="Friends" value={0} />
+          <Tab label="Requests" value={1} />
         </Tabs>
         <SwipeableViews
           index={this.props.slideIndex}
@@ -94,7 +117,7 @@ class Friends extends Component {
             <UsersList
               style={styles}
               onSelect={(user, index) => this.onFriendSelect(user, index)}
-              listComponentWillMount={() => this.onFriendsListMount()}
+              // userListComponentWillMount={() => this.onFriendsListMount()}
               users={this.props.allFriends}
               componentForEmptyList={<ListItem
                 primaryText={emptyListMessage()}
@@ -102,8 +125,19 @@ class Friends extends Component {
               />}
             />
           </div>
-          <div style={styles}>
-            <h2>Pending friends list goes here</h2>
+          <div>
+            <button onClick={this.props.fetchPendingFriends}>pending</button>
+            <button onClick={this.WHATTHEFUCKISGOINGON}>check</button>
+            <PendingList
+              style={styles}
+              // onSelect={(user, index) => this.onFriendSelect(user, index)}
+              // pendingListComponentWillMount={() => this.onPendingListMount()}
+              pendingFriends={this.props.pendingFriends}
+              componentForEmptyList={<ListItem
+                primaryText={emptyListMessage()}
+                disabled={true}
+              />}
+            />
           </div>
         </SwipeableViews>
       </div>
@@ -111,9 +145,11 @@ class Friends extends Component {
   }
 }
 
+
 const mapStateToProps = (state) => {
   return {
     allFriends: state.friends.allFriends,
+    pendingFriends: state.friends.pendingFriends,
     lastSelectedFriend: state.friends.lastSelectedFriend,
     userInfo: state.friends.userInfo,
     slideIndex: state.friends.slideIndex,
@@ -123,11 +159,13 @@ const mapStateToProps = (state) => {
 
 Friends.propTypes = {
   allFriends: PropTypes.arrayOf(PropTypes.object),
+  pendingFriends: PropTypes.arrayOf(PropTypes.object),
   router: PropTypes.objectOf(PropTypes.string),
   unselectAllFriends: PropTypes.func.isRequired,
   selectFriend: PropTypes.func.isRequired,
   fetchPhotos: PropTypes.func.isRequired,
   fetchFriends: PropTypes.func.isRequired,
+  fetchPendingFriends: PropTypes.func.isRequired,
   getUserInfo: React.PropTypes.func.isRequired,
   handleTabSwitch: React.PropTypes.func.isRequired,
   slideIndex: React.PropTypes.number.isRequired,

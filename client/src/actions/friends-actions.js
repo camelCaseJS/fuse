@@ -6,7 +6,7 @@ export const SELECT_FRIEND = 'SELECT_FRIEND';
 export const UNSELECT_ALL_FRIENDS = 'UNSELECT_ALL_FRIENDS';
 export const HANDLE_TAB_SWITCH = 'HANDLE_TAB_SWITCH';
 export const GET_USER_INFO = 'GET_USER_INFO';
-
+export const FETCH_PENDING_FRIENDS = 'FETCH_PENDING_FRIENDS';
 
 export function fetchFriends() {
   const request = axios.get(`${url.users}`)
@@ -19,6 +19,17 @@ export function fetchFriends() {
 
   return {
     type: FETCH_FRIENDS,
+    payload: request,
+  };
+}
+
+export function fetchPendingFriends() {
+  const request = axios.get(`${url.pending}`)
+  .then(response =>
+    (response),
+  );
+  return {
+    type: FETCH_PENDING_FRIENDS,
     payload: request,
   };
 }

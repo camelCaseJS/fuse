@@ -29,7 +29,7 @@ FriendRequests.hook('beforeCreate', (request) => {
   } })
   .then((exists) => {
     if (exists) {
-      throw new Error('That Friendship exists');
+      console.error('That Friendship exists');
     }
     return request;
   });
@@ -62,3 +62,4 @@ FriendRequests.hook('afterCreate', request => (
   })
 ));
 
+module.exports = FriendRequests;

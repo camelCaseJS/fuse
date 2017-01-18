@@ -5,7 +5,7 @@ import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 // TODO: SEARCH HAS BEEN IMPORTED HERE TO PLACE IN FRONT OF
 // INPUT BAR IF TIME ALLOWS (MATCH MOBILE STYLE)
-// import Search from 'material-ui/svg-icons/action/search';
+import Search from 'material-ui/svg-icons/action/search';
 
 import SearchedFriendsEntry from './searchedFriends-Entry';
 import * as searchActionCreators from '../../actions/search-actions';
@@ -22,6 +22,12 @@ const styles = {
   },
   list: {
     margin: 10,
+  },
+  underlineStyle: {
+    borderColor: '#666C7F',
+  },
+  underlineFocusStyle: {
+    borderColor: '#DB0B00',
   },
 };
 
@@ -59,16 +65,22 @@ class SearchFriends extends Component {
     return (
       <div>
         <TextField
+          hintStyle={styles.hintStyle}
+          underlineStyle={styles.underlineStyle}
+          underlineFocusStyle={styles.underlineFocusStyle}
           className="search-text"
           hintText="Find more friends!"
           value={this.state.search}
           onChange={this.handleSearchChange}
         />
-        <FlatButton
-          style={styles.button}
-          label="Search"
-          onClick={this.handleSearchSubmit}
-        />
+        <div>
+          <FlatButton
+            icon={<Search />}
+            style={styles.button}
+            label="Search"
+            onClick={this.handleSearchSubmit}
+          />
+        </div>
       </div>
     );
   }

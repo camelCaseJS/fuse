@@ -35,8 +35,9 @@ export function connectToNamespaces(userFBId) {
     });
   });
 
-  myFriendsConnection.on('send to friend test', (friendData) => {
+  myFriendsConnection.on('new friend request', (friendData) => {
     alert('AY SOMEONE TRYNA SLIDE IN YO DMS');
+
     console.log(friendData, 'thru user friends room in friends nsp');
   });
 }

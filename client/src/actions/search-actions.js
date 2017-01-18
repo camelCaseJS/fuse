@@ -56,7 +56,3 @@ export function addFriendRequestToDB(id) {
   };
 }
 
-
-
-
-
