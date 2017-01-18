@@ -28,6 +28,8 @@ class UsersList extends Component {
       return this.props.users.map((user, index) =>
         (
           <ListItem
+            divider
+            // style={{contentViewContainer:styles.listItem}}
             key={user.id}
             leftElement={<Image
               source={{uri: user.profilePictureURL }}
@@ -46,9 +48,9 @@ class UsersList extends Component {
 
   render() {
     return (
-      <ScrollView style={styles.container}>
+      <View style={styles.container}>
          {this.renderUserList()}
-      </ScrollView>
+      </View>
     );
   }
 }

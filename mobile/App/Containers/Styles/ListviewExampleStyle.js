@@ -30,5 +30,10 @@ export default StyleSheet.create({
   },
   listContent: {
     marginTop: Metrics.baseMargin
-  }
-})
+  },
+  listItem: {
+    color: '#ffffff',
+    backgroundColor: '#505050',
+},
+
+});

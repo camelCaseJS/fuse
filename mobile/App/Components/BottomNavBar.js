@@ -8,7 +8,6 @@ export default class BottomNavBar extends Component {
 
   render() {
     const { onCenterIconPress, onLeftIconPress, onRightIconPress } = this.props;
-    console.log(this.props);
     return (
       <View style={styles.bottomContainer}>
         <TouchableOpacity onPress={onLeftIconPress}>
