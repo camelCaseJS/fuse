@@ -4,7 +4,7 @@ import { Actions as NavigationActions } from 'react-native-router-flux';
 import axios from 'axios';
 import URL from '../Config/URL';
 import { Images } from '../Themes';
-import styles from './Styles/ListviewExampleStyle';
+import styles from './Styles/SceneStyle';
 import UsersList from './UsersList';
 import SearchBar from '../Components/SearchBar';
 
@@ -50,9 +50,10 @@ class Search extends Component {
       });
   }
   searchButton() {
+
+    //TODO Make list look like camra list
     return (
       <View style={styles.container}>
-        <Image source={Images.background} style={styles.backgroundImage} resizeMode="stretch" />
           <SearchBar
             onSearch={() => { this.handleSearchSubmit(); }}
             onCancel={() => { this.setState({ search: '' }); }}
@@ -65,8 +66,8 @@ class Search extends Component {
 
   render() {
     return (
-      <View>
-        <Image source={Images.background} style={styles.backgroundImage} resizeMode="stretch" />
+      <View style={styles.mainContainer}>
+        <Image source={Images.background5} style={styles.backgroundImage} resizeMode="stretch" />
         <ScrollView>
           {this.searchButton()}
           <View>

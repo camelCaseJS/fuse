@@ -5,7 +5,7 @@ import ImagePicker from 'react-native-image-picker';
 import { Actions as NavigationActions } from 'react-native-router-flux';
 import { AccessToken } from 'react-native-fbsdk';
 import { Images } from '../Themes';
-import styles from './Styles/CameraScreenStyle';
+import styles from './Styles/SceneStyle';
 import URL from '../Config/URL';
 import UsersList from './UsersList';
 import BottomNavBar from '../Components/BottomNavBar';
@@ -125,7 +125,7 @@ class Camera extends Component {
 
     return (
       <View style={styles.mainContainer}>
-        <Image source={Images.background} style={styles.backgroundImage} resizeMode='stretch' />
+        <Image source={Images.background5} style={styles.backgroundImage} resizeMode='stretch' />
         <ScrollView style={styles.container}>
           <View style={styles.section}>
             <Text style={styles.sectionText}>
