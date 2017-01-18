@@ -5,6 +5,7 @@ const url = {
   users: `${base}/api/users/`,
   userInfo: `${base}/api/users/userInfo`,
   search: `${base}/api/users/search/`,
+  pending: `${base}/api/users/pending`,
 };
 
 export default url;
