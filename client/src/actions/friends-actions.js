@@ -26,7 +26,7 @@ export function fetchFriends() {
 export function fetchPendingFriends() {
   const request = axios.get(`${url.pending}`)
   .then(response =>
-    (response),
+    response.data,
   );
   return {
     type: FETCH_PENDING_FRIENDS,

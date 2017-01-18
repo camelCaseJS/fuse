@@ -57,15 +57,15 @@ class Friends extends Component {
     this.props.fetchPendingFriends();
   }
 
-  componentDidMount() {
-    // console.log(this.props.userInfo, 'DID');
-    // if (this.props.userInfo.user !== undefined) {
-    //   const userFBId = this.props.userInfo.user.facebookId;
-    //   // connectToPhotosNamespace(userFBId);
-    //   // connectToFriendsNamespace(userFBId);
-    //   connectToNamespaces(userFBId);
-    // }
-  }
+  // componentDidMount() {
+  //   // console.log(this.props.userInfo, 'DID');
+  //   // if (this.props.userInfo.user !== undefined) {
+  //   //   const userFBId = this.props.userInfo.user.facebookId;
+  //   //   // connectToPhotosNamespace(userFBId);
+  //   //   // connectToFriendsNamespace(userFBId);
+  //   //   connectToNamespaces(userFBId);
+  //   // }
+  // }
 
   onFriendSelect(friend, index) {
     if (this.props.router.pathname !== '/camera') {
