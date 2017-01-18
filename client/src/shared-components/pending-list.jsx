@@ -8,23 +8,18 @@ const styles = { list:
 
 class PendingList extends Component {
 
-  componentWillMount() {
-    this.props.ComponentWillMount();
-  }
-
   onSelect(user, index) {
     this.props.onSelect(user, index);
   }
 
   renderPendingList() {
-    const onSelect = this.onSelect.bind(this);
-    console.log(this.props.users, 'props');
+    // const onSelect = this.onSelect.bind(this);
+    console.log(this.props.pendingFriends, 'props');
 
-    if (this.props.pending.length === 0 && this.props.componentForEmptyList !== null) {
+    if (this.props.pendingFriends.length === 0 && this.props.componentForEmptyList !== null) {
       return this.props.componentForEmptyList;
     }
-console.log(this.props.pending);
-    return this.props.pending.map((pending, index) =>
+    return this.props.pendingFriends.map((pending, index) =>
       (
         <PendingListEntry
           key={pending.id}
@@ -41,17 +36,17 @@ console.log(this.props.pending);
 
   render() {
     return (
-    <List
-        style={styles.list}
+      <List
+          style={styles.list}
       >
-        {this.renderPendingList()}
-     </List>
+          {this.renderPendingList()}
+      </List>
     );
   }
 }
 
 PendingList.propTypes = {
-  pending: PropTypes.arrayOf(PropTypes.object).isRequired,
+  pendingFriends: PropTypes.arrayOf(PropTypes.object).isRequired,
   listComponentWillMount: PropTypes.func,
   onSelect: PropTypes.func,
   componentForEmptyList: PropTypes.object,

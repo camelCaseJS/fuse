@@ -47,6 +47,11 @@ class Friends extends Component {
     this.WHATTHEFUCKISGOINGON = this.WHATTHEFUCKISGOINGON.bind(this);
   }
 
+  componentWillMount() {
+    this.props.fetchFriends();
+    this.props.getUserInfo();
+    this.props.fetchPendingFriends();
+  }
 
   componentWillUpdate() {
     if (this.props.userInfo.user !== undefined) {
@@ -68,14 +73,14 @@ class Friends extends Component {
     }
   }
 
-  onFriendsListMount() {
-    this.props.fetchFriends();
-    this.props.getUserInfo();
-  }
+  // onFriendsListMount() {
+  //   this.props.fetchFriends();
+  //   this.props.getUserInfo();
+  // }
 
-  onPendingListMount() {
-    this.props.fetchPendingFriends();
-  }
+  // onPendingListMount() {
+  //   this.props.fetchPendingFriends();
+  // }
 
   handleChange(value) {
     // console.log(value);
@@ -83,7 +88,7 @@ class Friends extends Component {
   }
 
   WHATTHEFUCKISGOINGON() {
-    console.log(this.props)
+    console.log(this.props);
   }
 
   render() {
@@ -107,7 +112,7 @@ class Friends extends Component {
             <UsersList
               style={styles}
               onSelect={(user, index) => this.onFriendSelect(user, index)}
-              listComponentWillMount={() => this.onFriendsListMount()}
+              // userListComponentWillMount={() => this.onFriendsListMount()}
               users={this.props.allFriends}
               componentForEmptyList={<ListItem
                 primaryText={emptyListMessage()}
@@ -118,6 +123,16 @@ class Friends extends Component {
           <div>
             <button onClick={this.props.fetchPendingFriends}>pending</button>
             <button onClick={this.WHATTHEFUCKISGOINGON}>check</button>
+            <PendingList
+              style={styles}
+              // onSelect={(user, index) => this.onFriendSelect(user, index)}
+              // pendingListComponentWillMount={() => this.onPendingListMount()}
+              pendingFriends={this.props.pendingFriends}
+              componentForEmptyList={<ListItem
+                primaryText={emptyListMessage()}
+                disabled={true}
+              />}
+            />
           </div>
         </SwipeableViews>
       </div>
@@ -125,16 +140,7 @@ class Friends extends Component {
   }
 }
 
- // <PendingList
-              // style={styles}
-              // onSelect={(user, index) => this.onFriendSelect(user, index)}
-              // listComponentWillMount={() => this.onFriendsListMount()}
-              // pending={this.props.pendingFriends}
-              // componentForEmptyList={<ListItem
-              //   primaryText={emptyListMessage()}
-              //   disabled={true}
-              // />}
-            // />
+
 const mapStateToProps = (state) => {
   return {
     allFriends: state.friends.allFriends,
