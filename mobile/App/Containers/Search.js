@@ -51,7 +51,7 @@ class Search extends Component {
   }
   searchButton() {
 
-    //TODO Make list look like camra list
+    //TODO Make list
     return (
       <View style={styles.container}>
           <SearchBar
@@ -68,15 +68,15 @@ class Search extends Component {
     return (
       <View style={styles.mainContainer}>
         <Image source={Images.background5} style={styles.backgroundImage} resizeMode="stretch" />
-        <ScrollView>
-          {this.searchButton()}
-          <View>
-          <UsersList
-            onSelect={(user, index) => this.handleAddUser(user.id)}
-            users={this.state.searchResults}
-          />
-          </View>
-        </ScrollView>
+        <View style={styles.mainSection}>
+          <ScrollView style={styles.scrollContainer}>
+            {this.searchButton()}
+            <UsersList
+              onSelect={(user, index) => this.handleAddUser(user.id)}
+              users={this.state.searchResults}
+            />
+          </ScrollView>
+        </View>
       </View>
     );
   }

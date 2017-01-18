@@ -23,6 +23,14 @@ export default StyleSheet.create({
     textAlign: 'center',
     marginVertical: Metrics.smallMargin
   },
+  selected: {
+    fontWeight: 'bold',
+    color: Colors.fire,
+  },
+  unselected: {
+    fontWeight: 'normal',
+    color: Colors.panther,
+  },
   label: {
     textAlign: 'center',
     color: Colors.snow,

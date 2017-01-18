@@ -126,21 +126,18 @@ class Camera extends Component {
     return (
       <View style={styles.mainContainer}>
         <Image source={Images.background5} style={styles.backgroundImage} resizeMode='stretch' />
-        <ScrollView style={styles.container}>
-          <View style={styles.section}>
+        <View style={styles.mainSection}>
+          <ScrollView style={styles.scrollContainer}>
             <Text style={styles.sectionText}>
               {this.state.file.uri ? 'Select Friends' : 'Take Photo'}
             </Text>
-            <Text style={styles.subtitle} >
-              All components that register examples will be rendered below:
-            </Text>
-        <UsersList
-            onSelect={(user, index) => this.onFriendSelect(user, index)}
-            listComponentWillMount={() => this.onFriendsListMount()}
-            users={this.props.allFriends}
+            <UsersList
+              onSelect={(user, index) => this.onFriendSelect(user, index)}
+              listComponentWillMount={() => this.onFriendsListMount()}
+              users={this.props.allFriends}
           />
-        </View>
         </ScrollView>
+        </View>
         <BottomNavBar
           onLeftIconPress={() => { NavigationActions.friends(); }}
           onCenterIconPress={() => this.cameraIconPress()}

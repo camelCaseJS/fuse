@@ -4,7 +4,7 @@ import { Avatar, ListItem, Subheader, Toolbar } from 'react-native-material-ui/s
 // import UsersListEntry from './users-list-entry';
 
 // Styles
-import styles from './Styles/ListviewExampleStyle';
+import styles from './Styles/UsersListStyle';
 
 class UsersList extends Component {
 
@@ -29,7 +29,8 @@ class UsersList extends Component {
         (
           <ListItem
             divider
-            // style={{contentViewContainer:styles.listItem}}
+            style={{ primaryText:
+              user.selected ? styles.selected : styles.unselected }}
             key={user.id}
             leftElement={<Image
               source={{uri: user.profilePictureURL }}

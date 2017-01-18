@@ -12,6 +12,12 @@ export default StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: Colors.background
   },
+  scrollContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    backgroundColor: Colors.background,
+    marginBottom: Metrics.smallMargin,
+  },
   welcome: {
     fontSize: 20,
     textAlign: 'center',
