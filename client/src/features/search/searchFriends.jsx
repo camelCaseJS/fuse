@@ -23,6 +23,12 @@ const styles = {
   list: {
     margin: 10,
   },
+  underlineStyle: {
+    borderColor: '#666C7F',
+  },
+  underlineFocusStyle: {
+    borderColor: '#DB0B00',
+  },
 };
 
 class SearchFriends extends Component {
@@ -59,6 +65,8 @@ class SearchFriends extends Component {
     return (
       <div>
         <TextField
+          underlineStyle={styles.underlineStyle}
+          underlineFocusStyle={styles.underlineFocusStyle}
           className="search-text"
           hintText="Find more friends!"
           value={this.state.search}
