@@ -65,6 +65,7 @@ class SearchFriends extends Component {
     return (
       <div>
         <TextField
+          hintStyle={styles.hintStyle}
           underlineStyle={styles.underlineStyle}
           underlineFocusStyle={styles.underlineFocusStyle}
           className="search-text"
@@ -72,11 +73,16 @@ class SearchFriends extends Component {
           value={this.state.search}
           onChange={this.handleSearchChange}
         />
-        <FlatButton
-          style={styles.button}
-          label="Search"
-          onClick={this.handleSearchSubmit}
-        />
+
+
+          <div>
+            <FlatButton
+              style={styles.button}
+              label="Search"
+              onClick={this.handleSearchSubmit}
+            />
+          </div>
+
       </div>
     );
   }

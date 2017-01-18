@@ -95,14 +95,16 @@ class Camera extends Component {
     }
 
     return (
-      <div >
+      <div id="component-container">
         <div>
           {this.generateMediaBox(cameraMode)}
         </div>
-        <CameraButton
-          onClick={() => this.onCameraButtonPress(cameraMode)}
-          mode={cameraMode}
-        />
+        <div>
+          <CameraButton
+            onClick={() => this.onCameraButtonPress(cameraMode)}
+            mode={cameraMode}
+          />
+        </div>
       </div>
     );
   }
