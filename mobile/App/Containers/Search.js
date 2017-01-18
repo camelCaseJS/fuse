@@ -7,7 +7,6 @@ import { Images } from '../Themes';
 import styles from './Styles/ListviewExampleStyle';
 import UsersList from './UsersList';
 import SearchBar from '../Components/SearchBar';
-// import * as friendsActionCreators from '../Actions/FriendsActions';
 
 class Search extends Component {
 
@@ -26,33 +25,40 @@ class Search extends Component {
   }
 
   handleSearchSubmit() {
-    console.log('handlesearchsumbit');
-    axios.get(`${URL.users}${this.state.search}`)
+    axios.get(`${URL.search}${this.state.search}`)
       .then((response) => {
         console.log(response.data);
-        this.setState({ searchResults: response.data});
-        this.setState({ search: '' });
+        // if not authenitcated, response will not be a useable array
+        if(response.data && Array.isArray(response.data)) {
+          this.setState({ searchResults: response.data});
+          this.setState({ search: '' });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
       });
   }
 
   handleAddUser(id) {
+    console.log(`${URL.users}${id}`);
     axios.post(`${URL.users}${id}`)
       .then((response) => {
         console.log(response.data);
-    });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
   searchButton() {
     return (
       <View style={styles.container}>
         <Image source={Images.background} style={styles.backgroundImage} resizeMode='stretch' />
-        <ScrollView>
           <SearchBar
             onSearch={()=> {this.handleSearchSubmit()}}
             onCancel={()=> {this.handleSearchSubmit()}}
             searchTerm={this.state.search}
             onChange={(e)=> {this.handleSearchChange(e)}}
           />
-        </ScrollView>
       </View>
     );
   }
@@ -65,7 +71,7 @@ class Search extends Component {
           {this.searchButton()}
           <View>
           <UsersList
-            onSelect={(user, index) => this.onFriendSelect(user, index)}
+            onSelect={(user, index) => this.handleAddUser(user.id)}
             users={this.state.searchResults}
           />
           </View>
@@ -74,14 +80,5 @@ class Search extends Component {
     );
   }
 }
-
-// Friends.propTypes = {
-//   allFriends: PropTypes.array.isRequired,
-//   unselectAllFriends: PropTypes.func.isRequired,
-//   selectFriend: PropTypes.func.isRequired,
-//   // fetchPhotos: PropTypes.func.isRequired,
-//   fetchFriends: PropTypes.func.isRequired,
-// };
-
 
 export default Search;

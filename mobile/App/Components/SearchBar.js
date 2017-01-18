@@ -3,7 +3,6 @@ import { Text, TextInput, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import * as Animatable from 'react-native-animatable';
 import styles from './Styles/SearchBarStyle';
-import I18n from 'react-native-i18n';
 import { Colors, Metrics } from '../Themes/'
 
 export default class SearchBar extends React.Component {
@@ -23,7 +22,6 @@ export default class SearchBar extends React.Component {
         <Icon name='search' size={Metrics.icons.tiny} style={styles.searchIcon} />
         <TextInput
           ref='searchText'
-          autoFocus
           placeholder={'search'}
           placeholderTextColor={Colors.snow}
           underlineColorAndroid='transparent'
@@ -36,6 +34,9 @@ export default class SearchBar extends React.Component {
           autoCorrect={false}
           selectionColor={Colors.snow}
         />
+        <TouchableOpacity onPress={onCancel} style={styles.cancelButton}>
+          <Text style={styles.buttonLabel}>{'canel'}</Text>
+        </TouchableOpacity>
       </Animatable.View>
     )
   }

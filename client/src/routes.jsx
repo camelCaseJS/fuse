@@ -24,11 +24,6 @@ const CameraRoute = () => (
   />
 );
 
- // <Route
- //      path="search"
- //      component={SearchRoute}
- //    />
-
 export default (
   <Route path="/" component={App}>
     <Route

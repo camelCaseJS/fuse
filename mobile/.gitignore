@@ -21,6 +21,8 @@ DerivedData
 *.ipa
 *.xcuserstate
 project.xcworkspace
+*.watchman*
+project.pbxproj
 
 # Android/IntelliJ
 #
