@@ -6,6 +6,13 @@ export const SEARCH_SELECT_FRIEND = 'SEARCH_SELECT_FRIEND';
 export const ADD_FRIEND_REQUEST_TO_DB = 'ADD_FRIEND_REQUEST_TO_DB';
 
 export function searchFriends(nameOrEmail) {
+  // If search string empty, return without search
+  if (nameOrEmail === '') {
+    return {
+      type: null,
+      payload: null,
+    };
+  }
   // console.log('this is email passed in ', email);
   const searchUser = `${url.search}${nameOrEmail}`;
   // console.log('this is url', url);
