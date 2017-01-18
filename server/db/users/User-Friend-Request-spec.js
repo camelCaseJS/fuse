@@ -31,8 +31,8 @@ describe('FriendRequest model', () => {
         //   requestId: '3' },
       ];
       FriendRequests.bulkCreate(friendReq)
-      .then((requests) => {
-        console.log(requests);
+      .then(() => {
+        // console.log(requests);
         done();
       });
     });
