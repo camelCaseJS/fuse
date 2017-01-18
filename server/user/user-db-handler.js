@@ -46,9 +46,7 @@ const friendRequestDB = Promise.method((userId, requestId) => {
     console.log(results, 'REQ BACK');
     // FriendRequest.create(friendReq);
   });
-  // .then(() => {
-  //   return 'Success';
-  // });
+
 });
 
 const getFriendRequests = Promise.method((userId) => {
@@ -60,10 +58,24 @@ const getFriendRequests = Promise.method((userId) => {
       userId,
     },
   })
-  .then(pendingFriendsObject => (
-    pendingFriendsObject
-    ),
-  );
+  .then((pendingFriendsObject) => {
+    const pendingFriendIds = [];
+    pendingFriendsObject.forEach((result) => {
+      pendingFriendIds.push({ id: result.dataValues.requestId });
+    });
+    return pendingFriendIds;
+  })
+  .then((pendingFriendIds) => {
+    User.findAll({
+      where: {
+        $or: pendingFriendIds,
+      },
+    })
+    .then(pendingFriendsInfo => pendingFriendsInfo.map(pendingFriend => pendingFriend.dataValues))
+    .then((pendingInfoArray) => {
+      return (pendingInfoArray);
+    });
+  });
 });
 
 module.exports.friendRequestDB = friendRequestDB;
