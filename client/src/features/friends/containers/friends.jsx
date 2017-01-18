@@ -78,15 +78,6 @@ class Friends extends Component {
     }
   }
 
-  // onFriendsListMount() {
-  //   this.props.fetchFriends();
-  //   this.props.getUserInfo();
-  // }
-
-  // onPendingListMount() {
-  //   this.props.fetchPendingFriends();
-  // }
-
   handleChange(value) {
     // console.log(value);
     this.props.handleTabSwitch(value);
@@ -117,7 +108,6 @@ class Friends extends Component {
             <UsersList
               style={styles}
               onSelect={(user, index) => this.onFriendSelect(user, index)}
-              // userListComponentWillMount={() => this.onFriendsListMount()}
               users={this.props.allFriends}
               componentForEmptyList={<ListItem
                 primaryText={emptyListMessage()}
@@ -130,8 +120,7 @@ class Friends extends Component {
             <button onClick={this.WHATTHEFUCKISGOINGON}>check</button>
             <PendingList
               style={styles}
-              // onSelect={(user, index) => this.onFriendSelect(user, index)}
-              // pendingListComponentWillMount={() => this.onPendingListMount()}
+              onSelect={(user, index) => this.onFriendSelect(user, index)}
               pendingFriends={this.props.pendingFriends}
               componentForEmptyList={<ListItem
                 primaryText={emptyListMessage()}

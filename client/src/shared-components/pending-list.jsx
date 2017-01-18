@@ -13,7 +13,7 @@ class PendingList extends Component {
   }
 
   renderPendingList() {
-    // const onSelect = this.onSelect.bind(this);
+    const onSelect = this.onSelect.bind(this);
     // console.log(this.props.pendingFriends, 'props');
 
     if (this.props.pendingFriends.length === 0 && this.props.componentForEmptyList !== null) {
@@ -26,8 +26,8 @@ class PendingList extends Component {
           firstName={pending.firstName}
           lastName={pending.lastName}
           profilePictureURL={pending.profilePictureURL}
-          // selected={pending.selected}
-          // onSelect={() => onSelect(user, index)}
+          selected={pending.selected}
+          onSelect={() => onSelect(user, index)}
         />
       ),
     );
@@ -37,9 +37,9 @@ class PendingList extends Component {
   render() {
     return (
       <List
-          style={styles.list}
+        style={styles.list}
       >
-          {this.renderPendingList()}
+        {this.renderPendingList()}
       </List>
     );
   }

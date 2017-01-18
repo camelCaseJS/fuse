@@ -47,7 +47,7 @@ const getPendingFriends = (req, res) => {
     dbHandler.getFriendRequests(userId),
   )
   .then((results) => {
-    console.log(results, 'RESULTS IN HANDLER');
+    // console.log(results, 'RESULTS IN HANDLER');
     res.send(results);
   }).catch((err) => {
     console.log(err);
