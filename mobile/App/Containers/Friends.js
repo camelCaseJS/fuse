@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { ScrollView, Text, Image, View } from 'react-native';
 import { Actions as NavigationActions } from 'react-native-router-flux';
+import { AccessToken } from 'react-native-fbsdk';
 import { Images } from '../Themes';
 import styles from './Styles/ListviewExampleStyle';
 import UsersList from './UsersList';
@@ -10,8 +11,15 @@ import * as friendsActionCreators from '../Actions/FriendsActions';
 
 class Friends extends Component {
 
-  componentWillMount() {
-  }
+  // KEEP THIS, example code to check if users is logged in and if not, direct to main scene
+  // componentWillMount() {
+  //   AccessToken.getCurrentAccessToken()
+  //     .then((data) => {
+  //       if (data === null) {
+  //         NavigationActions.presentationScreen();
+  //       }
+  //     });
+  // }
 
   onFriendSelect(friend, index) {
     console.log('friendselect');

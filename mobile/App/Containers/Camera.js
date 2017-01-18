@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { ScrollView, Text, Image, View, Button } from 'react-native';
-import { Images } from '../Themes';
-import styles from './Styles/PresentationScreenStyle';
+import { Metrics, Images } from '../Themes';
+import styles from './Styles/CameraScreenStyle';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import ImagePicker from 'react-native-image-picker';
-import URL from '../config/URL';
+import URL from '../Config/URL';
 
 class Camera extends Component {
 
@@ -43,7 +44,7 @@ class Camera extends Component {
         body.append('image', file);
         fetch(URL.photos, {
           method: 'POST',
-          body: body, 
+          body: body,
         })
         .then((res) => {
           console.log(res);
@@ -61,13 +62,30 @@ class Camera extends Component {
             <Text style={styles.sectionText} >
               Take Photo
             </Text>
-            <Button 
+            <Button
             onPress = {this.selectPhoto.bind(this)}
             title ='Capture or Upload Image'
             color = "#841584"
           />
           </View>
         </ScrollView>
+          <View style={styles.bottomContainer}>
+            <Icon
+              style={styles.centerIcon}
+              name="home"
+              size={Metrics.icons.medium}
+            />
+            <Icon
+              style={styles.centerIcon}
+              name="camera"
+              size={Metrics.icons.medium}
+            />
+            <Icon
+              style={styles.centerIcon}
+              name="search"
+              size={Metrics.icons.medium}
+            />
+          </View>
       </View>
     );
   }

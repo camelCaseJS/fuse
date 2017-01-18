@@ -29,7 +29,7 @@ class Search extends Component {
       .then((response) => {
         console.log(response.data);
         // if not authenitcated, response will not be a useable array
-        if(response.data && Array.isArray(response.data)) {
+        if (response.data && Array.isArray(response.data)) {
           this.setState({ searchResults: response.data});
           this.setState({ search: '' });
         }
@@ -52,12 +52,12 @@ class Search extends Component {
   searchButton() {
     return (
       <View style={styles.container}>
-        <Image source={Images.background} style={styles.backgroundImage} resizeMode='stretch' />
+        <Image source={Images.background} style={styles.backgroundImage} resizeMode="stretch" />
           <SearchBar
-            onSearch={()=> {this.handleSearchSubmit()}}
-            onCancel={()=> {this.handleSearchSubmit()}}
+            onSearch={() => { this.handleSearchSubmit(); }}
+            onCancel={() => { this.setState({ search: '' }); }}
             searchTerm={this.state.search}
-            onChange={(e)=> {this.handleSearchChange(e)}}
+            onChange={(e) => { this.handleSearchChange(e); }}
           />
       </View>
     );
@@ -66,7 +66,7 @@ class Search extends Component {
   render() {
     return (
       <View>
-        <Image source={Images.background} style={styles.backgroundImage} resizeMode='stretch' />
+        <Image source={Images.background} style={styles.backgroundImage} resizeMode="stretch" />
         <ScrollView>
           {this.searchButton()}
           <View>
