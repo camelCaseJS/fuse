@@ -134,9 +134,10 @@ class Camera extends Component {
             <UsersList
               onSelect={(user, index) => this.onFriendSelect(user, index)}
               listComponentWillMount={() => this.onFriendsListMount()}
-              users={this.props.allFriends}
-          />
-        </ScrollView>
+              // If no photo taken, display empty array in place of friends
+              users={this.state.file.uri ? this.props.allFriends : []}
+            />
+          </ScrollView>
         </View>
         <BottomNavBar
           onLeftIconPress={() => { NavigationActions.friends(); }}

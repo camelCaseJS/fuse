@@ -4,7 +4,7 @@ import { ScrollView, Text, Image, View } from 'react-native';
 import { Actions as NavigationActions } from 'react-native-router-flux';
 import { AccessToken } from 'react-native-fbsdk';
 import { Images } from '../Themes';
-import styles from './Styles/ListviewExampleStyle';
+import styles from './Styles/SceneStyle';
 import UsersList from './UsersList';
 import * as friendsActionCreators from '../Actions/FriendsActions';
 
@@ -34,9 +34,13 @@ class Friends extends Component {
 
   render() {
     return (
-      <View>
-        <Image source={Images.background} style={styles.backgroundImage} resizeMode='stretch' />
-        <ScrollView>
+      <View style={styles.mainContainer}>
+        <Image source={Images.background5} style={styles.backgroundImage} resizeMode='stretch' />
+        <View style={styles.mainSection}>
+          <ScrollView style={styles.scrollContainer}>
+            <Text style={styles.sectionText}>
+              Friends
+            </Text>
           <UsersList
             onSelect={(user, index) => this.onFriendSelect(user, index)}
             listComponentWillMount={() => this.onFriendsListMount()}
@@ -44,6 +48,7 @@ class Friends extends Component {
           />
         </ScrollView>
       </View>
+    </View>
     );
   }
 }
