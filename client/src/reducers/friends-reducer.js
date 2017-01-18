@@ -33,7 +33,7 @@ export default (state = INITIAL_STATE, action) => {
     case FETCH_PENDING_FRIENDS:
       // Creates an object with all properties copied from state
       // Then replaces allFriends with action.payload
-      console.log(action.payload);
+      // console.log(action.payload);
       return { ...state, pendingFriends: action.payload.data };
 
     case SELECT_FRIEND: {

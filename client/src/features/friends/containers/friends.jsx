@@ -14,6 +14,7 @@ import * as friendsActionCreators from '../../../actions/friends-actions';
 import * as photosActionCreators from '../../../actions/photos-actions';
 
 // import { connectToFriendsNamespace, connectToPhotosNamespace } from '../../../sockets-client/sockets';
+
 import { connectToNamespaces } from '../../../sockets-client/sockets';
 
 const combinedActionCreators = {
@@ -49,17 +50,21 @@ class Friends extends Component {
 
   componentWillMount() {
     this.props.fetchFriends();
-    this.props.getUserInfo();
+    this.props.getUserInfo()
+    .then((userInfo) => {
+      connectToNamespaces(userInfo.payload.user.facebookId);
+    });
     this.props.fetchPendingFriends();
   }
 
-  componentWillUpdate() {
-    if (this.props.userInfo.user !== undefined) {
-      const userFBId = this.props.userInfo.user.facebookId;
-      // connectToPhotosNamespace(userFBId);
-      // connectToFriendsNamespace(userFBId);
-      connectToNamespaces(userFBId);
-    }
+  componentDidMount() {
+    // console.log(this.props.userInfo, 'DID');
+    // if (this.props.userInfo.user !== undefined) {
+    //   const userFBId = this.props.userInfo.user.facebookId;
+    //   // connectToPhotosNamespace(userFBId);
+    //   // connectToFriendsNamespace(userFBId);
+    //   connectToNamespaces(userFBId);
+    // }
   }
 
   onFriendSelect(friend, index) {

@@ -46,7 +46,6 @@ const friendRequestDB = Promise.method((userId, requestId) => {
     console.log(results, 'REQ BACK');
     // FriendRequest.create(friendReq);
   });
-
 });
 
 const getFriendRequests = Promise.method((userId) => {
@@ -72,6 +71,7 @@ const getFriendRequests = Promise.method((userId) => {
       },
     })
     .then(pendingFriendsInfo => pendingFriendsInfo.map(pendingFriend => pendingFriend.dataValues))
+    // WORK HERE
     .then((pendingInfoArray) => {
       return (pendingInfoArray);
     });

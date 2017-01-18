@@ -21,7 +21,7 @@ const startSocketServer = (server) => {
 
   //   socket.on('send new photo', (data) => {
   //     console.log(data, 'data through send photo request function');
-  //     photoNsp.in(`photoRoom:${data.photo}`).emit('send to photos test', 'BACK TO CLIENT THRU NSP/ROOM');
+  //     photoNsp.in(`photoRoom:${data}`).emit('send to photos test', 'BACK TO CLIENT THRU NSP/ROOM');
   //   });
 
   //   socket.on('disconnect', () => {

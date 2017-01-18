@@ -24,7 +24,6 @@ export function fetchFriends() {
 }
 
 export function fetchPendingFriends() {
-  console.log('IN FRIENDS ACTIONS');
   const request = axios.get(`${url.pending}`)
   .then(response =>
     (response),
