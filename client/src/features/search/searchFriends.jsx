@@ -5,7 +5,7 @@ import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 // TODO: SEARCH HAS BEEN IMPORTED HERE TO PLACE IN FRONT OF
 // INPUT BAR IF TIME ALLOWS (MATCH MOBILE STYLE)
-// import Search from 'material-ui/svg-icons/action/search';
+import Search from 'material-ui/svg-icons/action/search';
 
 import SearchedFriendsEntry from './searchedFriends-Entry';
 import * as searchActionCreators from '../../actions/search-actions';
@@ -73,16 +73,14 @@ class SearchFriends extends Component {
           value={this.state.search}
           onChange={this.handleSearchChange}
         />
-
-
-          <div>
-            <FlatButton
-              style={styles.button}
-              label="Search"
-              onClick={this.handleSearchSubmit}
-            />
-          </div>
-
+        <div>
+          <FlatButton
+            icon={<Search />}
+            style={styles.button}
+            label="Search"
+            onClick={this.handleSearchSubmit}
+          />
+        </div>
       </div>
     );
   }
