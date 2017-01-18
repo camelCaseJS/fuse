@@ -1,4 +1,4 @@
-import { FETCH_FRIENDS, SELECT_FRIEND, UNSELECT_ALL_FRIENDS, GET_USER_INFO, HANDLE_TAB_SWITCH} from '../actions/friends-actions';
+import { FETCH_FRIENDS, FETCH_PENDING_FRIENDS, SELECT_FRIEND, UNSELECT_ALL_FRIENDS, GET_USER_INFO, HANDLE_TAB_SWITCH} from '../actions/friends-actions';
 
 
 // NEED TO PUT USER INFO INTO STATE OF ANY COMPONENT THAT USES GETINFO
@@ -7,6 +7,7 @@ const INITIAL_STATE = {
   lastSelectedFriend: {},
   userInfo: {},
   slideIndex: 0,
+  pendingFriends: [],
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -28,6 +29,12 @@ export default (state = INITIAL_STATE, action) => {
       // Creates an object with all properties copied from state
       // Then replaces allFriends with action.payload
       return { ...state, allFriends: action.payload };
+
+    case FETCH_PENDING_FRIENDS:
+      // Creates an object with all properties copied from state
+      // Then replaces allFriends with action.payload
+      console.log(action.payload);
+      return { ...state, pendingFriends: action.payload.data };
 
     case SELECT_FRIEND: {
       // Creates and object with properties copied from states
