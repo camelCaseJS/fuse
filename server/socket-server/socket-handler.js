@@ -41,7 +41,6 @@ const startSocketServer = (server) => {
       if (socket.rooms[`friendRoom:${data.roomId}`] === undefined) {
         // create new room base on user id
         socket.join(userFriendRoom, () => {
-          // console.log(socket.rooms[`friendRoom:${data.roomId}`], ' ===================socket.rooms');
           // emit room connection success
           friendNsp.in(userFriendRoom).emit('friend room connected', `joined room "${userFriendRoom}"`);
         });
@@ -50,13 +49,8 @@ const startSocketServer = (server) => {
 
     socket.on('send friend request', (data) => {
       console.log(data, `emitting through friendRoom:${data.friendFacebookId}`);
-      friendNsp.in(`friendRoom:${data.friendFacebookId}`).emit('send to friend test', 'BACK TO CLIENT THRU NSP/ROOM');
+      friendNsp.in(`friendRoom:${data.friendFacebookId}`).emit('new friend request', 'BACK TO CLIENT THRU NSP/ROOM');
     });
-
-    // socket.on('send friend request', (data) => {
-    //   console.log(data, `emitting through friendRoom:${data.friendFacebookId}`);
-    //   friendNsp.in('friendRoom:10208433383245426').emit('send to friend test', 'BACK TO CLIENT THRU NSP/ROOM');
-    // });
 
     socket.on('disconnect', () => {
       console.log('disconnected from photo socket namespace');
