@@ -30,7 +30,7 @@ class NavigationRouter extends Component {
           rightButtonTextStyle={Styles.rightButton}
         >
           <Scene
-            initial key="presentationScreen"
+            key="presentationScreen"
             component={PresentationScreen}
             title="Fuse"
           />
@@ -40,7 +40,7 @@ class NavigationRouter extends Component {
             title="Friends"
           />
           <Scene
-            key="camera"
+            initial key="camera"
             component={Camera}
             title="Fuse"
           />

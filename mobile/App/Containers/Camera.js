@@ -5,6 +5,8 @@ import styles from './Styles/CameraScreenStyle';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ImagePicker from 'react-native-image-picker';
 import URL from '../Config/URL';
+import BottomNavBar from './BottomNavBar';
+import { Actions as NavigationActions } from 'react-native-router-flux';
 
 class Camera extends Component {
 
@@ -62,30 +64,13 @@ class Camera extends Component {
             <Text style={styles.sectionText} >
               Take Photo
             </Text>
-            <Button
-            onPress = {this.selectPhoto.bind(this)}
-            title ='Capture or Upload Image'
-            color = "#841584"
-          />
           </View>
         </ScrollView>
-          <View style={styles.bottomContainer}>
-            <Icon
-              style={styles.centerIcon}
-              name="home"
-              size={Metrics.icons.medium}
-            />
-            <Icon
-              style={styles.centerIcon}
-              name="camera"
-              size={Metrics.icons.medium}
-            />
-            <Icon
-              style={styles.centerIcon}
-              name="search"
-              size={Metrics.icons.medium}
-            />
-          </View>
+        <BottomNavBar
+          onLeftIconPress={() => { NavigationActions.friends(); }}
+          onCenterIconPress={()=> { this.selectPhoto(); }}
+          onRightIconPress={() => { NavigationActions.search(); }}
+        />
       </View>
     );
   }

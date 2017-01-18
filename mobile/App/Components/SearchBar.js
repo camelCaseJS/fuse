@@ -35,7 +35,7 @@ export default class SearchBar extends React.Component {
           selectionColor={Colors.snow}
         />
         <TouchableOpacity onPress={onCancel} style={styles.cancelButton}>
-          <Text style={styles.buttonLabel}>{'canel'}</Text>
+          <Text style={styles.buttonLabel}>{'cancel'}</Text>
         </TouchableOpacity>
       </Animatable.View>
     )
