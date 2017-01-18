@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { ScrollView, Text, Image, View, Button, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { Metrics, Images } from '../Themes';
-import styles from './Styles/CameraScreenStyle';
+import { Metrics } from '../Themes';
+import styles from './Styles/BottomNavBarStyle';
 
-export default class BottomNavBar extends React.Component {
+export default class BottomNavBar extends Component {
 
   render() {
     const { onCenterIconPress, onLeftIconPress, onRightIconPress } = this.props;

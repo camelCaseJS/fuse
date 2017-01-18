@@ -13,24 +13,4 @@ export default StyleSheet.create({
   centered: {
     alignItems: 'center',
   },
-  centerIcon: {
-    color: Colors.snow,
-    alignItems: 'center',
-  },
-  leftIcon: {
-    color: Colors.snow,
-    alignItems: 'flex-start',
-  },
-  rightIcon: {
-    color: Colors.snow,
-    alignItems: 'flex-end',
-  },
-  bottomContainer: {
-      flexDirection: 'row',
-      justifyContent: 'space-around',
-      alignItems: 'center',
-      padding: Metrics.smallMargin,
-      marginBottom: Metrics.smallMargin,
-      marginHorizontal: Metrics.smallMargin,
-    }
 });

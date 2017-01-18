@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { ScrollView, Text, Image, View, Button } from 'react-native';
-import { Metrics, Images } from '../Themes';
-import styles from './Styles/CameraScreenStyle';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { ScrollView, Text, Image, View } from 'react-native';
 import ImagePicker from 'react-native-image-picker';
-import URL from '../Config/URL';
-import BottomNavBar from './BottomNavBar';
 import { Actions as NavigationActions } from 'react-native-router-flux';
+import { Images } from '../Themes';
+import styles from './Styles/CameraScreenStyle';
+import URL from '../Config/URL';
+import BottomNavBar from '../Components/BottomNavBar';
 
 class Camera extends Component {
 
@@ -68,7 +67,7 @@ class Camera extends Component {
         </ScrollView>
         <BottomNavBar
           onLeftIconPress={() => { NavigationActions.friends(); }}
-          onCenterIconPress={()=> { this.selectPhoto(); }}
+          onCenterIconPress={() => { this.selectPhoto(); }}
           onRightIconPress={() => { NavigationActions.search(); }}
         />
       </View>
