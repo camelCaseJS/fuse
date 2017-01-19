@@ -14,15 +14,15 @@ export default StyleSheet.create({
   sectionHeader: {
     ...ApplicationStyles.darkLabel
   },
-  colorsContainer: {
+  photosContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center'
   },
   backgroundContainer: {
     position: 'relative',
-    width: 102,
-    height: 102,
+    width: 130,
+    height: 130,
     borderWidth: 1,
     borderColor: Colors.frost
   },
@@ -34,16 +34,16 @@ export default StyleSheet.create({
     position: 'absolute',
     resizeMode: 'stretch'
   },
-  colorContainer: {
+ photoContainer: {
     height: 130,
     padding: Metrics.smallMargin,
     marginBottom: Metrics.smallMargin
   },
-  colorSquare: {
+  photoSquare: {
     width: 100,
     height: 100
   },
-  colorName: {
+  photoName: {
     width: 100,
     height: Metrics.doubleBaseMargin,
     lineHeight: Metrics.doubleBaseMargin,

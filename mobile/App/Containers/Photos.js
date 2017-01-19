@@ -8,11 +8,6 @@ import url from 'url';
 import * as photoActionCreators from '../Actions/photos-actions';
 import * as friendsActionCreators from '../Actions/FriendsActions';
 
-
-const images = ['http://localhost:8000/api/photos/3/yes.jpg', 'http://localhost:8000/api/photos/3/no.jpg', 'http://localhost:8000/api/photos/3/vov.jpg'];
-// const images = [];
-const userName = 'Will Powelson';
-
 class Photos extends Component {
 
   ComponentWillMount() {
@@ -21,10 +16,10 @@ class Photos extends Component {
 
   renderPhoto (url) {
     return (
-      <View style={styles.colorContainer} key={`${url}Container`}>
+      <View style={styles.photoContainer} key={`${url}Container`}>
         <View style={styles.backgroundContainer} key={`${url}BackgroundContainer`}>
           <Image style={styles.backerImage} source={{uri: url}} key={`${url}BackgroundImage`} />
-          <View style={[styles.colorSquare]} key={`${url}Square`} />
+          <View style={[styles.photoSquare]} key={`${url}Square`} />
         </View>
       </View>
     )  
@@ -44,14 +39,14 @@ class Photos extends Component {
               :(<Text style={styles.sectionText}>Friend's Photos</Text>)             
             }
           </View>
-          <View style={styles.colorsContainer} >
+          <View style={styles.photosContainer} >
             {(this.props.selectedUserPhotos && this.props.selectedUserPhotos.length) ? (
-            <View style={styles.colorsContainer} >
+            <View style={styles.photosContainer} >
               {this.renderPhotos()}
              </View>
             )
             : (
-            <View style={styles.colorsContainer} >
+            <View style={styles.photosContainer} >
               <Text style={styles.sectionText}>This person hasn't shared any photos with you yet!</Text>
              </View>
             )}
