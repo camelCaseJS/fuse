@@ -1,13 +1,23 @@
 import React, { Component } from 'react';
 import { ScrollView, Text, Image, View } from 'react-native';
-import { Images } from '../Themes';
+import { Images } from '../Themes'
+import { connect } from 'react-redux';
 import styles from './Styles/ThemeScreenStyle';
+import URL from '../Config/URL';
+import url from 'url';
+import * as photoActionCreators from '../Actions/photos-actions';
+import * as friendsActionCreators from '../Actions/FriendsActions';
 
-// const images = ['http://localhost:8000/api/photos/3/yes.jpg', 'http://localhost:8000/api/photos/3/no.jpg', 'http://localhost:8000/api/photos/3/vov.jpg'];
-const images = [];
+
+const images = ['http://localhost:8000/api/photos/3/yes.jpg', 'http://localhost:8000/api/photos/3/no.jpg', 'http://localhost:8000/api/photos/3/vov.jpg'];
+// const images = [];
 const userName = 'Will Powelson';
 
 class Photos extends Component {
+
+  ComponentWillMount() {
+    this.props.fetchPhotos();
+  }
 
   renderPhoto (url) {
     return (
@@ -21,7 +31,7 @@ class Photos extends Component {
   }
 
   renderPhotos () {
-    return images.map((url) => this.renderPhoto(url))
+    return this.props.selectedUserPhotos.map((photo) => this.renderPhoto(photo.link)) 
   }
   render() {
     return (
@@ -29,10 +39,13 @@ class Photos extends Component {
         <Image source={Images.background} style={styles.backgroundImage} resizeMode='stretch' />
         <ScrollView style={styles.container}>
           <View style = {styles.section}>
-            <Text style={styles.sectionText}>{userName}'s Photos</Text>
+            {(this.props.lastSelectedFriend) ? 
+              (<Text style={styles.sectionText}>{this.props.lastSelectedFriend.first} {this.props.lastSelectedFriend.last}'s Photos</Text>)
+              :(<Text style={styles.sectionText}>Friend's Photos</Text>)             
+            }
           </View>
           <View style={styles.colorsContainer} >
-            {(images.length) ? (
+            {(this.props.selectedUserPhotos && this.props.selectedUserPhotos.length) ? (
             <View style={styles.colorsContainer} >
               {this.renderPhotos()}
              </View>
@@ -48,5 +61,18 @@ class Photos extends Component {
     );
   }
 }
+const mapStateToProps = state => (
+  {
+    selectedUserPhotos: state.photos.selectedUserPhotos,
+    lastSelectedFriend: state.friends.lastSelectedFriend,
+  }
+);
 
-export default Photos;
+Photos.propTypes = {
+  selectedPhoto: React.PropTypes.object.isRequired,
+  selectedUserPhotos: React.PropTypes.array.isRequired,
+  selectPhoto: React.PropTypes.func.isRequired,
+  fetchPhotos: React.PropTypes.func.isRequired,
+};
+
+export default connect(mapStateToProps, friendsActionCreators, photoActionCreators)(Photos);
