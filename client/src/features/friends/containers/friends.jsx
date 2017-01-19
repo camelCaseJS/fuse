@@ -108,8 +108,8 @@ class Friends extends Component {
           onChange={this.handleChange}
           value={this.props.slideIndex}
         >
-          <Tab label="Friends" value={0} />
-          <Tab label="Requests" value={1} />
+          <Tab label="Friends" value={0} className="friends"/>
+          <Tab label="Requests" value={1} className="requests" />
         </Tabs>
         <SwipeableViews
           index={this.props.slideIndex}

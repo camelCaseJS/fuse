@@ -71,6 +71,7 @@ class NavBar extends Component {
             onTouchTap={() => { this.context.router.push('/camera'); }}
             onMouseEnter={increaseButtonSize}
             onMouseLeave={decreaseButtonSize}
+            className="cameraButton"
           />
           <ActionExitToApp
             style={styles.icons}

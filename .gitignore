@@ -69,5 +69,3 @@ bower_components/
 
 # Docker Env Variables
 postgres-variables.env
-
-errorShots/ERROR_firefox_2017-01-18T18-54-20.041Z.png
