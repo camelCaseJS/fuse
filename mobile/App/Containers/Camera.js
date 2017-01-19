@@ -12,6 +12,16 @@ import BottomNavBar from '../Components/BottomNavBar';
 import * as friendsActionCreators from '../Actions/FriendsActions';
 import * as Animatable from 'react-native-animatable';
 import RoundedButton from '../Components/RoundedButton';
+import authenicate from '../Components/Authenicate';
+
+const selectedFriendsIDs = (friends) => {
+  friends.reduce((accumulator, currentFriend) => {
+    if (currentFriend.selected === true) {
+      return accumulator.concat([currentFriend.id]);
+    }
+    return accumulator;
+  }, [])
+};
 
 class Camera extends Component {
 
@@ -23,15 +33,8 @@ class Camera extends Component {
     };
   }
 
-  // KEEP THIS, example code to check if users is logged in and if not, direct to main scene
   componentWillMount() {
-    console.log('componentWilLMount');
-    AccessToken.getCurrentAccessToken()
-      .then((data) => {
-        if (data === null) {
-          NavigationActions.presentationScreen();
-        }
-      });
+    authenicate();
   }
 
   onFriendSelect(friend, index) {
@@ -45,8 +48,9 @@ class Camera extends Component {
 
   sendPhoto() {
     const body = new FormData();
+    const selectedFriends = selectedFriendsIDs(this.props.allFriends);
     body.append('image', this.state.file);
-    body.append('friends', this.props.selectedFriends);
+    body.append('friends', selectedFriends);
     fetch(URL.photos, {
       method: 'POST',
       body,
@@ -142,7 +146,7 @@ class Camera extends Component {
               users={this.state.file.uri ? this.props.allFriends : []}
             />
           </ScrollView>
-          { (this.props.selectedFriends && this.props.selectedFriends.length > 0 && this.state.file.uri) ?
+          { (this.props.lastSelectedFriend && this.state.file.uri) ?
             <RoundedButton
               onPress={() => { this.sendPhoto(); }}
             >
@@ -163,22 +167,14 @@ const mapStateToProps = (state, action) => {
   return {
     allFriends: state.friends.allFriends,
     lastSelectedFriend: state.friends.lastSelectedFriend,
-    selectedFriends:
-      state.friends.allFriends.reduce((accumulator, currentFriend) => {
-        if (currentFriend.selected === true) {
-          return accumulator.concat([currentFriend.id]);
-        }
-        return accumulator;
-      }, []),
   };
 };
 
 Camera.propTypes = {
   allFriends: PropTypes.array.isRequired,
-  selectedFriends: PropTypes.array.isRequired,
   unselectAllFriends: PropTypes.func.isRequired,
   selectFriend: PropTypes.func.isRequired,
-  // fetchPhotos: PropTypes.func.isRequired,
+  lastSelectedFriend: PropTypes.object.isRequired,
   fetchFriends: PropTypes.func.isRequired,
 };
 

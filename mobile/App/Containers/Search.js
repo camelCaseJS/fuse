@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { ScrollView, Text, Image, View } from 'react-native';
-import { Actions as NavigationActions } from 'react-native-router-flux';
+import { ScrollView, Image, View } from 'react-native';
 import axios from 'axios';
 import URL from '../Config/URL';
 import { Images } from '../Themes';
@@ -8,8 +7,10 @@ import styles from './Styles/SceneStyle';
 import UsersList from './UsersList';
 import SearchBar from '../Components/SearchBar';
 import RoundedButton from '../Components/RoundedButton';
+import authenicate from '../Components/Authenicate';
 
 const addUserReuqest = (id) => {
+
   console.log(`${URL.users}${id}`);
   axios.post(`${URL.users}${id}`)
     .then((response) => {
@@ -22,13 +23,17 @@ const addUserReuqest = (id) => {
 
 class Search extends Component {
 
- constructor(props) {
+  constructor(props) {
     super(props);
 
     this.state = {
       searchResults: [],
       search: '',
     };
+  }
+
+  componentWillMount() {
+    authenicate();
   }
 
   handleSearchChange(string) {

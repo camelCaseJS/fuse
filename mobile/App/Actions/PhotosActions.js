@@ -1,4 +1,5 @@
 import axios from 'axios';
+import URL from '../Config/URL';
 
 export const SELECT_PHOTO = 'SELECT_PHOTO';
 export const FETCH_PHOTOS = 'FETCH_PHOTOS';
@@ -7,10 +8,7 @@ export const FETCH_PHOTOS = 'FETCH_PHOTOS';
 export function fetchPhotos(friend) {
   // need to update this get request or pass in user id to fetch photos.
 
-  // expect request to be an array of object photos
-  console.log('friend');
-  console.log(friend);
-  const request = axios.get(`http://localhost:8000/api/photos/${friend.id}`)
+  const request = axios.get(`${URL.photos}${friend.id}`)
   .then(response => (response.data));
 
   return {
@@ -21,7 +19,6 @@ export function fetchPhotos(friend) {
 
 // click handler to update selected photo by user
 export function selectPhoto(photo) {
-  console.log('expect this to be selected photo object', photo);
   return {
     type: SELECT_PHOTO,
     payload: photo,

@@ -1,29 +1,13 @@
-import { LoginButton, AccessToken } from 'react-native-fbsdk';
+import { LoginButton } from 'react-native-fbsdk';
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { View } from 'react-native';
 import styles from '../Components/Styles/RoundedButtonStyle';
 import URL from '../Config/URL';
 import { userLogout } from '../Actions/SharedComponentsActions';
 import { fetchFriends } from '../Actions/FriendsActions';
+import authenicate from '../Components/Authenicate';
 
 class Login extends Component {
-
-  sendToken(token) {
-    console.log('URL.token', URL.token);
-    fetch(URL.token,
-      {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        body: '',
-      },
-    ).then(() => {
-      this.props.fetchFriends();
-    });
-}
-
 
   userLogout() {
     fetch(URL.logout, { method: 'GET' })
@@ -33,13 +17,6 @@ class Login extends Component {
       this.props.userLogout();
       })
     .catch(error => console.log(error));
-  }
-
-  userLogin() {
-    AccessToken.getCurrentAccessToken()
-      .then((data) => {
-        this.sendToken(data.accessToken.toString());
-      });
   }
 
   render() {
@@ -54,7 +31,7 @@ class Login extends Component {
             } else if (result.isCancelled) {
               console.log('login is cancelled.');
             } else {
-              this.userLogin();
+              authenicate();
             }
           }
         }
@@ -65,6 +42,7 @@ class Login extends Component {
 
 Login.propTypes = {
   userLogout: PropTypes.func.isRequired,
+  fetchFriends: PropTypes.func.isRequired,
 };
 
 export default connect(null, { userLogout, fetchFriends })(Login);
