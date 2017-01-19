@@ -26,7 +26,7 @@ PendingListEntry.propTypes = {
   lastName: React.PropTypes.string.isRequired,
   profilePictureURL: React.PropTypes.string.isRequired,
   onSelect: React.PropTypes.func.isRequired,
-  selected: React.PropTypes.bool.isRequired,
+  // selected: React.PropTypes.bool.isRequired,
 };
 
 export default PendingListEntry;

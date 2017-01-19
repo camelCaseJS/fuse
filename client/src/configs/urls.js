@@ -6,6 +6,9 @@ const url = {
   userInfo: `${base}/api/users/userInfo`,
   search: `${base}/api/users/search/`,
   pending: `${base}/api/users/pending`,
+  destroyFriendships: `${base}/api/users/destroy/friendships`,
+  destroyOneFriendship: `${base}/api/users/destroy/oneFriendship`,
+  destroyPending: `${base}/api/users/destroy/pending`,
 };
 
 export default url;

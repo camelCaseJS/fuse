@@ -47,7 +47,6 @@ const getPendingFriends = (req, res) => {
     dbHandler.getFriendRequests(userId),
   )
   .then((results) => {
-    // console.log(results, 'RESULTS IN HANDLER');
     res.send(results);
   }).catch((err) => {
     console.log(err);
@@ -89,7 +88,10 @@ const getUserInfo = (req, res) => {
 const addFriendRequest = (req, res) => {
   const userId = req.user.id;
   const friendId = Number(req.params.id);
-  dbHandler.friendRequestDB(userId, friendId);
+  dbHandler.sendFriendRequestDB(userId, friendId)
+  .then(() => {
+    res.send('Friend Request Sent!');
+  });
   // .then((reqStatus) => {
   //   console.log(reqStatus);
     // if (reqStatus === 'success') {
@@ -103,6 +105,23 @@ const addFriendRequest = (req, res) => {
   // });
 };
 
+const destroySentReq = (req, res) => {
+  dbHandler.deleteSentPending(req.user.id);
+};
+
+const destroyReceivedReq = (req, res) => {
+  dbHandler.deleteReceivedPending(req.user.id);
+};
+
+const destroyFriendships = (req, res) => {
+  dbHandler.destroyFriendships(req.user.id);
+};
+
+const destroyOneFriendship = (req, res) => {
+  return 'fasdfdsafdsafdsafas';
+};
+
+
 module.exports.userSearch = userSearch;
 
 module.exports.getUserInfo = getUserInfo;
@@ -113,3 +132,11 @@ module.exports.getUserFriends = getUserFriends;
 
 module.exports.getPendingFriends = getPendingFriends;
 
+module.exports.destroyFriendships = destroyFriendships;
+
+module.exports.destroySentReq = destroySentReq;
+
+module.exports.destroyReceivedReq = destroyReceivedReq;
+
+
+module.exports.destroyOneFriendship = destroyOneFriendship;

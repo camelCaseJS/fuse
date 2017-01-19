@@ -5,7 +5,12 @@ import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'mat
 import { GridList, GridTile } from 'material-ui/GridList';
 import PhotosListEntry from './photos-list-entry';
 import * as photosActionCreators from '../../../actions/photos-actions';
+import * as userActionCreators from '../../../actions/user-actions'
 
+const combinedActionCreators = {
+  ...photosActionCreators,
+  ...userActionCreators,
+};
 
 const styles = {
   root: {
@@ -24,8 +29,23 @@ const styles = {
 class PhotosList extends Component {
 
   componentWillMount() {
-    // this will fetchPhotos of selectFriend
+    const myPhotoConnection = io('/photoSocket');
     // this.props.fetchPhotos(this.props.lastSelectedFriend);
+
+    this.props.getUserInfo()
+    .then((userInfo) => {
+      const userFBId = userInfo.payload.user.facebookId;
+      myPhotoConnection.emit('join photo room', { roomId: userFBId });
+    });
+
+    myPhotoConnection.on('photo room connected', (photoRoomInfo) => {
+      console.log(photoRoomInfo);
+    });
+
+    myPhotoConnection.on('send to photos test', (photoSignal) => {
+      alert(photoSignal);
+      this.props.fetchPhotos();
+    });
   }
 
   listPhotos() {
@@ -74,6 +94,7 @@ const mapStateToProps = state => (
     selectedPhoto: state.photos.selectedPhoto,
     selectedUserPhotos: state.photos.selectedUserPhotos,
     lastSelectedFriend: state.friends.lastSelectedFriend,
+    getUserInfo: state.user.getUserInfo,
   }
 );
 
@@ -82,7 +103,8 @@ PhotosList.propTypes = {
   selectedUserPhotos: React.PropTypes.array.isRequired,
   selectPhoto: React.PropTypes.func.isRequired,
   fetchPhotos: React.PropTypes.func.isRequired,
+  getUserInfo: React.PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, photosActionCreators)(PhotosList);
+export default connect(mapStateToProps, combinedActionCreators)(PhotosList);
 
