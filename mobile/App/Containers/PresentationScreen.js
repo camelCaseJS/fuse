@@ -6,30 +6,23 @@ import { Actions as NavigationActions } from 'react-native-router-flux';
 import Login from './Login';
 
 // Styles
-import styles from './Styles/PresentationScreenStyle';
+import styles from './Styles/SceneStyle';
 
 export default class PresentationScreen extends React.Component {
   render() {
     return (
       <View style={styles.mainContainer}>
-        <Image source={Images.background} style={styles.backgroundImage} resizeMode='stretch' />
-        <ScrollView style={styles.container}>
 
-          <RoundedButton onPress={NavigationActions.friends}>
-            Friends
-          </RoundedButton>
+        <Image
+          source={Images.background5}
+          style={styles.backgroundImage}
+          resizeMode="stretch" />
 
-          <RoundedButton onPress={NavigationActions.camera}>
-            Camera
-          </RoundedButton>
+        <View style={styles.mainSection}>
 
-          <RoundedButton onPress={NavigationActions.photos}>
-            Photos
-          </RoundedButton>
+          <ScrollView style={styles.scrollContainer}>
 
-          <RoundedButton onPress={NavigationActions.search}>
-            Search
-          </RoundedButton>
+          </ScrollView>
 
           <View>
 
@@ -37,7 +30,8 @@ export default class PresentationScreen extends React.Component {
 
           </View>
 
-        </ScrollView>
+        </View>
+
       </View>
     );
   }

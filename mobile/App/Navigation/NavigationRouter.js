@@ -35,14 +35,14 @@ class NavigationRouter extends Component {
             title="fuse"
           />
           <Scene
-            key="friends"
-            component={Friends}
-            title="friends"
-          />
-          <Scene
             initial key="camera"
             component={Camera}
             title="camera"
+          />
+          <Scene
+            key="friends"
+            component={Friends}
+            title="friends"
           />
           <Scene
             key="photos"

@@ -92,11 +92,21 @@ class Camera extends Component {
           },
           statusMessage: 'Select Friends',
         });
+        this.props.unselectAllFriends();
       }
     });
   }
 
-  cameraIconPress() {
+  leftIconPress() {
+    this.props.unselectAllFriends();
+    this.setState({
+      file: {},
+      statusMessage: 'Take a Photo',
+    });
+    NavigationActions.friends();
+  }
+
+  centerIconPress() {
     if (this.state.file.uri) {
       this.sendPhoto();
     } else {
@@ -104,9 +114,16 @@ class Camera extends Component {
     }
   }
 
+  rightIconPress() {
+    this.props.unselectAllFriends();
+    this.setState({
+      file: {},
+      statusMessage: 'Take a Photo',
+    });
+    NavigationActions.search();
+  }
+
   render() {
-    console.log('selected friends');
-    console.log(this.props.selectedFriends);
     return (
       <View style={styles.mainContainer}>
         <Image source={Images.background5} style={styles.backgroundImage} resizeMode='stretch' />
@@ -125,7 +142,7 @@ class Camera extends Component {
               users={this.state.file.uri ? this.props.allFriends : []}
             />
           </ScrollView>
-          { (this.props.selectedFriends && this.props.selectedFriends.length > 0) ?
+          { (this.props.selectedFriends && this.props.selectedFriends.length > 0 && this.state.file.uri) ?
             <RoundedButton
               onPress={() => { this.sendPhoto(); }}
             >
@@ -133,9 +150,9 @@ class Camera extends Component {
             </RoundedButton> : [] }
         </View>
         <BottomNavBar
-          onLeftIconPress={() => { NavigationActions.friends(); }}
-          onCenterIconPress={() => this.cameraIconPress()}
-          onRightIconPress={() => { NavigationActions.search(); }}
+          onLeftIconPress={() => this.leftIconPress()}
+          onCenterIconPress={() => this.centerIconPress()}
+          onRightIconPress={() => this.rightIconPress()}
         />
       </View>
     );
