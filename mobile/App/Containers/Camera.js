@@ -11,15 +11,7 @@ import UsersList from './UsersList';
 import BottomNavBar from '../Components/BottomNavBar';
 import * as friendsActionCreators from '../Actions/FriendsActions';
 import * as Animatable from 'react-native-animatable';
-
-const filterForSelectedFriendsID = (arrayOfFriends) => {
-  return arrayOfFriends.reduce((accumulator, currentFriend) => {
-    if (currentFriend.selected === true) {
-      return accumulator.concat([currentFriend.id]);
-    }
-    return accumulator;
-  }, []);
-};
+import RoundedButton from '../Components/RoundedButton';
 
 class Camera extends Component {
 
@@ -27,11 +19,13 @@ class Camera extends Component {
     super(props);
     this.state = {
       file: {},
+      statusMessage: 'Take a Photo',
     };
   }
 
   // KEEP THIS, example code to check if users is logged in and if not, direct to main scene
   componentWillMount() {
+    console.log('componentWilLMount');
     AccessToken.getCurrentAccessToken()
       .then((data) => {
         if (data === null) {
@@ -50,28 +44,17 @@ class Camera extends Component {
   }
 
   sendPhoto() {
-
-    const selectedFriendsIDs = filterForSelectedFriendsID(this.props.allFriends);
-    // console.log('messageBody in sendPhoto');
-    // console.log(this.state.body);
-    // const body = {...this.state.body};
-    // console.log('body in send photo');
-    // console.log(body);
     const body = new FormData();
     body.append('image', this.state.file);
-    body.append('friends', selectedFriendsIDs);
-    console.log('body before send');
-    console.log(body);
+    body.append('friends', this.props.selectedFriends);
     fetch(URL.photos, {
       method: 'POST',
       body,
     })
     .then((res) => {
-      console.log('response to send');
-      console.log(res);
-      // TODO Delete File
       this.setState({
         file: {},
+        statusMessage: 'Sent!  Take Another',
       });
     })
     .catch((error) => {
@@ -107,6 +90,7 @@ class Camera extends Component {
             type: 'image/jpeg',
             name,
           },
+          statusMessage: 'Select Friends',
         });
       }
     });
@@ -121,9 +105,8 @@ class Camera extends Component {
   }
 
   render() {
-      console.log('this.state.file');
-      console.log(this.state.file);
-
+    console.log('selected friends');
+    console.log(this.props.selectedFriends);
     return (
       <View style={styles.mainContainer}>
         <Image source={Images.background5} style={styles.backgroundImage} resizeMode='stretch' />
@@ -133,7 +116,7 @@ class Camera extends Component {
               style={styles.sectionText}
               ref="text"
             >
-              {this.state.file.uri ? 'Select Friends' : 'Take Photo'}
+              {this.state.statusMessage}
             </Animatable.Text>
             <UsersList
               onSelect={(user, index) => this.onFriendSelect(user, index)}
@@ -142,6 +125,12 @@ class Camera extends Component {
               users={this.state.file.uri ? this.props.allFriends : []}
             />
           </ScrollView>
+          { (this.props.selectedFriends && this.props.selectedFriends.length > 0) ?
+            <RoundedButton
+              onPress={() => { this.sendPhoto(); }}
+            >
+              Send
+            </RoundedButton> : [] }
         </View>
         <BottomNavBar
           onLeftIconPress={() => { NavigationActions.friends(); }}
@@ -157,11 +146,19 @@ const mapStateToProps = (state, action) => {
   return {
     allFriends: state.friends.allFriends,
     lastSelectedFriend: state.friends.lastSelectedFriend,
+    selectedFriends:
+      state.friends.allFriends.reduce((accumulator, currentFriend) => {
+        if (currentFriend.selected === true) {
+          return accumulator.concat([currentFriend.id]);
+        }
+        return accumulator;
+      }, []),
   };
 };
 
 Camera.propTypes = {
   allFriends: PropTypes.array.isRequired,
+  selectedFriends: PropTypes.array.isRequired,
   unselectAllFriends: PropTypes.func.isRequired,
   selectFriend: PropTypes.func.isRequired,
   // fetchPhotos: PropTypes.func.isRequired,

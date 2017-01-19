@@ -7,6 +7,7 @@ import { Images } from '../Themes';
 import styles from './Styles/SceneStyle';
 import UsersList from './UsersList';
 import * as friendsActionCreators from '../Actions/FriendsActions';
+import RoundedButton from '../Components/RoundedButton';
 
 
 class Friends extends Component {
@@ -38,9 +39,6 @@ class Friends extends Component {
         <Image source={Images.background5} style={styles.backgroundImage} resizeMode='stretch' />
         <View style={styles.mainSection}>
           <ScrollView style={styles.scrollContainer}>
-            <Text style={styles.sectionText}>
-              Friends
-            </Text>
           <UsersList
             onSelect={(user, index) => this.onFriendSelect(user, index)}
             listComponentWillMount={() => this.onFriendsListMount()}

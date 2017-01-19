@@ -32,27 +32,27 @@ class NavigationRouter extends Component {
           <Scene
             key="presentationScreen"
             component={PresentationScreen}
-            title="Fuse"
+            title="fuse"
           />
           <Scene
             key="friends"
             component={Friends}
-            title="Friends"
+            title="friends"
           />
           <Scene
             initial key="camera"
             component={Camera}
-            title="Fuse"
+            title="camera"
           />
           <Scene
             key="photos"
             component={Photos}
-            title="Fuse"
+            title="photos"
           />
           <Scene
             key="search"
             component={Search}
-            title="Fuse"
+            title="search"
           />
         </Scene>
       </Router>
