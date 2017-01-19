@@ -14,7 +14,7 @@ class PendingList extends Component {
 
   renderPendingList() {
     const onSelect = this.onSelect.bind(this);
-    // console.log(this.props.pendingFriends, 'props');
+    console.log(this.props.pendingFriends, 'pending friends');
 
     if (this.props.pendingFriends.length === 0 && this.props.componentForEmptyList !== null) {
       return this.props.componentForEmptyList;
@@ -32,7 +32,6 @@ class PendingList extends Component {
       ),
     );
   }
-
 
   render() {
     return (
