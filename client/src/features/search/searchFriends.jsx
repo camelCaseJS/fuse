@@ -89,9 +89,12 @@ class SearchFriends extends Component {
 // addFriendsToDB is an action creator that handles the post request to the db.
 // need to talk to Will about how to format data for post request to db to work correctly
   handleAddUser() {
-    // console.log('in handleAddUser. this is state', this.props.searchedFriends[0].id);
-    socketActions.sendFriendRequest(this.props.searchedFriends[0].facebookId);
-    this.props.addFriendRequestToDB(this.props.searchedFriends[0].id);
+    this.props.searchedFriends.forEach((friend) => {
+      if (friend.selected) {
+        this.props.addFriendRequestToDB(friend.id);
+        socketActions.sendFriendRequest(friend.facebookId);
+      }
+    });
   }
 
 // this is the button that we will use to add users to the db
@@ -122,7 +125,10 @@ class SearchFriends extends Component {
         lastName={friend.lastName}
         profilePictureURL={friend.profilePictureURL}
         selected={friend.selected}
-        onSelect={() => searchSelectFriend(friend, index)}
+        onSelect={() => {
+          searchSelectFriend(friend, index);
+          // console.log('in handleAddUser. this is state', this.props.searchedFriends);
+        }}
       />
       ),
     );
@@ -190,12 +196,14 @@ const mapStateToProps = state => (
     searchedFriends: state.search.searchedFriends,
     selectedFriend: state.search.selectedFriend,
     searchedFriendSelected: state.search.searchedFriendSelected,
+    lastSelectedFriend: state.friends.lastSelectedFriend,
+    addFriendRequestToDB: state.search.addFriendRequestToDB,
   }
 );
 
 SearchFriends.propTypes = {
   searchedFriends: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-  // selectedFriend: React.PropTypes.object.isRequired,
+  lastSelectedFriend: React.PropTypes.object.isRequired,
   searchFriends: React.PropTypes.func.isRequired,
   searchSelectFriend: React.PropTypes.func.isRequired,
   searchedFriendSelected: React.PropTypes.bool.isRequired,

@@ -31,6 +31,7 @@ export function searchFriends(nameOrEmail) {
 }
 
 export function searchSelectFriend(friend, index) {
+  // console.log(friend, index);
   return {
     type: SEARCH_SELECT_FRIEND,
     payload: { friend, index },
