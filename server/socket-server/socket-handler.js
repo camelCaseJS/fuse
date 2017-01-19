@@ -2,32 +2,34 @@ const socketInit = require('socket.io');
 
 const startSocketServer = (server) => {
   const io = socketInit(server);
-  // const photoNsp = io.of('/photoSocket');
+  const photoNsp = io.of('/photoSocket');
   const friendNsp = io.of('/friendSocket');
 
-  // photoNsp.on('connection', (socket) => {
-  //   console.log('connected to photo socket namespace');
-  //   // emit namespace connection success
-  //   photoNsp.emit('photo socket connect', 'connected to namespace: "/photoSocket"');
-  //   // listen for join room request
-  //   socket.on('join photo room', (data) => {
-  //     const userPhotoRoom = `photoRoom:${data.roomId}`;
-  //     // create new room base on user id
-  //     socket.join(userPhotoRoom, () => {
-  //       // emit room connection success
-  //       photoNsp.in(userPhotoRoom).emit('photo room connected', `joined room "${userPhotoRoom}"`);
-  //     });
-  //   });
+  photoNsp.on('connection', (socket) => {
+    console.log('connected to photo socket namespace');
+    // emit namespace connection success
+    // photoNsp.emit('photo socket connect', 'connected to namespace: "/photoSocket"');
+    // listen for join room request
+    socket.on('join photo room', (data) => {
+      const userPhotoRoom = `photoRoom:${data.roomId}`;
+      // create new room base on user id
+      if (socket.rooms[`photoRoom:${data.roomId}`] === undefined) {
+        socket.join(userPhotoRoom, () => {
+          // emit room connection success
+          photoNsp.in(userPhotoRoom).emit('photo room connected', `joined room "${userPhotoRoom}"`);
+        });
+      }
+    });
 
-  //   socket.on('send new photo', (data) => {
-  //     console.log(data, 'data through send photo request function');
-  //     photoNsp.in(`photoRoom:${data}`).emit('send to photos test', 'BACK TO CLIENT THRU NSP/ROOM');
-  //   });
+    socket.on('send new photo', (data) => {
+      console.log(data, 'data through send photo request function');
+      photoNsp.in(`photoRoom:${data}`).emit('new photo update', 'BACK TO CLIENT THRU NSP/ROOM');
+    });
 
-  //   socket.on('disconnect', () => {
-  //     console.log('disconnected from photo socket namespace');
-  //   });
-  // });
+    socket.on('disconnect', () => {
+      console.log('disconnected from photo socket namespace');
+    });
+  });
 
   // console.log(friendNsp);
   friendNsp.on('connection', (socket) => {
