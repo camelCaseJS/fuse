@@ -52,16 +52,16 @@ export function unselectAllFriends() {
   };
 }
 
-export function getUserInfo() {
-  const request = axios.get(`${url.userInfo}`)
-  .then(response =>
-    response.data,
-  );
-  return {
-    type: GET_USER_INFO,
-    payload: request,
-  };
-}
+// export function getUserInfo() {
+//   const request = axios.get(`${url.userInfo}`)
+//   .then(response =>
+//     response.data,
+//   );
+//   return {
+//     type: GET_USER_INFO,
+//     payload: request,
+//   };
+// }
 
 export function handleTabSwitch(value) {
   return {

@@ -29,6 +29,5 @@ app.get('/destroy/friendships', userHandler.destroyFriendships);
 
 app.get('/destroy/oneFriendship', userHandler.destroyOneFriendship);
 
-
 module.exports = app;
 

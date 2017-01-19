@@ -50,12 +50,12 @@ export default (state = INITIAL_STATE, action) => {
       return newState;
     }
 
-    case GET_USER_INFO: {
-      return {
-        ...state,
-        userInfo: action.payload,
-      };
-    }
+    // case GET_USER_INFO: {
+    //   return {
+    //     ...state,
+    //     userInfo: action.payload,
+    //   };
+    // }
 
     case HANDLE_TAB_SWITCH: {
       return {
