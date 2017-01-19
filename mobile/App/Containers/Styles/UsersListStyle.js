@@ -1,35 +1,37 @@
 // @flow
 
 import { StyleSheet } from 'react-native'
-import { ApplicationStyles, Metrics, Colors } from '../../Themes/'
+import { ApplicationStyles, Metrics, Colors, Fonts } from '../../Themes/'
 
 export default StyleSheet.create({
   ...ApplicationStyles.screen,
   container: {
     flex: 1,
     marginTop: Metrics.navBarHeight,
-    backgroundColor: Colors.background
+    backgroundColor: Colors.panther,
   },
   row: {
     flex: 1,
     backgroundColor: Colors.fire,
     marginVertical: Metrics.smallMargin,
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   boldLabel: {
     fontWeight: 'bold',
     alignSelf: 'center',
     color: Colors.fire,
     textAlign: 'center',
-    marginVertical: Metrics.smallMargin
+    marginVertical: Metrics.smallMargin,
   },
   selected: {
-    fontWeight: 'bold',
+    fontWeight: 'normal',
     color: Colors.fire,
+    fontSize: Fonts.size.h6,
   },
   unselected: {
     fontWeight: 'normal',
-    color: Colors.panther,
+    color: Colors.snow,
+    fontSize: Fonts.size.regular,
   },
   label: {
     textAlign: 'center',
@@ -39,9 +41,16 @@ export default StyleSheet.create({
   listContent: {
     marginTop: Metrics.baseMargin
   },
-  listItem: {
-    color: '#ffffff',
-    backgroundColor: '#505050',
-},
+  listContainer: {
+    backgroundColor: Colors.coal,
+  },
+  contentViewContainer: {
+    borderRadius: 5,
+    // marginHorizontal: Metrics.section,
+    // marginVertical: Metrics.baseMargin,
+    // backgroundColor: Colors.frost,
+    backgroundColor: Colors.charcoal,
+    justifyContent: 'center',
+  },
 
 });

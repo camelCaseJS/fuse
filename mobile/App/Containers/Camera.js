@@ -10,6 +10,7 @@ import URL from '../Config/URL';
 import UsersList from './UsersList';
 import BottomNavBar from '../Components/BottomNavBar';
 import * as friendsActionCreators from '../Actions/FriendsActions';
+import * as Animatable from 'react-native-animatable';
 
 const filterForSelectedFriendsID = (arrayOfFriends) => {
   return arrayOfFriends.reduce((accumulator, currentFriend) => {
@@ -128,9 +129,12 @@ class Camera extends Component {
         <Image source={Images.background5} style={styles.backgroundImage} resizeMode='stretch' />
         <View style={styles.mainSection}>
           <ScrollView style={styles.scrollContainer}>
-            <Text style={styles.sectionText}>
+            <Animatable.Text
+              style={styles.sectionText}
+              ref="text"
+            >
               {this.state.file.uri ? 'Select Friends' : 'Take Photo'}
-            </Text>
+            </Animatable.Text>
             <UsersList
               onSelect={(user, index) => this.onFriendSelect(user, index)}
               listComponentWillMount={() => this.onFriendsListMount()}

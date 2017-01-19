@@ -7,6 +7,18 @@ import { Images } from '../Themes';
 import styles from './Styles/SceneStyle';
 import UsersList from './UsersList';
 import SearchBar from '../Components/SearchBar';
+import RoundedButton from '../Components/RoundedButton';
+
+const addUserReuqest = (id) => {
+  console.log(`${URL.users}${id}`);
+  axios.post(`${URL.users}${id}`)
+    .then((response) => {
+      console.log(response.data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
 
 class Search extends Component {
 
@@ -30,8 +42,13 @@ class Search extends Component {
         console.log(response.data);
         // if not authenitcated, response will not be a useable array
         if (response.data && Array.isArray(response.data)) {
-          this.setState({ searchResults: response.data});
-          this.setState({ search: '' });
+          const results = response.data.map((user) => {
+            return { ...user, selected:false };
+          });
+          this.setState({
+            searchResults: results,
+            search: '',
+          });
         }
       })
       .catch((error) => {
@@ -39,19 +56,25 @@ class Search extends Component {
       });
   }
 
-  handleAddUser(id) {
-    console.log(`${URL.users}${id}`);
-    axios.post(`${URL.users}${id}`)
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  handleAddUser() {
+    this.state.searchResults.forEach((user) => {
+      if (user.selected) {
+        addUserReuqest(user.id);
+      }
+    });
+    this.setState({
+      searchResults: [],
+      search: '',
+    });
   }
-  searchButton() {
 
-    //TODO Make list
+  handleUserSelect(user, index) {
+    const newResults = [...this.state.searchResults];
+    newResults[index].selected = !newResults[index].selected;
+    this.setState({ searchResults: newResults });
+  }
+
+  searchButton() {
     return (
       <View style={styles.container}>
           <SearchBar
@@ -72,10 +95,19 @@ class Search extends Component {
           <ScrollView style={styles.scrollContainer}>
             {this.searchButton()}
             <UsersList
-              onSelect={(user, index) => this.handleAddUser(user.id)}
+              onSelect={(user, index) => this.handleUserSelect(user, index)}
               users={this.state.searchResults}
             />
           </ScrollView>
+          { // If any users in search Result are selected, render Send button
+          this.state.searchResults.reduce((accumulator, currentUser) => {
+            return accumulator || currentUser.selected;
+          }, false) ?
+            <RoundedButton
+              onPress={() => { this.handleAddUser(); }}
+            >
+              Send
+            </RoundedButton> : [] }
         </View>
       </View>
     );

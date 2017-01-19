@@ -29,7 +29,10 @@ class UsersList extends Component {
         (
           <ListItem
             divider
-            style={{ primaryText:
+            style={
+              { container:styles.listContainer,
+                contentViewContainer: styles.contentViewContainer,
+               primaryText:
               user.selected ? styles.selected : styles.unselected }}
             key={user.id}
             leftElement={<Image
@@ -37,7 +40,6 @@ class UsersList extends Component {
               style={{ height: 40, width: 40 }}
             />}
             centerElement={`${user.firstName} ${user.lastName}`}
-            selected={user.selected}
             onPress={() => onSelect(user, index)}
           />
         ),
