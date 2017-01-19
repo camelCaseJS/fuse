@@ -7,6 +7,10 @@ export const UNSELECT_ALL_FRIENDS = 'UNSELECT_ALL_FRIENDS';
 export const HANDLE_TAB_SWITCH = 'HANDLE_TAB_SWITCH';
 export const GET_USER_INFO = 'GET_USER_INFO';
 export const FETCH_PENDING_FRIENDS = 'FETCH_PENDING_FRIENDS';
+export const DESTROY_SENT_PENDING = 'DESTROY_SENT_PENDING';
+export const DESTROY_RECEIVED_PENDING = 'DESTROY_RECEIVED_PENDING';
+export const DESTROY_FRIENDSHIPS = 'DESTROY_FRIENDSHIPS';
+export const DESTROY_ONE_FRIENDSHIP = 'DESTROY_ONE_FRIENDSHIP';
 
 export function fetchFriends() {
   const request = axios.get(`${url.users}`)
@@ -63,6 +67,43 @@ export function handleTabSwitch(value) {
   return {
     type: HANDLE_TAB_SWITCH,
     payload: value,
+  };
+}
+
+export function destroySentPending() {
+  console.log('clear pending in actions');
+  axios.get(`${url.destroyPending}/sent`);
+  return {
+    type: DESTROY_SENT_PENDING,
+    payload: [],
+  };
+}
+
+export function destroyReceivedPending() {
+  console.log('clear pending in actions');
+  axios.get(`${url.destroyPending}/received`);
+  return {
+    type: DESTROY_RECEIVED_PENDING,
+    payload: [],
+  };
+}
+
+export function destroyFriendships() {
+  console.log('clear friendships in actions');
+  axios.get(`${url.destroyFriendships}`);
+  return {
+    type: DESTROY_FRIENDSHIPS,
+    payload: [],
+
+  };
+}
+
+export function destroyOneFriendship() {
+  console.log('delete one friend');
+  axios.get(`${url.destroyOneFriendship}`)
+  .then(response => response.data);
+  return {
+    type: DESTROY_ONE_FRIENDSHIP,
   };
 }
 
