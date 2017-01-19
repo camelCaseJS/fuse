@@ -12,12 +12,13 @@ import PendingList from '../../../shared-components/pending-list';
 
 import * as friendsActionCreators from '../../../actions/friends-actions';
 import * as photosActionCreators from '../../../actions/photos-actions';
+import * as userActionCreators from '../../../actions/user-actions'
 
-import axios from 'axios';
-// import { connectToNamespaces } from '../../../sockets-client/sockets';
 
 const combinedActionCreators = {
-  ...photosActionCreators, ...friendsActionCreators,
+  ...photosActionCreators,
+  ...friendsActionCreators,
+  ...userActionCreators,
 };
 
 const emptyListMessage = () => (
@@ -157,6 +158,8 @@ const mapStateToProps = (state) => {
     destroyFriendships: state.friends.destroyFriendships,
     destroyPending: state.friends.destroyPending,
     destroyOneFriendship: state.friends.destroyOneFriendship,
+    getUserInfo: state.user.getUserInfo,
+
   };
 };
 

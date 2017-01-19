@@ -5,7 +5,12 @@ import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'mat
 import { GridList, GridTile } from 'material-ui/GridList';
 import PhotosListEntry from './photos-list-entry';
 import * as photosActionCreators from '../../../actions/photos-actions';
+import * as userActionCreators from '../../../actions/user-actions'
 
+const combinedActionCreators = {
+  ...photosActionCreators,
+  ...userActionCreators,
+};
 
 const styles = {
   root: {
@@ -101,5 +106,5 @@ PhotosList.propTypes = {
   getUserInfo: React.PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, photosActionCreators)(PhotosList);
+export default connect(mapStateToProps, combinedActionCreators)(PhotosList);
 
