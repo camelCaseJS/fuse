@@ -65,16 +65,18 @@ const getFriendRequests = Promise.method((userId) => {
     return pendingFriendIds;
   })
   .then((pendingFriendIds) => {
-    User.findAll({
+    return User.findAll({
       where: {
         $or: pendingFriendIds,
       },
-    })
-    .then(pendingFriendsInfo => pendingFriendsInfo.map(pendingFriend => pendingFriend.dataValues))
-    // WORK HERE
-    .then((pendingInfoArray) => {
-      return (pendingInfoArray);
     });
+  })
+  .then(pendingFriendsInfo => pendingFriendsInfo.map(pendingFriend => pendingFriend.dataValues))
+  // WORK HERE
+  .then((pendingInfoArray) => {
+    // console.log(pendingInfoArray);
+    return (pendingInfoArray);
+  // });
   });
 });
 
