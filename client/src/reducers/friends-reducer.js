@@ -1,4 +1,4 @@
-import { FETCH_FRIENDS, FETCH_PENDING_FRIENDS, SELECT_FRIEND, UNSELECT_ALL_FRIENDS, GET_USER_INFO, HANDLE_TAB_SWITCH} from '../actions/friends-actions';
+import { FETCH_FRIENDS, FETCH_PENDING_FRIENDS, SELECT_FRIEND, UNSELECT_ALL_FRIENDS, GET_USER_INFO, HANDLE_TAB_SWITCH, DESTROY_FRIENDSHIPS, DESTROY_RECEIVED_PENDING, DESTROY_ONE_FRIENDSHIP, DESTROY_SENT_PENDING } from '../actions/friends-actions';
 
 
 // NEED TO PUT USER INFO INTO STATE OF ANY COMPONENT THAT USES GETINFO
@@ -33,7 +33,7 @@ export default (state = INITIAL_STATE, action) => {
     case FETCH_PENDING_FRIENDS:
       // Creates an object with all properties copied from state
       // Then replaces allFriends with action.payload
-      console.log(action.payload);
+      // console.log(action.payload);
       return { ...state, pendingFriends: action.payload };
 
     case SELECT_FRIEND: {
@@ -61,6 +61,33 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         slideIndex: action.payload,
+      };
+    }
+
+    case DESTROY_FRIENDSHIPS: {
+      return {
+        ...state,
+        allFriends: action.payload,
+      };
+    }
+
+    case DESTROY_SENT_PENDING: {
+      return {
+        ...state,
+        pending: action.payload,
+      };
+    }
+
+    case DESTROY_RECEIVED_PENDING: {
+      return {
+        ...state,
+        pending: action.payload,
+      };
+    }
+
+    case DESTROY_ONE_FRIENDSHIP: {
+      return {
+        ...state,
       };
     }
 
