@@ -33,7 +33,7 @@ const startSocketServer = (server) => {
   friendNsp.on('connection', (socket) => {
     console.log('connected to friend socket namespace');
     // emit namespace connection success
-    friendNsp.emit('friend socket connect', 'connected to namespace: "/friendSocket"');
+    // friendNsp.emit('friend socket connect', 'connected to namespace: "/friendSocket"');
 
     // listen for join room request
     socket.on('join friend room', (data) => {
@@ -49,7 +49,7 @@ const startSocketServer = (server) => {
 
     socket.on('send friend request', (data) => {
       console.log(data, `emitting through friendRoom:${data.friendFacebookId}`);
-      friendNsp.in(`friendRoom:${data.friendFacebookId}`).emit('new friend request', 'BACK TO CLIENT THRU NSP/ROOM');
+      friendNsp.in(`friendRoom:${data.friendFacebookId}`).emit('new friend request', 'New friend request!');
     });
 
     socket.on('disconnect', () => {
