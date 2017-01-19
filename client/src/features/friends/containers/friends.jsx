@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { ListItem } from 'material-ui/List';
 import Search from 'material-ui/svg-icons/action/search';
-import {Tabs, Tab} from 'material-ui/Tabs';
+import { Tabs, Tab } from 'material-ui/Tabs';
 // From https://github.com/oliviertassinari/react-swipeable-views
 import SwipeableViews from 'react-swipeable-views';
 
@@ -13,9 +13,8 @@ import PendingList from '../../../shared-components/pending-list';
 import * as friendsActionCreators from '../../../actions/friends-actions';
 import * as photosActionCreators from '../../../actions/photos-actions';
 
-// import { connectToFriendsNamespace, connectToPhotosNamespace } from '../../../sockets-client/sockets';
-
-import { connectToNamespaces } from '../../../sockets-client/sockets';
+import axios from 'axios';
+// import { connectToNamespaces } from '../../../sockets-client/sockets';
 
 const combinedActionCreators = {
   ...photosActionCreators, ...friendsActionCreators,
@@ -44,28 +43,31 @@ class Friends extends Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
-
-    this.WHATTHEFUCKISGOINGON = this.WHATTHEFUCKISGOINGON.bind(this);
+    this.clearSentPending = this.clearSentPending.bind(this);
+    this.clearReceivedPending = this.clearReceivedPending.bind(this);
+    this.clearFriendships = this.clearFriendships.bind(this);
   }
 
   componentWillMount() {
+    const myFriendsSocket = io('/friendSocket');
     this.props.fetchFriends();
+    this.props.fetchPendingFriends();
+
     this.props.getUserInfo()
     .then((userInfo) => {
-      connectToNamespaces(userInfo.payload.user.facebookId);
+      const userFBId = userInfo.payload.user.facebookId;
+      myFriendsSocket.emit('join friend room', { roomId: userFBId });
     });
-    this.props.fetchPendingFriends();
-  }
 
-  // componentDidMount() {
-  //   // console.log(this.props.userInfo, 'DID');
-  //   // if (this.props.userInfo.user !== undefined) {
-  //   //   const userFBId = this.props.userInfo.user.facebookId;
-  //   //   // connectToPhotosNamespace(userFBId);
-  //   //   // connectToFriendsNamespace(userFBId);
-  //   //   connectToNamespaces(userFBId);
-  //   // }
-  // }
+    myFriendsSocket.on('friend room connected', (friendRoomInfo) => {
+      console.log(friendRoomInfo);
+    });
+
+    myFriendsSocket.on('new friend request', (newFriendSignal) => {
+      alert(newFriendSignal);
+      this.props.fetchPendingFriends();
+    });
+  }
 
   onFriendSelect(friend, index) {
     if (this.props.router.pathname !== '/camera') {
@@ -83,8 +85,16 @@ class Friends extends Component {
     this.props.handleTabSwitch(value);
   }
 
-  WHATTHEFUCKISGOINGON() {
-    console.log(this.props);
+  clearSentPending() {
+    this.props.destroySentPending();
+  }
+
+  clearReceivedPending() {
+    this.props.destroyReceivedPending();
+  }
+
+  clearFriendships() {
+    this.props.destroyFriendships();
   }
 
   render() {
@@ -116,8 +126,9 @@ class Friends extends Component {
             />
           </div>
           <div>
-            <button onClick={this.props.fetchPendingFriends}>pending</button>
-            <button onClick={this.WHATTHEFUCKISGOINGON}>check</button>
+            <button onClick={this.clearFriendships}>clear friends</button>
+            <button onClick={this.clearSentPending}>clear sent pending</button>
+            <button onClick={this.clearReceivedPending}>clear received pending</button>
             <PendingList
               style={styles}
               onSelect={(user, index) => this.onFriendSelect(user, index)}
@@ -143,6 +154,9 @@ const mapStateToProps = (state) => {
     userInfo: state.friends.userInfo,
     slideIndex: state.friends.slideIndex,
     router: state.router,
+    destroyFriendships: state.friends.destroyFriendships,
+    destroyPending: state.friends.destroyPending,
+    destroyOneFriendship: state.friends.destroyOneFriendship,
   };
 };
 
