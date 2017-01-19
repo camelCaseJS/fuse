@@ -1,11 +1,70 @@
-import React, { Component } from 'react';
-import { ScrollView, Text, Image, View, Button } from 'react-native';
-import { Images } from '../Themes';
-import styles from './Styles/PresentationScreenStyle';
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { ScrollView, Text, Image, View } from 'react-native';
 import ImagePicker from 'react-native-image-picker';
-import URL from '../config/URL';
+import { Actions as NavigationActions } from 'react-native-router-flux';
+import { AccessToken } from 'react-native-fbsdk';
+import { Images } from '../Themes';
+import styles from './Styles/SceneStyle';
+import URL from '../Config/URL';
+import UsersList from './UsersList';
+import BottomNavBar from '../Components/BottomNavBar';
+import * as friendsActionCreators from '../Actions/FriendsActions';
+import * as Animatable from 'react-native-animatable';
+import RoundedButton from '../Components/RoundedButton';
+import authenicate from '../Components/Authenicate';
+
+const selectedFriendsIDs = (friends) => {
+  friends.reduce((accumulator, currentFriend) => {
+    if (currentFriend.selected === true) {
+      return accumulator.concat([currentFriend.id]);
+    }
+    return accumulator;
+  }, [])
+};
 
 class Camera extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      file: {},
+      statusMessage: 'Take a Photo',
+    };
+  }
+
+  componentWillMount() {
+    authenicate();
+  }
+
+  onFriendSelect(friend, index) {
+    console.log('friendselect');
+    this.props.selectFriend(friend, index);
+  }
+
+  onFriendsListMount() {
+    this.props.fetchFriends();
+  }
+
+  sendPhoto() {
+    const body = new FormData();
+    const selectedFriends = selectedFriendsIDs(this.props.allFriends);
+    body.append('image', this.state.file);
+    body.append('friends', selectedFriends);
+    fetch(URL.photos, {
+      method: 'POST',
+      body,
+    })
+    .then((res) => {
+      this.setState({
+        file: {},
+        statusMessage: 'Sent!  Take Another',
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  }
 
   selectPhoto() {
     const options = {
@@ -14,63 +73,109 @@ class Camera extends Component {
       maxWidth: 500,
       maxHeight: 500,
       storageOptions: {
-        path: 'Photos'
-      }
+        path: 'Photos',
+      },
     };
 
     ImagePicker.showImagePicker(options, (response)=> {
 
       if (response.didCancel) {
         console.log('Cancel');
-      }
-      else if (response.error) {
+      } else if (response.error) {
         console.log('Error: ', response.error);
-      }
-      else if (response.customButton) {
+      } else if (response.customButton) {
         console.log('User tapped custom button: ', response.customButton);
-      }
-      else {
+      } else {
         const splitter = response.uri.split('/');
         const name = (splitter.length) ? splitter[splitter.length -1] : null;
-        console.log(name);
-        const file = {
-          uri: response.uri,
-          type:'image/jpeg',
-          name: name,
-        };
-        const body = new FormData();
-
-        body.append('image', file);
-        fetch(URL.photos, {
-          method: 'POST',
-          body: body, 
-        })
-        .then((res) => {
-          console.log(res);
+        this.setState({
+          file: {
+            uri: response.uri,
+            type: 'image/jpeg',
+            name,
+          },
+          statusMessage: 'Select Friends',
         });
-
+        this.props.unselectAllFriends();
       }
     });
   }
+
+  leftIconPress() {
+    this.props.unselectAllFriends();
+    this.setState({
+      file: {},
+      statusMessage: 'Take a Photo',
+    });
+    NavigationActions.friends();
+  }
+
+  centerIconPress() {
+    if (this.state.file.uri) {
+      this.sendPhoto();
+    } else {
+      this.selectPhoto();
+    }
+  }
+
+  rightIconPress() {
+    this.props.unselectAllFriends();
+    this.setState({
+      file: {},
+      statusMessage: 'Take a Photo',
+    });
+    NavigationActions.search();
+  }
+
   render() {
     return (
       <View style={styles.mainContainer}>
-        <Image source={Images.background} style={styles.backgroundImage} resizeMode='stretch' />
-        <ScrollView style={styles.container}>
-          <View style={styles.section} >
-            <Text style={styles.sectionText} >
-              Take Photo
-            </Text>
-            <Button 
-            onPress = {this.selectPhoto.bind(this)}
-            title ='Capture or Upload Image'
-            color = "#841584"
-          />
-          </View>
-        </ScrollView>
+        <Image source={Images.background5} style={styles.backgroundImage} resizeMode='stretch' />
+        <View style={styles.mainSection}>
+          <ScrollView style={styles.scrollContainer}>
+            <Animatable.Text
+              style={styles.sectionText}
+              ref="text"
+            >
+              {this.state.statusMessage}
+            </Animatable.Text>
+            <UsersList
+              onSelect={(user, index) => this.onFriendSelect(user, index)}
+              listComponentWillMount={() => this.onFriendsListMount()}
+              // If no photo taken, display empty array in place of friends
+              users={this.state.file.uri ? this.props.allFriends : []}
+            />
+          </ScrollView>
+          { (this.props.lastSelectedFriend && this.state.file.uri) ?
+            <RoundedButton
+              onPress={() => { this.sendPhoto(); }}
+            >
+              Send
+            </RoundedButton> : [] }
+        </View>
+        <BottomNavBar
+          onLeftIconPress={() => this.leftIconPress()}
+          onCenterIconPress={() => this.centerIconPress()}
+          onRightIconPress={() => this.rightIconPress()}
+        />
       </View>
     );
   }
 }
 
-export default Camera;
+const mapStateToProps = (state, action) => {
+  return {
+    allFriends: state.friends.allFriends,
+    lastSelectedFriend: state.friends.lastSelectedFriend,
+  };
+};
+
+Camera.propTypes = {
+  allFriends: PropTypes.array.isRequired,
+  unselectAllFriends: PropTypes.func.isRequired,
+  selectFriend: PropTypes.func.isRequired,
+  lastSelectedFriend: PropTypes.object.isRequired,
+  fetchFriends: PropTypes.func.isRequired,
+};
+
+export default connect(mapStateToProps, friendsActionCreators)(Camera);

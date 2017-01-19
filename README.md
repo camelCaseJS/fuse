@@ -1,12 +1,12 @@
-# Project Name
+# Fuse
 
-> Pithy project description
+> Photos messager web and mobile app. Take pictures to share with your friends, and see the pictures they send you.
 
 ## Team
 
-  - __Product Owner__: teamMember
-  - __Scrum Master__: teamMember
-  - __Development Team Members__: teamMember, teamMember
+  - __Product Owner__: Justin Potter
+  - __Scrum Master__: Sammy Icaza
+  - __Development Team Members__: Will Powelson, Ryan Choi
 
 ## Table of Contents
 
@@ -20,15 +20,18 @@
 
 ## Usage
 
-> Some usage instructions
+> Deploy server, recommended with Docker, and access via web or iOS app
 
 ## Requirements
 
-- Node 0.10.x
-- Redis 2.6.x
-- Postgresql 9.1.x
-- etc
-- etc
+- Node 7.0.x
+- Postgres 9.6.x
+- Docker 1.12.x
+- Docker Compose 1.9.x
+- Xcode 8.2.x
+- React Native CLI 2.0.x
+
+Client
 
 ## Development
 

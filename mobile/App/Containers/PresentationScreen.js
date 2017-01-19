@@ -1,19 +1,27 @@
-import React from 'react';
-import { ScrollView, Text, Image, View } from 'react-native';
+import React, { Component } from 'react';
+import { ScrollView, Image, View } from 'react-native';
+import { Actions as NavigationActions } from 'react-native-router-flux';
 import { Images } from '../Themes';
 import RoundedButton from '../Components/RoundedButton';
-import { Actions as NavigationActions } from 'react-native-router-flux';
 import Login from './Login';
 
 // Styles
-import styles from './Styles/PresentationScreenStyle';
+import styles from './Styles/SceneStyle';
 
-export default class PresentationScreen extends React.Component {
+class PresentationScreen extends Component {
+
   render() {
     return (
       <View style={styles.mainContainer}>
-        <Image source={Images.background} style={styles.backgroundImage} resizeMode='stretch' />
-        <ScrollView style={styles.container}>
+
+        <Image
+          source={Images.background5}
+          style={styles.backgroundImage}
+          resizeMode="stretch" />
+
+        <View style={styles.mainSection}>
+
+          <ScrollView style={styles.scrollContainer}>
 
           <RoundedButton onPress={NavigationActions.friends}>
             Friends
@@ -23,13 +31,11 @@ export default class PresentationScreen extends React.Component {
             Camera
           </RoundedButton>
 
-          <RoundedButton onPress={NavigationActions.photos}>
-            Photos
-          </RoundedButton>
-
           <RoundedButton onPress={NavigationActions.search}>
             Search
           </RoundedButton>
+
+          </ScrollView>
 
           <View>
 
@@ -37,8 +43,11 @@ export default class PresentationScreen extends React.Component {
 
           </View>
 
-        </ScrollView>
+        </View>
+
       </View>
     );
   }
 }
+
+export default PresentationScreen;

@@ -4,7 +4,7 @@ import { Avatar, ListItem, Subheader, Toolbar } from 'react-native-material-ui/s
 // import UsersListEntry from './users-list-entry';
 
 // Styles
-import styles from './Styles/ListviewExampleStyle';
+import styles from './Styles/UsersListStyle';
 
 class UsersList extends Component {
 
@@ -28,13 +28,18 @@ class UsersList extends Component {
       return this.props.users.map((user, index) =>
         (
           <ListItem
+            divider
+            style={
+              { container:styles.listContainer,
+                contentViewContainer: styles.contentViewContainer,
+               primaryText:
+              user.selected ? styles.selected : styles.unselected }}
             key={user.id}
             leftElement={<Image
               source={{uri: user.profilePictureURL }}
               style={{ height: 40, width: 40 }}
             />}
             centerElement={`${user.firstName} ${user.lastName}`}
-            selected={user.selected}
             onPress={() => onSelect(user, index)}
           />
         ),
@@ -46,9 +51,9 @@ class UsersList extends Component {
 
   render() {
     return (
-      <ScrollView style={styles.container}>
+      <View style={styles.container}>
          {this.renderUserList()}
-      </ScrollView>
+      </View>
     );
   }
 }

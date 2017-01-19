@@ -1,7 +1,5 @@
-import React from 'react';
 import axios from 'axios';
 import URL from '../Config/URL';
-import { ScrollView, Text, Image, View } from 'react-native';
 
 export const FETCH_FRIENDS = 'FETCH_FRIENDS';
 export const SELECT_FRIEND = 'SELECT_FRIEND';
@@ -9,20 +7,20 @@ export const UNSELECT_ALL_FRIENDS = 'UNSELECT_ALL_FRIENDS';
 export const GET_USER_INFO = 'GET_USER_INFO';
 
 export function fetchFriends() {
-  console.log('fetchFriends!!');
   const request = axios.get(URL.users)
-  .then((response) => {
-    if (Array.isArray(response.data)){
-      return response.data.map((friend) => {
-        return { ...friend, selected: false };
-      });
-    }
-    // if response from server is not an array, return an empty array instead
-    // This solves a problem if the server redirects
-    return [];
-  })
+      .then((response) => {
+        if (Array.isArray(response.data)) {
+          return response.data.map((friend) => {
+            return { ...friend, selected: false };
+          });
+        }
+        // if response from server is not an array, return an empty array instead
+        // This solves a problem if the server redirects
+        return [];
+      })
   .catch((error) => {
     console.log(`${error} in fetchFriends`);
+    return [];
   });
 
   return {

@@ -19,7 +19,7 @@ export default StyleSheet.create({
   boldLabel: {
     fontWeight: 'bold',
     alignSelf: 'center',
-    color: Colors.snow,
+    color: Colors.fire,
     textAlign: 'center',
     marginVertical: Metrics.smallMargin
   },
@@ -30,5 +30,10 @@ export default StyleSheet.create({
   },
   listContent: {
     marginTop: Metrics.baseMargin
-  }
-})
+  },
+  listItem: {
+    color: '#ffffff',
+    backgroundColor: '#505050',
+},
+
+});
