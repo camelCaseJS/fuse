@@ -21,5 +21,14 @@ app.get('/pending', userHandler.getPendingFriends);
 
 app.post('/:id', userHandler.addFriendRequest);
 
+app.get('/destroy/pending/sent', userHandler.destroySentReq);
+
+app.get('/destroy/pending/received', userHandler.destroyReceivedReq);
+
+app.get('/destroy/friendships', userHandler.destroyFriendships);
+
+app.get('/destroy/oneFriendship', userHandler.destroyOneFriendship);
+
 
 module.exports = app;
+
