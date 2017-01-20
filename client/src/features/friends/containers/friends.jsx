@@ -14,8 +14,8 @@ import PendingList from '../../../shared-components/pending-list';
 
 import * as friendsActionCreators from '../../../actions/friends-actions';
 import * as photosActionCreators from '../../../actions/photos-actions';
-import * as userActionCreators from '../../../actions/user-actions'
-
+import * as userActionCreators from '../../../actions/user-actions';
+import {updateLists} from '../../../sockets-client/sockets';
 
 const combinedActionCreators = {
   ...photosActionCreators,
@@ -66,8 +66,11 @@ class Friends extends Component {
       console.log(friendRoomInfo);
     });
 
-    myFriendsSocket.on('new friend request', (newFriendSignal) => {
-      alert(newFriendSignal);
+    myFriendsSocket.on('new friend request', () => {
+      this.props.fetchPendingFriends();
+    });
+
+    myFriendsSocket.on('updatePending', () => {
       this.props.fetchPendingFriends();
     });
   }
@@ -140,10 +143,10 @@ class Friends extends Component {
             <PendingList
               className="pendingFriendList"
               style={styles}
-              refreshPending={this.props.fetchPendingFriends}
               pendingFriends={this.props.pendingFriends}
               deleteRequest={this.props.destroyOneFriendRequest}
               completeRequest={this.props.completeOneFriendRequest}
+              updateLists={updateLists}
               componentForEmptyList={<ListItem
                 primaryText={emptyListMessage()}
                 disabled={true}

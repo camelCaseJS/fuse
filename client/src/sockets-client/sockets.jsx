@@ -12,6 +12,12 @@ export function sendFriendRequest(friendFacebookId) {
     { friendFacebookId });
 }
 
+export function updateLists(friendFacebookId, userFacebookId) {
+  myFriendsConnection.emit('update friend request',
+    { friendFacebookId,
+      userFacebookId,
+    });
+}
 
 // export function connectToNamespaces(userFBId) {
   // connect to the namespace '/photoSocket'

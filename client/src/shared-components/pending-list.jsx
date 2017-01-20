@@ -29,8 +29,7 @@ class PendingList extends Component {
           selected={pending.selected}
           deleteRequest={this.props.deleteRequest}
           completeRequest={this.props.completeRequest}
-          refreshPending={this.props.refreshPending}
-
+          updateLists={this.props.updateLists}
         />
       ),
     );
@@ -52,6 +51,8 @@ PendingList.propTypes = {
   componentForEmptyList: PropTypes.object,
   deleteRequest: PropTypes.func,
   completeRequest: PropTypes.func,
+  updateLists: PropTypes.func,
+
 };
 
 PendingList.defaultProps = {

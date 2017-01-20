@@ -100,7 +100,6 @@ export function destroyFriendships() {
 }
 
 export function destroyOneFriendRequest(senderId) {
-
   // console.log('delete one friend');
   axios.post(`${url.destroyOneFriendRequest}`, { senderId })
   .then(response => response.data);

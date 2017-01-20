@@ -22,6 +22,7 @@ const PendingListEntry = (props) => {
             tooltipPosition="top-center"
             onClick={() => {
               props.completeRequest(props.friendId);
+              props.updateLists();
             }}
           >
             <Accept color={green700} hoverColor={greenA200} />
@@ -31,6 +32,7 @@ const PendingListEntry = (props) => {
             tooltipPosition="top-center"
             onClick={() => {
               props.deleteRequest(props.friendId);
+              props.updateLists();
             }}
           >
             <Clear color={red700} hoverColor={redA200} />
@@ -48,7 +50,7 @@ PendingListEntry.propTypes = {
   friendId: React.PropTypes.number.isRequired,
   profilePictureURL: React.PropTypes.string.isRequired,
   deleteRequest: React.PropTypes.func.isRequired,
-  refreshPending: React.PropTypes.func.isRequired,
+  updateLists: React.PropTypes.func.isRequired,
 };
 
 export default PendingListEntry;
