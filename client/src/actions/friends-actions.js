@@ -9,8 +9,9 @@ export const GET_USER_INFO = 'GET_USER_INFO';
 export const FETCH_PENDING_FRIENDS = 'FETCH_PENDING_FRIENDS';
 export const DESTROY_SENT_PENDING = 'DESTROY_SENT_PENDING';
 export const DESTROY_RECEIVED_PENDING = 'DESTROY_RECEIVED_PENDING';
+export const COMPLETE_ONE_FRIEND_REQUEST = 'COMPLETE_ONE_FRIEND_REQUEST';
 export const DESTROY_FRIENDSHIPS = 'DESTROY_FRIENDSHIPS';
-export const DESTROY_ONE_FRIENDSHIP = 'DESTROY_ONE_FRIENDSHIP';
+export const DESTROY_ONE_FRIEND_REQUEST = 'DESTROY_ONE_FRIEND_REQUEST';
 
 export function fetchFriends() {
   const request = axios.get(`${url.users}`)
@@ -71,7 +72,7 @@ export function handleTabSwitch(value) {
 }
 
 export function destroySentPending() {
-  console.log('clear pending in actions');
+  // console.log('clear pending in actions');
   axios.get(`${url.destroyPending}/sent`);
   return {
     type: DESTROY_SENT_PENDING,
@@ -80,7 +81,7 @@ export function destroySentPending() {
 }
 
 export function destroyReceivedPending() {
-  console.log('clear pending in actions');
+  // console.log('clear pending in actions');
   axios.get(`${url.destroyPending}/received`);
   return {
     type: DESTROY_RECEIVED_PENDING,
@@ -89,7 +90,7 @@ export function destroyReceivedPending() {
 }
 
 export function destroyFriendships() {
-  console.log('clear friendships in actions');
+  // console.log('clear friendships in actions');
   axios.get(`${url.destroyFriendships}`);
   return {
     type: DESTROY_FRIENDSHIPS,
@@ -98,12 +99,21 @@ export function destroyFriendships() {
   };
 }
 
-export function destroyOneFriendship() {
-  console.log('delete one friend');
-  axios.get(`${url.destroyOneFriendship}`)
+export function destroyOneFriendRequest(senderId) {
+  // console.log('delete one friend');
+  axios.post(`${url.destroyOneFriendRequest}`, { senderId })
   .then(response => response.data);
   return {
-    type: DESTROY_ONE_FRIENDSHIP,
+    type: DESTROY_ONE_FRIEND_REQUEST,
+  };
+}
+
+export function completeOneFriendRequest(senderId) {
+  // console.log('added one friend');
+  axios.post(`${url.completeOneFriendRequest}`, { senderId })
+  .then(response => response.data);
+  return {
+    type: COMPLETE_ONE_FRIEND_REQUEST,
   };
 }
 

@@ -27,7 +27,12 @@ app.get('/destroy/pending/received', userHandler.destroyReceivedReq);
 
 app.get('/destroy/friendships', userHandler.destroyFriendships);
 
-app.get('/destroy/oneFriendship', userHandler.destroyOneFriendship);
+// app.get('/destroy/oneFriendship', userHandler.destroyOneFriendship);
+
+app.post('/friendRequest/destroyOne', userHandler.destroyOneFriendRequest);
+
+app.post('/friendRequest/completeOne', userHandler.completeOneFriendRequest);
+
 
 module.exports = app;
 

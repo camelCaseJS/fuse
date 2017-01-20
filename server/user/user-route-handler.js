@@ -107,20 +107,29 @@ const addFriendRequest = (req, res) => {
 
 const destroySentReq = (req, res) => {
   dbHandler.deleteSentPending(req.user.id);
+  res.end();
 };
 
 const destroyReceivedReq = (req, res) => {
   dbHandler.deleteReceivedPending(req.user.id);
+  res.end();
 };
 
 const destroyFriendships = (req, res) => {
-  dbHandler.destroyFriendships(req.user.id);
+  dbHandler.deleteFriendships(req.user.id);
+  res.end();
 };
 
-const destroyOneFriendship = (req, res) => {
-  return 'fasdfdsafdsafdsafas';
+const destroyOneFriendRequest = (req, res) => {
+  // console.log(req.body.senderId, 'INSIDE REQ PARAMS');
+  dbHandler.deleteOneFriendRequest(Number(req.body.senderId), Number(req.user.id));
+  res.end();
 };
 
+const completeOneFriendRequest = (req, res) => {
+  dbHandler.completeOneFriendRequest(Number(req.body.senderId), Number(req.user.id));
+  res.end();
+};
 
 module.exports.userSearch = userSearch;
 
@@ -138,5 +147,6 @@ module.exports.destroySentReq = destroySentReq;
 
 module.exports.destroyReceivedReq = destroyReceivedReq;
 
+module.exports.destroyOneFriendRequest = destroyOneFriendRequest;
 
-module.exports.destroyOneFriendship = destroyOneFriendship;
+module.exports.completeOneFriendRequest = completeOneFriendRequest;

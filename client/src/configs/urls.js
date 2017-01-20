@@ -7,7 +7,9 @@ const url = {
   search: `${base}/api/users/search/`,
   pending: `${base}/api/users/pending`,
   destroyFriendships: `${base}/api/users/destroy/friendships`,
-  destroyOneFriendship: `${base}/api/users/destroy/oneFriendship`,
+  destroyOneFriendRequest: `${base}/api/users/friendRequest/destroyOne`,
+  completeOneFriendRequest: `${base}/api/users/friendRequest/completeOne`,
+
   destroyPending: `${base}/api/users/destroy/pending`,
 };
 

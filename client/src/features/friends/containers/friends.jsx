@@ -72,6 +72,7 @@ class Friends extends Component {
     });
   }
 
+
   onFriendSelect(friend, index) {
     if (this.props.router.pathname !== '/camera') {
       this.props.unselectAllFriends();
@@ -81,6 +82,10 @@ class Friends extends Component {
     } else {
       this.props.selectFriend(friend, index);
     }
+  }
+
+  componentDidReceiveProps() {
+    console.log('updating inside friends');
   }
 
   handleChange(value) {
@@ -101,7 +106,7 @@ class Friends extends Component {
   }
 
   render() {
-    // console.log(this.props.userInfo);
+    // console.log(this.props.destroyOneFriendRequest);
     return (
       <div>
         <Tabs
@@ -121,7 +126,7 @@ class Friends extends Component {
             <UsersList
               className="userList"
               style={styles}
-              onSelect={(user, index) => this.onFriendSelect(user, index)}
+              onSelect={(pending, index) => this.onFriendSelect(pending, index)}
               users={this.props.allFriends}
               componentForEmptyList={<ListItem
                 primaryText={emptyListMessage()}
@@ -136,8 +141,10 @@ class Friends extends Component {
             <PendingList
               className="pendingFriendList"
               style={styles}
-              onSelect={(user, index) => this.onFriendSelect(user, index)}
+              refreshPending={this.props.fetchPendingFriends}
               pendingFriends={this.props.pendingFriends}
+              deleteRequest={this.props.destroyOneFriendRequest}
+              completeRequest={this.props.completeOneFriendRequest}
               componentForEmptyList={<ListItem
                 primaryText={emptyListMessage()}
                 disabled={true}
@@ -163,7 +170,8 @@ const mapStateToProps = (state) => {
     destroyPending: state.friends.destroyPending,
     destroyOneFriendship: state.friends.destroyOneFriendship,
     getUserInfo: state.user.getUserInfo,
-
+    destroyOneFriendRequest: state.friends.destroyOneFriendRequest,
+    completeOneFriendRequest: state.friends.completeOneFriendRequest,
   };
 };
 
@@ -180,6 +188,11 @@ Friends.propTypes = {
   handleTabSwitch: React.PropTypes.func.isRequired,
   slideIndex: React.PropTypes.number.isRequired,
   userInfo: PropTypes.objectOf(PropTypes.object),
+  destroySentPending: React.PropTypes.func.isRequired,
+  destroyReceivedPending: React.PropTypes.func.isRequired,
+  destroyFriendships: React.PropTypes.func.isRequired,
+  destroyOneFriendRequest: React.PropTypes.func.isRequired,
+  completeOneFriendRequest: React.PropTypes.func.isRequired,
 };
 
 Friends.contextTypes = {

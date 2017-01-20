@@ -13,9 +13,8 @@ class PendingList extends Component {
   }
 
   renderPendingList() {
-    const onSelect = this.onSelect.bind(this);
-    console.log(this.props.pendingFriends, 'pending friends');
-
+    // console.log(this.props.pendingFriends, 'pending friends');
+    // console.log(this.props.deleteRequest);
     if (this.props.pendingFriends.length === 0 && this.props.componentForEmptyList !== null) {
       return this.props.componentForEmptyList;
     }
@@ -25,9 +24,13 @@ class PendingList extends Component {
           key={pending.id}
           firstName={pending.firstName}
           lastName={pending.lastName}
+          friendId={pending.id}
           profilePictureURL={pending.profilePictureURL}
           selected={pending.selected}
-          onSelect={() => onSelect(user, index)}
+          deleteRequest={this.props.deleteRequest}
+          completeRequest={this.props.completeRequest}
+          refreshPending={this.props.refreshPending}
+
         />
       ),
     );
@@ -46,9 +49,9 @@ class PendingList extends Component {
 
 PendingList.propTypes = {
   pendingFriends: PropTypes.arrayOf(PropTypes.object).isRequired,
-  listComponentWillMount: PropTypes.func,
-  onSelect: PropTypes.func,
   componentForEmptyList: PropTypes.object,
+  deleteRequest: PropTypes.func,
+  completeRequest: PropTypes.func,
 };
 
 PendingList.defaultProps = {
