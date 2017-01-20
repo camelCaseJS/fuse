@@ -28,8 +28,16 @@ class Friends extends Component {
     NavigationActions.photos();
   }
 
+  onPendingSelect(user, index) {
+    this.props.completeFriendRequest(user.id);
+  }
+
   onFriendsListMount() {
     this.props.fetchFriends();
+  }
+
+  onPendingListMount() {
+    this.props.fetchPendingFriends();
   }
 
   handleChange(value) {
@@ -52,11 +60,17 @@ class Friends extends Component {
               onChangeIndex={(value) => { this.handleChange(value); }}
             >
               <UsersList
+                value="friends"
                 onSelect={(user, index) => this.onFriendSelect(user, index)}
                 listComponentWillMount={() => this.onFriendsListMount()}
                 users={this.props.allFriends}
               />
-              <View />
+              <UsersList
+                value="pending"
+                onSelect={(user, index) => this.onPendingSelect(user, index)}
+                listComponentWillMount={() => this.onPendingListMount()}
+                users={this.props.pendingFriends}
+              />
             </SwipeableViews>
           </ScrollView>
            <Tabs
@@ -89,14 +103,19 @@ class Friends extends Component {
 const mapStateToProps = (state, action) => {
   return {
     allFriends: state.friends.allFriends,
+    pendingFriends: state.friends.pendingFriends,
     lastSelectedFriend: state.friends.lastSelectedFriend,
     tabIndex: state.friends.tabIndex,
   };
 };
 
 Friends.propTypes = {
+  pendingFriends: PropTypes.array.isRequired,
   allFriends: PropTypes.array.isRequired,
   unselectAllFriends: PropTypes.func.isRequired,
+  fetchPendingFriends: PropTypes.func.isRequired,
+  destroyFriendRequest: PropTypes.func.isRequired,
+  completeFriendRequest: PropTypes.func.isRequired,
   selectFriend: PropTypes.func.isRequired,
   fetchFriends: PropTypes.func.isRequired,
   fetchPhotos: PropTypes.func.isRequired,

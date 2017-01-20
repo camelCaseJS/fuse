@@ -6,6 +6,6 @@ module.exports = (req, res, next) => {
     next();
   } else {
     console.log('not authenticated');
-    res.redirect(401, '/login');
+    res.redirect('/login');
   }
 };
