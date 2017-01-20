@@ -5,6 +5,8 @@ import Search from 'material-ui/svg-icons/action/search';
 import { Tabs, Tab } from 'material-ui/Tabs';
 // From https://github.com/oliviertassinari/react-swipeable-views
 import SwipeableViews from 'react-swipeable-views';
+import FlatButton from 'material-ui/FlatButton';
+
 
 
 import UsersList from '../../../shared-components/users-list';
@@ -108,8 +110,8 @@ class Friends extends Component {
           onChange={this.handleChange}
           value={this.props.slideIndex}
         >
-          <Tab label="Friends" value={0} />
-          <Tab label="Requests" value={1} />
+          <Tab label="Friends" value={0} className="friends"/>
+          <Tab label="Requests" value={1} className="requests" />
         </Tabs>
         <SwipeableViews
           index={this.props.slideIndex}
@@ -117,6 +119,7 @@ class Friends extends Component {
         >
           <div>
             <UsersList
+              className="userList"
               style={styles}
               onSelect={(user, index) => this.onFriendSelect(user, index)}
               users={this.props.allFriends}
@@ -127,10 +130,11 @@ class Friends extends Component {
             />
           </div>
           <div>
-            <button onClick={this.clearFriendships}>clear friends</button>
-            <button onClick={this.clearSentPending}>clear sent pending</button>
-            <button onClick={this.clearReceivedPending}>clear received pending</button>
+            <FlatButton className="clearFriends" onClick={this.clearFriendships} label="clear friends"/>
+            <FlatButton className="clearPending" onClick={this.clearSentPending} label="clear sent pending"/>
+            <FlatButton className="clearReceived" onClick={this.clearReceivedPending} label="clear received pending" />
             <PendingList
+              className="pendingFriendList"
               style={styles}
               onSelect={(user, index) => this.onFriendSelect(user, index)}
               pendingFriends={this.props.pendingFriends}

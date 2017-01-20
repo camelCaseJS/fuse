@@ -2,8 +2,7 @@
   "name": "fuse",
   "version": "1.0.0",
   "description": "> Pithy project description",
-  "scripts": {
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/camelCaseJS/hrsf51-thesis.git"
@@ -14,12 +13,19 @@
     "url": "https://github.com/camelCaseJS/hrsf51-thesis/issues"
   },
   "homepage": "https://github.com/camelCaseJS/hrsf51-thesis#readme",
-  "dependencies": {},
+  "dependencies": {
+    "passport-facebook-token": "^3.3.0",
+    "webdriverio": "^4.6.1"
+  },
   "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-as-promised": "^6.0.0",
     "eslint": "^3.12.2",
     "eslint-config-airbnb": "^13.0.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^2.2.3",
-    "eslint-plugin-react": "^6.8.0"
+    "eslint-plugin-react": "^6.8.0",
+    "mocha": "^3.2.0",
+    "wdio-mocha-framework": "^0.5.8"
   }
 }

@@ -3,9 +3,10 @@ import { connect } from 'react-redux';
 import { List } from 'material-ui/List';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import { GridList, GridTile } from 'material-ui/GridList';
+import Popover from 'material-ui/Popover';
 import PhotosListEntry from './photos-list-entry';
 import * as photosActionCreators from '../../../actions/photos-actions';
-import * as userActionCreators from '../../../actions/user-actions'
+import * as userActionCreators from '../../../actions/user-actions';
 
 const combinedActionCreators = {
   ...photosActionCreators,
@@ -13,16 +14,15 @@ const combinedActionCreators = {
 };
 
 const styles = {
-  root: {
+   root: {
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
-    verticalAlign: 'bottom',
   },
   gridList: {
-    display: 'flex',
-    flexWrap: 'nowrap',
-    overflowX: 'auto',
+    width: 600,
+    height: 600,
+    overflowY: 'auto',
   },
 };
 
@@ -76,9 +76,6 @@ class PhotosList extends Component {
   render() {
     return (
       <div>
-        <CardMedia>
-          { this.selectedPhoto() }
-        </CardMedia>
         <div style={styles.root}>
           <GridList style={styles.gridList} cols={2.2}>
             { this.listPhotos() }
