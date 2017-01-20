@@ -22,9 +22,11 @@ const startSocketServer = (server) => {
       }
     });
 
-    socket.on('send new photo', (data) => {
-      console.log(data, 'data through send photo request function');
-      photoNsp.in(`photoRoom:${data}`).emit('new photo update', 'BACK TO CLIENT THRU NSP/ROOM');
+    socket.on('send new photos', (newPhoto) => {
+      console.log('data through send photo request function');
+      photoNsp.emit('new photo update', newPhoto);
+
+      // photoNsp.broadcast.emit('new photo update', newPhoto);
     });
 
     socket.on('disconnect', () => {

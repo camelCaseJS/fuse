@@ -4,6 +4,7 @@ import url from '../configs/urls';
 
 export const SELECT_PHOTO = 'SELECT_PHOTO';
 export const FETCH_PHOTOS = 'FETCH_PHOTOS';
+export const APPEND_NEW_PHOTO = 'APPEND_NEW_PHOTO';
 
 // fetches photo library of selected user
 export function fetchPhotos(friend) {
@@ -18,6 +19,13 @@ export function fetchPhotos(friend) {
   return {
     type: FETCH_PHOTOS,
     payload: request,
+  };
+}
+
+export function appendNewPhoto(photo) {
+  return {
+    type: APPEND_NEW_PHOTO,
+    payload: photo,
   };
 }
 

@@ -14,7 +14,7 @@ const combinedActionCreators = {
 };
 
 const styles = {
-   root: {
+  root: {
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
@@ -42,9 +42,10 @@ class PhotosList extends Component {
       console.log(photoRoomInfo);
     });
 
-    myPhotoConnection.on('send to photos test', (photoSignal) => {
-      alert(photoSignal);
-      this.props.fetchPhotos();
+    myPhotoConnection.on('new photo update', (newPhoto) => {
+      // this.props.fetchPhotos();
+      console.log('gets back to client', newPhoto);
+      this.props.appendNewPhoto(newPhoto);
     });
   }
 
@@ -101,6 +102,7 @@ PhotosList.propTypes = {
   selectPhoto: React.PropTypes.func.isRequired,
   fetchPhotos: React.PropTypes.func.isRequired,
   getUserInfo: React.PropTypes.func.isRequired,
+  appendNewPhoto: React.PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, combinedActionCreators)(PhotosList);

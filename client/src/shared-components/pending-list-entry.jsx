@@ -24,7 +24,6 @@ const PendingListEntry = (props) => {
               // console.log({
               //   friendInfo: props.friendInfo,
               //   userInfo: props.userInfo,
-
               // });
               updateLists(props.userInfo.user, props.friendInfo);
             }}
