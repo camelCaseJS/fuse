@@ -45,3 +45,6 @@ body {
     text-align: center;
     margin: 0px auto;
 }
+#clearFriends{
+    text-decoration-color: red
+}

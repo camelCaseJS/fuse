@@ -5,6 +5,8 @@ import Search from 'material-ui/svg-icons/action/search';
 import { Tabs, Tab } from 'material-ui/Tabs';
 // From https://github.com/oliviertassinari/react-swipeable-views
 import SwipeableViews from 'react-swipeable-views';
+import FlatButton from 'material-ui/FlatButton';
+
 
 
 import UsersList from '../../../shared-components/users-list';
@@ -128,9 +130,9 @@ class Friends extends Component {
             />
           </div>
           <div>
-            <button className="clearFriends" onClick={this.clearFriendships}>clear friends</button>
-            <button className="clearPending" onClick={this.clearSentPending}>clear sent pending</button>
-            <button className="clearReceived" onClick={this.clearReceivedPending}>clear received pending</button>
+            <FlatButton className="clearFriends" onClick={this.clearFriendships} label="clear friends"/>
+            <FlatButton className="clearPending" onClick={this.clearSentPending} label="clear sent pending"/>
+            <FlatButton className="clearReceived" onClick={this.clearReceivedPending} label="clear received pending" />
             <PendingList
               className="pendingFriendList"
               style={styles}
