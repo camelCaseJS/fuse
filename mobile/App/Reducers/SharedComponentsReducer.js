@@ -1,12 +1,16 @@
-import { RECORD_TOKEN } from '../Actions/SharedComponentsActions';
+import { USER_LOGIN, USER_LOGOUT } from '../Actions/SharedComponentsActions';
 
-const INITIAL_STATE = { token: '' };
+const INITIAL_STATE = false;
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
 
-    case RECORD_TOKEN: {
-      return { token: action.payload };
+    case USER_LOGIN: {
+      return true;
+    }
+
+    case USER_LOGOUT: {
+      return false;
     }
 
     default:

@@ -1,5 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { ScrollView, Text, Image, View } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { Metrics } from '../Themes';
 import { Avatar, ListItem, Subheader, Toolbar } from 'react-native-material-ui/src';
 // import UsersListEntry from './users-list-entry';
 
@@ -23,7 +25,7 @@ class UsersList extends Component {
   renderUserList() {
     const onSelect = this.onSelect.bind(this);
 
-    if(this.props.users) {
+    if (this.props.users) {
 
       return this.props.users.map((user, index) =>
         (
@@ -40,6 +42,7 @@ class UsersList extends Component {
               style={{ height: 40, width: 40 }}
             />}
             centerElement={`${user.firstName} ${user.lastName}`}
+            rightElement={this.props.rightElement(user, index)}
             onPress={() => onSelect(user, index)}
           />
         ),
@@ -59,6 +62,7 @@ class UsersList extends Component {
 }
 
 UsersList.propTypes = {
+  rightElement: PropTypes.func,
   users: PropTypes.arrayOf(PropTypes.object).isRequired,
   listComponentWillMount: PropTypes.func,
   onSelect: PropTypes.func,
@@ -68,6 +72,7 @@ UsersList.propTypes = {
 UsersList.defaultProps = {
   listComponentWillMount: () => {},
   onSelect: () => {},
+  rightElement: () => {},
   componentForEmptyList: null,
 };
 

@@ -3,7 +3,7 @@ import { ScrollView, Text, Image, View } from 'react-native';
 import url from 'url';
 import { connect } from 'react-redux';
 import { Images } from '../Themes';
-import styles from './Styles/SceneStyle';
+import styles from './Styles/ThemeScreenStyle';
 import * as photosActionCreators from '../Actions/PhotosActions';
 import * as friendsActionCreators from '../Actions/FriendsActions';
 import authenicate from '../Components/Authenicate';
@@ -18,12 +18,13 @@ class Photos extends Component {
     authenicate();
   }
 
-  renderPhoto (url) {
+  renderPhoto (uri) {
+    console.log('uri', uri);
     return (
-      <View style={styles.photoContainer} key={`${url}Container`}>
-        <View style={styles.backgroundContainer} key={`${url}BackgroundContainer`}>
-          <Image style={styles.backerImage} source={{uri: url}} key={`${url}BackgroundImage`} />
-          <View style={[styles.photoSquare]} key={`${url}Square`} />
+      <View style={styles.photoContainer} key={`${uri}Container`}>
+        <View style={styles.backgroundContainer} key={`${uri}BackgroundContainer`}>
+          <Image style={styles.backerImage} source={{uri: uri}} key={`${uri}BackgroundImage`} />
+          <View style={[styles.photoSquare]} key={`${uri}Square`} />
         </View>
       </View>
     )
@@ -38,7 +39,6 @@ class Photos extends Component {
 
         <Image source={Images.background5} style={styles.backgroundImage} resizeMode="stretch" />
 
-        <View style={styles.mainSection}>
 
           <ScrollView style={styles.scrollContainer}>
 
@@ -62,7 +62,6 @@ class Photos extends Component {
 
           </ScrollView>
 
-        </View>
 
       </View>
     );

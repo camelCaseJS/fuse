@@ -1,11 +1,13 @@
-import { FETCH_FRIENDS, SELECT_FRIEND, UNSELECT_ALL_FRIENDS, GET_USER_INFO } from '../Actions/FriendsActions';
+import { FETCH_FRIENDS, SELECT_FRIEND, UNSELECT_ALL_FRIENDS, GET_USER_INFO, SWITCH_TAB, FETCH_PENDING_FRIENDS, DESTROY_FRIEND_REQUEST, COMPLETE_FRIEND_REQUEST } from '../Actions/FriendsActions';
 
 
 // NEED TO PUT USER INFO INTO STATE OF ANY COMPONENT THAT USES GETINFO
 const INITIAL_STATE = {
   allFriends: [],
+  pendingFriends: [],
   lastSelectedFriend: {},
   userInfo: {},
+  tabIndex: 0,
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -46,6 +48,36 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         userInfo: action.payload,
+      };
+    }
+
+    case SWITCH_TAB: {
+      return {
+        ...state,
+        tabIndex: action.payload,
+      };
+    }
+
+    case FETCH_PENDING_FRIENDS : {
+      return {
+        ...state,
+        pendingFriends: action.payload,
+      };
+    }
+
+    case DESTROY_FRIEND_REQUEST : {
+      const newPendingFriends = state.pendingFriends.filter(friend => friend.id !== action.payload);
+      return {
+        ...state,
+        pendingFriends: newPendingFriends,
+      };
+    }
+
+    case COMPLETE_FRIEND_REQUEST : {
+      const newPendingFriends = state.pendingFriends.filter(friend => friend.id !== action.payload);
+      return {
+        ...state,
+        pendingFriends: newPendingFriends,
       };
     }
 

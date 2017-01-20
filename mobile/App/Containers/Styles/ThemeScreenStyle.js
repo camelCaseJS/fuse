@@ -17,7 +17,7 @@ export default StyleSheet.create({
   photosContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   backgroundContainer: {
     position: 'relative',
@@ -54,5 +54,17 @@ export default StyleSheet.create({
     padding: Metrics.smallMargin,
     marginHorizontal: Metrics.smallMargin,
     color: Colors.snow
+  },
+  mainSection: {
+    flex: 1,
+    margin: Metrics.section,
+    padding: Metrics.baseMargin,
+    borderTopColor: Colors.frost,
+    borderTopWidth: 0.5,
+    borderBottomColor: Colors.frost,
+    borderBottomWidth: 1,
+  },
+  scrollContainer: {
+    marginBottom: 35,
   }
 })

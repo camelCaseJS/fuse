@@ -1,7 +1,7 @@
 // @flow
 
 import { StyleSheet } from 'react-native';
-import { Colors, Metrics, ApplicationStyles } from '../../Themes/';
+import { Colors, Fonts, Metrics, ApplicationStyles } from '../../Themes/';
 
 export default StyleSheet.create({
   ...ApplicationStyles.screen,
@@ -9,6 +9,16 @@ export default StyleSheet.create({
     height: Metrics.images.logo,
     width: Metrics.images.logo,
     resizeMode: 'contain',
+  },
+  smallLogo: {
+    height: 150,
+    width: 150,
+    top: 10,
+    left: 10,
+    bottom: 30,
+    margin: Metrics.section,
+    resizeMode: 'contain',
+    alignItems: 'center',
   },
   centered: {
     alignItems: 'center',
@@ -22,9 +32,21 @@ export default StyleSheet.create({
     borderBottomColor: Colors.frost,
     borderBottomWidth: 1,
   },
-  // container: {
-  //   flex: 1,
-  //   marginTop: Metrics.navBarHeight,
-  //   backgroundColor: Colors.background
-  // },
+  selectedText: {
+    color: Colors.fire,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: Fonts.size.medium,
+    marginVertical: Metrics.baseMargin,
+  },
+  elementGroup: {
+    flexDirection: 'row',
+  },
+  scrollContainer: {
+    marginBottom: 75,
+  },
+  icon: {
+    margin: Metrics.smallMargin,
+  },
+
 });
