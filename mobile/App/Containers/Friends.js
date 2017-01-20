@@ -42,6 +42,7 @@ class Friends extends Component {
 
   handleChange(value) {
     this.props.switchTab(value);
+    this.props.fetchFriends();
   }
 
   render() {
