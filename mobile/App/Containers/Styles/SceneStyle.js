@@ -39,10 +39,14 @@ export default StyleSheet.create({
     fontSize: Fonts.size.medium,
     marginVertical: Metrics.baseMargin,
   },
+  elementGroup: {
+    flexDirection: 'row',
+  },
+  scrollContainer: {
+    marginBottom: 75,
+  },
+  icon: {
+    margin: Metrics.smallMargin,
+  },
 
-  // container: {
-  //   flex: 1,
-  //   marginTop: Metrics.navBarHeight,
-  //   backgroundColor: Colors.background
-  // },
 });

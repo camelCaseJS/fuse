@@ -1,9 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { ScrollView, Image, View, Text, StyleSheet } from 'react-native';
+import { TouchableOpacity, ScrollView, Image, View, Text, StyleSheet } from 'react-native';
 import { Actions as NavigationActions } from 'react-native-router-flux';
 import Tabs from 'react-native-tabs';
 import { Images, Colors, Fonts, Metrics } from '../Themes';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from './Styles/SceneStyle';
 import UsersList from './UsersList';
 import * as friendsActionCreators from '../Actions/FriendsActions';
@@ -17,6 +18,13 @@ const combinedActionCreators = {
 
 class Friends extends Component {
 
+  constructor(props){
+    super(props);
+    this.renderRightElement = this.renderRightElement.bind(this);
+    this.onPendingDeny = this.onPendingDeny.bind(this);
+    this.onPendingApprove = this.onPendingApprove.bind(this);
+  }
+
   componentWillMount() {
     authenicate();
   }
@@ -26,6 +34,17 @@ class Friends extends Component {
     this.props.selectFriend(friend, index);
     this.props.fetchPhotos(friend);
     NavigationActions.photos();
+  }
+
+  onPendingApprove(user, index) {
+    console.log('pending approval', user);
+    this.props.completeFriendRequest(user.id);
+  }
+
+  onPendingDeny(user, index) {
+    console.log('pending deny');
+    this.props.destroyFriendRequest(user.id);
+    // this.props.fetchFriends();
   }
 
   onPendingSelect(user, index) {
@@ -41,8 +60,32 @@ class Friends extends Component {
   }
 
   handleChange(value) {
-    this.props.switchTab(value);
     this.props.fetchFriends();
+    this.props.fetchPendingFriends();
+    this.props.switchTab(value);
+  }
+
+  renderRightElement(user, index) {
+     return (
+      <View  style={{ flexDirection: 'row' }}>
+        <TouchableOpacity onPress={()=>{this.onPendingApprove(user)}}>
+          <Icon
+            color="#689F38"
+            style={{margin: Metrics.smallMargin}}
+            size={Metrics.icons.small}
+            name="check"
+          />
+          </TouchableOpacity>
+        <TouchableOpacity onPress={()=>{this.onPendingDeny(user)}}>
+          <Icon
+            color="#d32f2f"
+            style={{margin: Metrics.smallMargin}}
+            size={Metrics.icons.small}
+            name="times"
+          />
+        </TouchableOpacity>
+      </View>
+    );
   }
 
   render() {
@@ -70,6 +113,7 @@ class Friends extends Component {
               <ScrollView style={styles.scrollContainer}>
                 <UsersList
                   value="pending"
+                  rightElement={this.renderRightElement}
                   onSelect={(user, index) => this.onPendingSelect(user, index)}
                   listComponentWillMount={() => this.onPendingListMount()}
                   users={this.props.pendingFriends}
