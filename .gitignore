@@ -69,3 +69,9 @@ bower_components/
 
 # Docker Env Variables
 postgres-variables.env
+
+errorShots/ERROR_firefox_2017-01-19T21-58-10.710Z.png
+errorShots/ERROR_firefox_2017-01-19T21-58-50.584Z.png
+errorShots/ERROR_firefox_2017-01-19T21-58-51.227Z.png
+errorShots/ERROR_firefox_2017-01-19T21-58-51.816Z.png
+errorShots/ERROR_firefox_2017-01-19T21-58-52.440Z.png

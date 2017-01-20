@@ -117,6 +117,7 @@ class Friends extends Component {
         >
           <div>
             <UsersList
+              className="userList"
               style={styles}
               onSelect={(user, index) => this.onFriendSelect(user, index)}
               users={this.props.allFriends}
@@ -127,10 +128,11 @@ class Friends extends Component {
             />
           </div>
           <div>
-            <button onClick={this.clearFriendships}>clear friends</button>
-            <button onClick={this.clearSentPending}>clear sent pending</button>
-            <button onClick={this.clearReceivedPending}>clear received pending</button>
+            <button className="clearFriends" onClick={this.clearFriendships}>clear friends</button>
+            <button className="clearPending" onClick={this.clearSentPending}>clear sent pending</button>
+            <button className="clearReceived" onClick={this.clearReceivedPending}>clear received pending</button>
             <PendingList
+              className="pendingFriendList"
               style={styles}
               onSelect={(user, index) => this.onFriendSelect(user, index)}
               pendingFriends={this.props.pendingFriends}
