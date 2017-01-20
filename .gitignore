@@ -69,5 +69,3 @@ bower_components/
 
 # Docker Env Variables
 postgres-variables.env
-
-errorShots/
