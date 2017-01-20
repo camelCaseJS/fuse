@@ -19,6 +19,7 @@ export function searchFriends(nameOrEmail) {
   // need to update here get request to the db with specific query, in this case an email
   const request = axios.get(searchUser)
   .then((response) => {
+    console.log(response, 'response in searchUser!');
     return response.data.map((friend) => {
       return { ...friend, selected: false };
     });
@@ -47,7 +48,7 @@ export function addFriendRequestToDB(id) {
   // this will be a post request to the db.
   axios.post(postFriendUrl)
   .then((response) => {
-    console.log(response.data);
+    console.log('RESPONSE FROM POST FRIENDS', response.data);
   });
 
   // won't really be using payload, just make it a boolean?

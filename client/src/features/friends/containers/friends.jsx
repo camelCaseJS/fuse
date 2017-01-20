@@ -8,14 +8,13 @@ import SwipeableViews from 'react-swipeable-views';
 import FlatButton from 'material-ui/FlatButton';
 
 
-
 import UsersList from '../../../shared-components/users-list';
 import PendingList from '../../../shared-components/pending-list';
 
 import * as friendsActionCreators from '../../../actions/friends-actions';
 import * as photosActionCreators from '../../../actions/photos-actions';
 import * as userActionCreators from '../../../actions/user-actions';
-import {updateLists} from '../../../sockets-client/sockets';
+import { updateLists } from '../../../sockets-client/sockets';
 
 const combinedActionCreators = {
   ...photosActionCreators,
@@ -58,6 +57,7 @@ class Friends extends Component {
 
     this.props.getUserInfo()
     .then((userInfo) => {
+
       const userFBId = userInfo.payload.user.facebookId;
       myFriendsSocket.emit('join friend room', { roomId: userFBId });
     });
@@ -66,17 +66,14 @@ class Friends extends Component {
       console.log(friendRoomInfo);
     });
 
-    myFriendsSocket.on('new friend request', () => {
-      this.props.fetchPendingFriends();
+    myFriendsSocket.on('new friend request', (newPending) => {
+      this.props.appendToPending(newPending);
     });
 
-    myFriendsSocket.on('updatePending', () => {
-      this.props.fetchPendingFriends();
+    myFriendsSocket.on('new friend', (newFriend) => {
+      console.log('GOT SIGNAL INSIDE SOCKET');
+      this.props.appendToAllFriends(newFriend);
     });
-  }
-
-  componentDidUpdate() {
-    console.log('updating inside friends');
   }
 
   onFriendSelect(friend, index) {
@@ -108,7 +105,7 @@ class Friends extends Component {
   }
 
   render() {
-    // console.log(this.props.destroyOneFriendRequest);
+    // console.log(this.props.userInfo,'INSIDE FRIENDS');
     return (
       <div>
         <Tabs
@@ -117,7 +114,7 @@ class Friends extends Component {
           onChange={this.handleChange}
           value={this.props.slideIndex}
         >
-          <Tab label="Friends" value={0} className="friends"/>
+          <Tab label="Friends" value={0} className="friends" />
           <Tab label="Requests" value={1} className="requests" />
         </Tabs>
         <SwipeableViews
@@ -137,8 +134,8 @@ class Friends extends Component {
             />
           </div>
           <div>
-            <FlatButton className="clearFriends" onClick={this.clearFriendships} label="clear friends"/>
-            <FlatButton className="clearPending" onClick={this.clearSentPending} label="clear sent pending"/>
+            <FlatButton className="clearFriends" onClick={this.clearFriendships} label="clear friends" />
+            <FlatButton className="clearPending" onClick={this.clearSentPending} label="clear sent pending" />
             <FlatButton className="clearReceived" onClick={this.clearReceivedPending} label="clear received pending" />
             <PendingList
               className="pendingFriendList"
@@ -146,7 +143,8 @@ class Friends extends Component {
               pendingFriends={this.props.pendingFriends}
               deleteRequest={this.props.destroyOneFriendRequest}
               completeRequest={this.props.completeOneFriendRequest}
-              updateLists={updateLists}
+              userInfo={this.props.userInfo}
+              getUserInfo={this.props.getUserInfo}
               componentForEmptyList={<ListItem
                 primaryText={emptyListMessage()}
                 disabled={true}
@@ -165,13 +163,13 @@ const mapStateToProps = (state) => {
     allFriends: state.friends.allFriends,
     pendingFriends: state.friends.pendingFriends,
     lastSelectedFriend: state.friends.lastSelectedFriend,
-    userInfo: state.friends.userInfo,
+    userInfo: state.user.userInfo,
     slideIndex: state.friends.slideIndex,
     router: state.router,
     destroyFriendships: state.friends.destroyFriendships,
     destroyPending: state.friends.destroyPending,
     destroyOneFriendship: state.friends.destroyOneFriendship,
-    getUserInfo: state.user.getUserInfo,
+    // getUserInfo: state.user.getUserInfo,
     destroyOneFriendRequest: state.friends.destroyOneFriendRequest,
     completeOneFriendRequest: state.friends.completeOneFriendRequest,
   };
@@ -195,6 +193,8 @@ Friends.propTypes = {
   destroyFriendships: React.PropTypes.func.isRequired,
   destroyOneFriendRequest: React.PropTypes.func.isRequired,
   completeOneFriendRequest: React.PropTypes.func.isRequired,
+  appendToAllFriends: React.PropTypes.func.isRequired,
+  appendToPending: React.PropTypes.func.isRequired,
 };
 
 Friends.contextTypes = {

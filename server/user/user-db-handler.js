@@ -4,6 +4,7 @@ const User = require('../db/users/User');
 const FriendRequest = require('../db/users/User-Friend-Request');
 const Friendship = require('../db/users/User-Friends');
 
+
 const lowerCaseQuery = (column, query) => Sequelize.where(Sequelize.fn('lower', Sequelize.col(column)), Sequelize.fn('lower', query));
 
 const emailSearch = query => (
@@ -110,26 +111,32 @@ const deleteReceivedPending = (userId) => {
   });
 };
 
-const deleteOneFriendRequest = (senderId, receiverId) => {
+const deleteOneFriendRequest = Promise.method((senderId, receiverId) => {
   FriendRequest.destroy({
     where: {
       userId: senderId,
       requestId: receiverId,
     },
-  }).then((success) => {
-    return success
-    // console.log(success, 'succcesfully removed req!');
+  }).then(() => {
+    return FriendRequest.findAll({
+      where: {
+        requestId: receiverId,
+      },
+    });
   });
-};
+  // .then((remainingPending) => {
+  //   res.send(remainingPending);
+  // });
+});
 
-const completeOneFriendRequest = (senderId, receiverId) => {
+const completeOneFriendRequest = Promise.method((senderId, receiverId) => {
   FriendRequest.create({
     userId: receiverId,
     requestId: senderId,
-  }).then((success) => {
-    return success;
+  }).then(() => {
+    FriendRequest.findAll({});
   });
-};
+});
 
 const deleteFriendships = (userId) => {
   Friendship.destroy({
