@@ -1,5 +1,6 @@
 const socketInit = require('socket.io');
 
+
 const startSocketServer = (server) => {
   const io = socketInit(server);
   const photoNsp = io.of('/photoSocket');
@@ -49,14 +50,15 @@ const startSocketServer = (server) => {
       }
     });
 
-    socket.on('send friend request', (data) => {
-      console.log(data, `emitting through friendRoom:${data.friendFacebookId}`);
-      friendNsp.in(`friendRoom:${data.friendFacebookId}`).emit('new friend request', 'New friend request!');
+    socket.on('send friend request', (object) => {
+      console.log(object.sender, `emitting through friendRoom:${object.receiver.facebookId}`);
+      friendNsp.in(`friendRoom:${object.receiver.facebookId}`).emit('new friend request', object.sender);
     });
 
-    socket.on('update friend request', (data) => {
-      console.log(data, `emitting through friendRoom:${data.friendFacebookId}`);
-      friendNsp.in(`friendRoom:${data.friendFacebookId}`).emit('update request list', '');
+    socket.on('update friend request', (object) => {
+      console.log('===== ' , object.receiver, object.sender, 'inside socket server');
+      friendNsp.in(`friendRoom:${object.receiver.facebookId}`).emit('new friend', object.sender);
+      friendNsp.in(`friendRoom:${object.sender.facebookId}`).emit('new friend', object.receiver);
     });
 
     socket.on('disconnect', () => {

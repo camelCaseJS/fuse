@@ -8,6 +8,9 @@ const styles = { list:
 
 class UsersList extends Component {
 
+  // componentDidUpdate() {
+
+  // }
 
   onSelect(user, index) {
     this.props.onSelect(user, index);

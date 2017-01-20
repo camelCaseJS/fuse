@@ -12,6 +12,9 @@ export const DESTROY_RECEIVED_PENDING = 'DESTROY_RECEIVED_PENDING';
 export const COMPLETE_ONE_FRIEND_REQUEST = 'COMPLETE_ONE_FRIEND_REQUEST';
 export const DESTROY_FRIENDSHIPS = 'DESTROY_FRIENDSHIPS';
 export const DESTROY_ONE_FRIEND_REQUEST = 'DESTROY_ONE_FRIEND_REQUEST';
+export const APPEND_TO_PENDING = 'APPEND_TO_PENDING';
+export const REMOVE_FROM_PENDING = 'REMOVE_FROM_PENDING';
+export const APPEND_TO_ALLFRIENDS = 'APPEND_TO_ALLFRIENDS';
 
 export function fetchFriends() {
   const request = axios.get(`${url.users}`)
@@ -38,6 +41,26 @@ export function fetchPendingFriends() {
     payload: request,
   };
 }
+
+export function appendToPending(newPending) {
+  return {
+    type: APPEND_TO_PENDING,
+    payload: newPending,
+  };
+}
+
+export function appendToAllFriends(newFriend) {
+  return {
+    type: APPEND_TO_ALLFRIENDS,
+    payload: newFriend,
+  };
+}
+// export function removeFromPending(removeItem){
+//   return {
+//     type REMOVE_FROM_PENDING,
+//     payload: removeItem,
+//   };
+// }
 
 export function selectFriend(friend, index) {
   return {
@@ -99,21 +122,28 @@ export function destroyFriendships() {
   };
 }
 
-export function destroyOneFriendRequest(senderId) {
+export function destroyOneFriendRequest(sendId) {
   // console.log('delete one friend');
-  axios.post(`${url.destroyOneFriendRequest}`, { senderId })
-  .then(response => response.data);
+  const remainingPending = axios.post(`${url.destroyOneFriendRequest}`, { senderId: sendId })
+  // .then(response => response.data);
+  .then(response => {
+    console.log(response.data, "res in delete one");
+    return response.data });
   return {
     type: DESTROY_ONE_FRIEND_REQUEST,
+    payload: remainingPending,
   };
 }
 
 export function completeOneFriendRequest(senderId) {
   // console.log('added one friend');
-  axios.post(`${url.completeOneFriendRequest}`, { senderId })
-  .then(response => response.data);
+  const remainingPending = axios.post(`${url.completeOneFriendRequest}`, { senderId })
+  // .then(response => response.data);
+  .then(response => {
+    // console.log(response, "res in complete one");
+    return response.data });
   return {
     type: COMPLETE_ONE_FRIEND_REQUEST,
+    payload: remainingPending,
   };
 }
-

@@ -9,8 +9,13 @@ import Search from 'material-ui/svg-icons/action/search';
 
 import SearchedFriendsEntry from './searchedFriends-Entry';
 import * as searchActionCreators from '../../actions/search-actions';
+import * as userActionCreators from '../../actions/user-actions';
 import * as socketActions from '../../sockets-client/sockets';
 
+const combinedActionCreators = {
+  ...searchActionCreators,
+  ...userActionCreators,
+};
 const styles = {
   searchField: {
     padding: 25,
@@ -32,6 +37,7 @@ const styles = {
 };
 
 class SearchFriends extends Component {
+
   constructor(props) {
     super(props);
 
@@ -42,6 +48,10 @@ class SearchFriends extends Component {
     this.handleSearchChange = this.handleSearchChange.bind(this);
     this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
     this.handleAddUser = this.handleAddUser.bind(this);
+  }
+
+  componentWillMount() {
+    this.props.getUserInfo();
   }
 
 // this function updates the text value of the search button
@@ -91,8 +101,9 @@ class SearchFriends extends Component {
   handleAddUser() {
     this.props.searchedFriends.forEach((friend) => {
       if (friend.selected) {
+        // console.log(this.props, 'THISTHSIHAF;SAFJDKS;FAJK;DLKS');
         this.props.addFriendRequestToDB(friend.id);
-        socketActions.sendFriendRequest(friend.facebookId);
+        socketActions.sendFriendRequest(this.props.userInfo.user, friend);
       }
     });
   }
@@ -198,6 +209,7 @@ const mapStateToProps = state => (
     searchedFriendSelected: state.search.searchedFriendSelected,
     lastSelectedFriend: state.friends.lastSelectedFriend,
     addFriendRequestToDB: state.search.addFriendRequestToDB,
+    userInfo: state.user.userInfo,
   }
 );
 
@@ -208,6 +220,7 @@ SearchFriends.propTypes = {
   searchSelectFriend: React.PropTypes.func.isRequired,
   searchedFriendSelected: React.PropTypes.bool.isRequired,
   addFriendRequestToDB: React.PropTypes.func.isRequired,
+  userInfo: React.PropTypes.object.isRequired,
 };
 
-export default connect(mapStateToProps, searchActionCreators)(SearchFriends);
+export default connect(mapStateToProps, combinedActionCreators)(SearchFriends);

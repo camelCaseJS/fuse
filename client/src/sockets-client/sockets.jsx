@@ -5,19 +5,19 @@ const myPhotoConnection = io('/photoSocket');
 const myFriendsConnection = io('/friendSocket');
 
 
-export function sendFriendRequest(friendFacebookId) {
+export function sendFriendRequest(user, friend) {
   // const myFriendsConnection = io('/friendSocket');
   // console.log('inside send friend req');
   myFriendsConnection.emit('send friend request',
-    { friendFacebookId });
+    { sender: user, receiver: friend });
 }
 
-export function updateLists(friendFacebookId, userFacebookId) {
+export function updateLists(user, friend) {
+  console.log('inside socket update lists', user, friend);
   myFriendsConnection.emit('update friend request',
-    { friendFacebookId,
-      userFacebookId,
-    });
+    { sender: user, receiver: friend });
 }
+
 
 // export function connectToNamespaces(userFBId) {
   // connect to the namespace '/photoSocket'

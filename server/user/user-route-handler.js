@@ -91,6 +91,10 @@ const addFriendRequest = (req, res) => {
   dbHandler.sendFriendRequestDB(userId, friendId)
   .then(() => {
     res.send('Friend Request Sent!');
+  })
+  .catch((err) => {
+    console.log(err);
+    res.send(500);
   });
   // .then((reqStatus) => {
   //   console.log(reqStatus);
@@ -121,9 +125,12 @@ const destroyFriendships = (req, res) => {
 };
 
 const destroyOneFriendRequest = (req, res) => {
-  // console.log(req.body.senderId, 'INSIDE REQ PARAMS');
-  dbHandler.deleteOneFriendRequest(Number(req.body.senderId), Number(req.user.id));
-  res.end();
+  // console.log(req.body.senderId, req.user.id, 'INSIDE DESTROY REQ PARAMS');
+  dbHandler.deleteOneFriendRequest(Number(req.body.senderId), Number(req.user.id))
+  .then((response) => {
+    console.log(response, 'response in server handler');
+    res.send(response);
+  });
 };
 
 const completeOneFriendRequest = (req, res) => {
