@@ -11,7 +11,7 @@ export function fetchPhotos(friend) {
 
   // expect request to be an array of object photos
   // console.log('friend');
-  console.log(friend);
+  // console.log(friend);
   const request = axios.get(`${url.photos}${friend.id}`)
   .then(response => (response.data));
 
@@ -23,7 +23,7 @@ export function fetchPhotos(friend) {
 
 // click handler to update selected photo by user
 export function selectPhoto(photo) {
-  console.log('expect this to be selected photo object', photo);
+  // console.log('expect this to be selected photo object', photo);
   return {
     type: SELECT_PHOTO,
     payload: photo,

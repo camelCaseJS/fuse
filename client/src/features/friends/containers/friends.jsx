@@ -14,8 +14,8 @@ import PendingList from '../../../shared-components/pending-list';
 
 import * as friendsActionCreators from '../../../actions/friends-actions';
 import * as photosActionCreators from '../../../actions/photos-actions';
-import * as userActionCreators from '../../../actions/user-actions'
-
+import * as userActionCreators from '../../../actions/user-actions';
+import {updateLists} from '../../../sockets-client/sockets';
 
 const combinedActionCreators = {
   ...photosActionCreators,
@@ -66,10 +66,17 @@ class Friends extends Component {
       console.log(friendRoomInfo);
     });
 
-    myFriendsSocket.on('new friend request', (newFriendSignal) => {
-      alert(newFriendSignal);
+    myFriendsSocket.on('new friend request', () => {
       this.props.fetchPendingFriends();
     });
+
+    myFriendsSocket.on('updatePending', () => {
+      this.props.fetchPendingFriends();
+    });
+  }
+
+  componentDidUpdate() {
+    console.log('updating inside friends');
   }
 
   onFriendSelect(friend, index) {
@@ -101,7 +108,7 @@ class Friends extends Component {
   }
 
   render() {
-    // console.log(this.props.userInfo);
+    // console.log(this.props.destroyOneFriendRequest);
     return (
       <div>
         <Tabs
@@ -121,7 +128,7 @@ class Friends extends Component {
             <UsersList
               className="userList"
               style={styles}
-              onSelect={(user, index) => this.onFriendSelect(user, index)}
+              onSelect={(pending, index) => this.onFriendSelect(pending, index)}
               users={this.props.allFriends}
               componentForEmptyList={<ListItem
                 primaryText={emptyListMessage()}
@@ -136,8 +143,10 @@ class Friends extends Component {
             <PendingList
               className="pendingFriendList"
               style={styles}
-              onSelect={(user, index) => this.onFriendSelect(user, index)}
               pendingFriends={this.props.pendingFriends}
+              deleteRequest={this.props.destroyOneFriendRequest}
+              completeRequest={this.props.completeOneFriendRequest}
+              updateLists={updateLists}
               componentForEmptyList={<ListItem
                 primaryText={emptyListMessage()}
                 disabled={true}
@@ -163,7 +172,8 @@ const mapStateToProps = (state) => {
     destroyPending: state.friends.destroyPending,
     destroyOneFriendship: state.friends.destroyOneFriendship,
     getUserInfo: state.user.getUserInfo,
-
+    destroyOneFriendRequest: state.friends.destroyOneFriendRequest,
+    completeOneFriendRequest: state.friends.completeOneFriendRequest,
   };
 };
 
@@ -180,6 +190,11 @@ Friends.propTypes = {
   handleTabSwitch: React.PropTypes.func.isRequired,
   slideIndex: React.PropTypes.number.isRequired,
   userInfo: PropTypes.objectOf(PropTypes.object),
+  destroySentPending: React.PropTypes.func.isRequired,
+  destroyReceivedPending: React.PropTypes.func.isRequired,
+  destroyFriendships: React.PropTypes.func.isRequired,
+  destroyOneFriendRequest: React.PropTypes.func.isRequired,
+  completeOneFriendRequest: React.PropTypes.func.isRequired,
 };
 
 Friends.contextTypes = {

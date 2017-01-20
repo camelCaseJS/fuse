@@ -54,6 +54,11 @@ const startSocketServer = (server) => {
       friendNsp.in(`friendRoom:${data.friendFacebookId}`).emit('new friend request', 'New friend request!');
     });
 
+    socket.on('update friend request', (data) => {
+      console.log(data, `emitting through friendRoom:${data.friendFacebookId}`);
+      friendNsp.in(`friendRoom:${data.friendFacebookId}`).emit('update request list', '');
+    });
+
     socket.on('disconnect', () => {
       console.log('disconnected from photo socket namespace');
     });
