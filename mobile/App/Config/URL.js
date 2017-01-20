@@ -1,4 +1,4 @@
-const base = 'http://10.8.23.102:8000';
+const base = 'http://ec2-54-202-69-52.us-west-2.compute.amazonaws.com';
 const URL = {
   base,
   photos: `${base}/api/photos/`,
