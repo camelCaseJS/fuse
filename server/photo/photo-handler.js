@@ -21,13 +21,14 @@ const addPhoto = (req, res) => {
     // SQL INJECTION POINT, FIX
     const link = publicPath + '/' + req.user.id + '/' + req.files.image.name;
     dbHandler.addPhoto(req, link)
-    .then(() => {
+    .then((newPhotoLink) => {
       fs.writeFile(fileLoc, req.files.image.data, (err) => {
         if (err) {
           console.log(err, fileLoc);
           throw new Error(err);
         } else {
-          res.sendStatus(201);
+          console.log(newPhotoLink.dataValues);
+          res.send(newPhotoLink.dataValues);
         }
       });
     })

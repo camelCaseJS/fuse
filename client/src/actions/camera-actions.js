@@ -1,5 +1,6 @@
 import axios from 'axios';
 import url from '../configs/urls';
+import { updatePhotos } from '../sockets-client/sockets';
 
 export const CAPTURE_PHOTO = 'CAPTURE_PHOTO';
 export const SEND_PHOTO = 'SEND_PHOTO';
@@ -32,7 +33,8 @@ export function sendPhoto(photoBlob, date) {
 
   axios.post(`${url.photos}`, fd)
   .then((response) => {
-    console.log(response.data, 'photo sent to db');
+    updatePhotos(response.data);
+    console.log(response, '======photo sent to db');
   });
   console.log('send photo');
   return {

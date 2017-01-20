@@ -13,11 +13,15 @@ export function sendFriendRequest(user, friend) {
 }
 
 export function updateLists(user, friend) {
-  console.log('inside socket update lists', user, friend);
+  // console.log('inside socket update lists', user, friend);
   myFriendsConnection.emit('update friend request',
     { sender: user, receiver: friend });
 }
 
+export function updatePhotos(newPhoto) {
+  console.log('send new photos');
+  myPhotoConnection.emit('send new photos', newPhoto);
+}
 
 // export function connectToNamespaces(userFBId) {
   // connect to the namespace '/photoSocket'

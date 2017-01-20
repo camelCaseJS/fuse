@@ -3,10 +3,17 @@ import Webcam from 'react-webcam';
 import { connect } from 'react-redux';
 import { findDOMNode } from 'react-dom';
 import * as cameraActionCreators from '../../../actions/camera-actions';
+import * as userActionCreators from '../../../actions/user-actions';
 import CameraButton from '../../../shared-components/camera-button';
+
+// import { updatePhotos } from '../../../sockets-client/sockets';
 
 let cameraMode = 'OFF';
 
+const combinedActionCreators = {
+  ...cameraActionCreators,
+  ...userActionCreators,
+};
 // let buttonSource = '../../icons/startCamera.png';
 
 class Camera extends Component {
@@ -19,6 +26,22 @@ class Camera extends Component {
 
   componentWillMount() {
     this.props.startCamera();
+    // const myPhotoConnection = io('/photoSocket');
+    // // this.props.fetchPhotos(this.props.lastSelectedFriend);
+
+    // this.props.getUserInfo()
+    // .then((userInfo) => {
+    //   const userFBId = userInfo.payload.user.facebookId;
+    //   myPhotoConnection.emit('join photo room', { roomId: userFBId });
+    // });
+
+    // myPhotoConnection.on('photo room connected', (photoRoomInfo) => {
+    //   console.log(photoRoomInfo);
+    // });
+
+    // myPhotoConnection.on('new photos', (photoSignal) => {
+    //   this.props.fetchPhotos();
+    // });
   }
 
   onCameraButtonPress(mode) {
@@ -138,4 +161,4 @@ Camera.contextTypes = {
   router: PropTypes.object };
 
 
-export default connect(mapStateToProps, cameraActionCreators)(Camera);
+export default connect(mapStateToProps, combinedActionCreators)(Camera);
