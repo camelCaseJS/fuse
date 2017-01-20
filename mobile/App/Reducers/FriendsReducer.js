@@ -1,4 +1,4 @@
-import { FETCH_FRIENDS, SELECT_FRIEND, UNSELECT_ALL_FRIENDS, GET_USER_INFO } from '../Actions/FriendsActions';
+import { FETCH_FRIENDS, SELECT_FRIEND, UNSELECT_ALL_FRIENDS, GET_USER_INFO, SWITCH_TAB } from '../Actions/FriendsActions';
 
 
 // NEED TO PUT USER INFO INTO STATE OF ANY COMPONENT THAT USES GETINFO
@@ -6,6 +6,7 @@ const INITIAL_STATE = {
   allFriends: [],
   lastSelectedFriend: {},
   userInfo: {},
+  tabIndex: 0,
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -46,6 +47,13 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         userInfo: action.payload,
+      };
+    }
+
+    case SWITCH_TAB: {
+      return {
+        ...state,
+        tabIndex: action.payload,
       };
     }
 

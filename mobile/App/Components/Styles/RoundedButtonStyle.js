@@ -18,7 +18,7 @@ export default StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
     fontSize: Fonts.size.medium,
-    marginVertical: Metrics.baseMargin
+    marginVertical: Metrics.baseMargin,
   },
   facebookButton: {
     height: 45,

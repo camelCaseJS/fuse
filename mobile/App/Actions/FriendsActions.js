@@ -5,6 +5,7 @@ export const FETCH_FRIENDS = 'FETCH_FRIENDS';
 export const SELECT_FRIEND = 'SELECT_FRIEND';
 export const UNSELECT_ALL_FRIENDS = 'UNSELECT_ALL_FRIENDS';
 export const GET_USER_INFO = 'GET_USER_INFO';
+export const SWITCH_TAB = 'SWITCH_TAB';
 
 export function fetchFriends() {
   const request = axios.get(URL.users)
@@ -40,6 +41,14 @@ export function unselectAllFriends() {
   return {
     type: UNSELECT_ALL_FRIENDS,
     payload: null,
+  };
+}
+
+export function switchTab(tabIndex) {
+  console.log('switch to ', tabIndex);
+  return {
+    type: SWITCH_TAB,
+    payload: tabIndex,
   };
 }
 

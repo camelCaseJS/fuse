@@ -1,7 +1,7 @@
 // @flow
 
 import { StyleSheet } from 'react-native';
-import { Colors, Metrics, ApplicationStyles } from '../../Themes/';
+import { Colors, Fonts, Metrics, ApplicationStyles } from '../../Themes/';
 
 export default StyleSheet.create({
   ...ApplicationStyles.screen,
@@ -22,6 +22,14 @@ export default StyleSheet.create({
     borderBottomColor: Colors.frost,
     borderBottomWidth: 1,
   },
+  selectedText: {
+    color: Colors.fire,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: Fonts.size.medium,
+    marginVertical: Metrics.baseMargin,
+  },
+
   // container: {
   //   flex: 1,
   //   marginTop: Metrics.navBarHeight,
