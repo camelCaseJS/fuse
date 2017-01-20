@@ -7,6 +7,7 @@ const buildProcessEnv = () => {
   // process.env.DB_HOST = 'localhost';
   // process.env.DB_PORT = 5433;
   process.env.NODE_ENV = 'development';
+  process.env.BASE_URL = 'http://ec2-54-202-69-52.us-west-2.compute.amazonaws.com/';
   // process.env.TEST_USER = {
   //     facebookId: '12345',
   //     firstName: 'first',
