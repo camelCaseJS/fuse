@@ -10,6 +10,16 @@ export default StyleSheet.create({
     width: Metrics.images.logo,
     resizeMode: 'contain',
   },
+  smallLogo: {
+    height: 150,
+    width: 150,
+    top: 10,
+    left: 10,
+    bottom: 30,
+    margin: Metrics.section,
+    resizeMode: 'contain',
+    alignItems: 'center',
+  },
   centered: {
     alignItems: 'center',
   },

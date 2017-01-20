@@ -2,7 +2,7 @@ import { AccessToken } from 'react-native-fbsdk';
 import URL from '../Config/URL';
 import { Actions as NavigationActions } from 'react-native-router-flux';
 
-const authenticate = () => {
+const authenticate = (callback = () => {}) => {
   const sendToken = (token) => {
     fetch(URL.token,
       {
@@ -18,8 +18,10 @@ const authenticate = () => {
   AccessToken.getCurrentAccessToken()
     .then((data) => {
       if (data === null || data === undefined) {
+        callback(false);
         NavigationActions.presentationScreen();
       } else {
+        callback(true);
         sendToken(data.accessToken.toString());
       }
     });

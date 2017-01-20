@@ -55,26 +55,28 @@ class Friends extends Component {
         />
         <View style={styles.mainSection}>
 
-          <ScrollView style={styles.scrollContainer}>
             <SwipeableViews
               index={this.props.tabIndex}
               onChangeIndex={(value) => { this.handleChange(value); }}
             >
-              <UsersList
-                value="friends"
-                onSelect={(user, index) => this.onFriendSelect(user, index)}
-                listComponentWillMount={() => this.onFriendsListMount()}
-                users={this.props.allFriends}
-              />
-              <UsersList
-                value="pending"
-                onSelect={(user, index) => this.onPendingSelect(user, index)}
-                listComponentWillMount={() => this.onPendingListMount()}
-                users={this.props.pendingFriends}
-              />
-            </SwipeableViews>
-          </ScrollView>
-           <Tabs
+              <ScrollView style={styles.scrollContainer}>
+                <UsersList
+                  value="friends"
+                  onSelect={(user, index) => this.onFriendSelect(user, index)}
+                  listComponentWillMount={() => this.onFriendsListMount()}
+                  users={this.props.allFriends}
+                />
+              </ScrollView>
+              <ScrollView style={styles.scrollContainer}>
+                <UsersList
+                  value="pending"
+                  onSelect={(user, index) => this.onPendingSelect(user, index)}
+                  listComponentWillMount={() => this.onPendingListMount()}
+                  users={this.props.pendingFriends}
+                />
+              </ScrollView>
+          </SwipeableViews>
+          <Tabs
             selected={this.props.tabIndex === 0 ? "friends" : "requests" }
             onSelect={el => this.handleChange(el.props.value)}
             style={styles.container}

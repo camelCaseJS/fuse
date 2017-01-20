@@ -1,15 +1,16 @@
 import { LoginButton } from 'react-native-fbsdk';
-import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import React, { Component, PropTypes } from 'react';
 import styles from '../Components/Styles/RoundedButtonStyle';
 import URL from '../Config/URL';
-import { userLogout } from '../Actions/SharedComponentsActions';
+import { userLogout, userLogin } from '../Actions/SharedComponentsActions';
 import { fetchFriends } from '../Actions/FriendsActions';
 import authenicate from '../Components/Authenicate';
 
 class Login extends Component {
 
   userLogout() {
+    console.log('user logout');
     fetch(URL.logout, { method: 'GET' })
     .then(() => {
       console.log('user logut');
@@ -31,6 +32,7 @@ class Login extends Component {
             } else if (result.isCancelled) {
               console.log('login is cancelled.');
             } else {
+              this.props.userLogin();
               authenicate();
             }
           }
@@ -42,7 +44,8 @@ class Login extends Component {
 
 Login.propTypes = {
   userLogout: PropTypes.func.isRequired,
+  userLogin: PropTypes.func.isRequired,
   fetchFriends: PropTypes.func.isRequired,
 };
 
-export default connect(null, { userLogout, fetchFriends })(Login);
+export default connect(null, { userLogout, userLogin, fetchFriends })(Login);
