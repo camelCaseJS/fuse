@@ -88,6 +88,7 @@ export default (state = INITIAL_STATE, action) => {
     case DESTROY_ONE_FRIEND_REQUEST: {
       return {
         ...state,
+
       };
     }
 

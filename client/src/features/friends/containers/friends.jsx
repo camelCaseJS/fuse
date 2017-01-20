@@ -72,6 +72,9 @@ class Friends extends Component {
     });
   }
 
+  componentDidUpdate() {
+    console.log('updating inside friends');
+  }
 
   onFriendSelect(friend, index) {
     if (this.props.router.pathname !== '/camera') {
@@ -82,10 +85,6 @@ class Friends extends Component {
     } else {
       this.props.selectFriend(friend, index);
     }
-  }
-
-  componentDidReceiveProps() {
-    console.log('updating inside friends');
   }
 
   handleChange(value) {

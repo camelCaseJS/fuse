@@ -22,7 +22,6 @@ const PendingListEntry = (props) => {
             tooltipPosition="top-center"
             onClick={() => {
               props.completeRequest(props.friendId);
-              props.refreshPending();
             }}
           >
             <Accept color={green700} hoverColor={greenA200} />
@@ -32,7 +31,6 @@ const PendingListEntry = (props) => {
             tooltipPosition="top-center"
             onClick={() => {
               props.deleteRequest(props.friendId);
-              props.refreshPending();
             }}
           >
             <Clear color={red700} hoverColor={redA200} />
