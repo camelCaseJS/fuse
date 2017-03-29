@@ -93,6 +93,7 @@ class Camera extends Component {
         ref="webcam"
         height="70%"
         width="100%"
+        audio={false}
       />);
     }
     if (mode === 'PICTURE') {
@@ -105,7 +106,10 @@ class Camera extends Component {
     }
     // mode === 'OFF'
     // return (<div className="placeholder" />);
-    return (<Webcam ref="webcam" />);
+    return (<Webcam
+      ref="webcam"
+      audio={false}
+    />);
   }
 
   render() {
